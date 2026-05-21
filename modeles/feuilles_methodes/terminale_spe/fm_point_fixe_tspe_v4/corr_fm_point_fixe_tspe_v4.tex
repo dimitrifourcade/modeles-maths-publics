@@ -1,0 +1,86 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage[margin=1.2cm]{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{7pt}
+\renewcommand{\baselinestretch}{1.04}
+\setlist[itemize]{leftmargin=*,topsep=3pt,itemsep=4pt,parsep=2pt}
+\tcbset{enhanced,boxrule=.45pt,arc=1.2mm,left=3.4mm,right=3.4mm,top=3.8mm,bottom=3.8mm,boxsep=1mm,breakable,
+  colback=white,colframe=black!48,colbacktitle=white,coltitle=black,fonttitle=\bfseries\small,
+  before skip=7pt,after skip=7pt,before upper={\setlength{\parskip}{7pt}},boxed title style={boxrule=0pt,colframe=white,colback=white,left=0pt,right=0pt,top=0pt,bottom=1pt}}
+\newtcolorbox{boite}[1]{title={#1}}
+\begin{document}
+\thispagestyle{empty}
+
+{\large\bfseries Correction séparée --- Feuille-méthode : point fixe}\hfill {\small Terminale spécialité}
+
+\begin{boite}{Correction de l'exemple corrigé complet}
+On admet que \((u_n)\) est convergente et que, pour tout \(n\), \(1\leq u_n\leq2\).
+
+La suite \((u_n)\) est convergente ; on note \(\ell\) sa limite.
+
+La fonction \(f:x\mapsto \sqrt{2+x}\) est continue sur \([1,2]\).
+
+Comme \(u_n\to \ell\), on a \(f(u_n)\to f(\ell)\).
+
+Or \(u_{n+1}=f(u_n)\), et \((u_{n+1})\) a la même limite que \((u_n)\). Donc :
+\[
+\ell=f(\ell),\qquad \text{c'est-à-dire}\qquad \ell=\sqrt{2+\ell}.
+\]
+
+Comme \(\ell\in[1,2]\), on peut élever au carré :
+\[
+\ell^2=2+\ell,
+\qquad
+\ell^2-\ell-2=0,
+\qquad
+(\ell-2)(\ell+1)=0.
+\]
+
+Ainsi \(\ell=2\) ou \(\ell=-1\). On conserve la solution compatible avec le contexte : comme \(\ell\in[1,2]\), on conclut que \(\boxed{\ell=2}\).
+\end{boite}
+
+\begin{boite}{Correction de l'exemple guidé}
+On a montré que \((u_n)\) est croissante et majorée par \(2\). Donc \((u_n)\) est convergente ; on note \(\ell\) sa limite.
+
+La fonction \(f:x\mapsto \dfrac12x+1\) est continue sur \(\mathbb{R}\).
+
+Comme \(u_n\to\ell\), on a \(f(u_n)\to f(\ell)\).
+
+Or \(u_{n+1}=f(u_n)\), et \((u_{n+1})\) a la même limite que \((u_n)\). Donc :
+\[
+\ell=f(\ell),\qquad \text{c'est-à-dire}\qquad \ell=\frac12\ell+1.
+\]
+
+On résout alors cette équation :
+\[
+\ell-\frac12\ell=1,
+\qquad
+\frac12\ell=1,
+\qquad
+\ell=2.
+\]
+
+Cette valeur est compatible avec le fait que la suite est majorée par \(2\). On conclut que \(\boxed{\ell=2}\).
+\end{boite}
+
+\begin{boite}{Point de contrôle rédaction}
+Dans les deux corrections, la rédaction suit le même schéma :
+
+\begin{itemize}
+  \item convergence et notation de la limite ;
+  \item continuité de la fonction ;
+  \item passage à la limite ;
+  \item équation de point fixe ;
+  \item résolution et choix de la solution compatible.
+\end{itemize}
+\end{boite}
+
+\end{document}

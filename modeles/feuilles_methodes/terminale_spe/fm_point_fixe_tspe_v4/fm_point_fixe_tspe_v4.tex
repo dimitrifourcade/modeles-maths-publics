@@ -1,17 +1,129 @@
-% Exemple placeholder — remplacer par le vrai modèle validé.
-% Modèle : feuille-méthode point fixe Terminale spécialité v4.
-% Règles de style : sobre, aéré, correction séparée, exemple rédigé conforme à l'encadré rédaction.
-
-\documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage[margin=1.0cm]{geometry}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
-\usepackage[margin=1.8cm]{geometry}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false,pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\renewcommand{\baselinestretch}{1.04}
+\setlist[itemize]{leftmargin=*,topsep=3pt,itemsep=4pt,parsep=2pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=4pt,parsep=2pt}
+\tcbset{enhanced,boxrule=.45pt,arc=1.2mm,left=3.2mm,right=3.2mm,top=3.6mm,bottom=3.6mm,boxsep=.9mm,breakable,
+  colback=white,colframe=black!48,colbacktitle=white,coltitle=black,fonttitle=\bfseries\small,
+  before skip=6.5pt,after skip=6.5pt,before upper={\setlength{\parskip}{6pt}},boxed title style={boxrule=0pt,colframe=white,colback=white,left=0pt,right=0pt,top=0pt,bottom=1pt}}
+\newtcolorbox{boite}[1]{title={#1}}
+\newcommand{\ligne}{\vspace{3.5pt}}
 \begin{document}
+\thispagestyle{empty}
 
-\section*{Feuille-méthode — Utiliser le point fixe pour déterminer une limite}
+{\large\bfseries Feuille-méthode --- Utiliser le point fixe pour déterminer une limite}\hfill {\small Terminale spécialité}
 
-Ce fichier est un exemple de structure. Remplacer ce contenu par le vrai modèle validé.
+\begin{boite}{Objectif}
+Pour une suite récurrente de la forme \(u_{n+1}=f(u_n)\), la méthode du point fixe sert à \textbf{identifier la limite possible}.
+
+\textbf{Attention :} elle s'utilise seulement \textbf{après avoir établi la convergence} de la suite.
+\end{boite}
+
+\noindent\begin{minipage}[t]{0.48\textwidth}
+\begin{boite}{Méthode en étapes}
+On suppose que \(u_{n+1}=f(u_n)\).
+
+\ligne
+\begin{enumerate}
+  \item Montrer ou rappeler que \((u_n)\) est convergente.\newline
+        On note \(\ell\) sa limite.
+
+  \item Vérifier que \(f\) est continue sur l'intervalle où se trouvent les termes de la suite.
+
+  \item Passer à la limite dans \(u_{n+1}=f(u_n)\).
+
+  \item Obtenir l'équation de point fixe :
+  \[
+  \ell=f(\ell).
+  \]
+
+  \item Résoudre cette équation, puis garder la solution compatible avec le contexte.
+\end{enumerate}
+\end{boite}
+
+\begin{boite}{Pièges fréquents}
+\begin{itemize}
+  \item Le point fixe \textbf{ne prouve pas} la convergence.
+
+  \item Il faut nommer la limite :\newline
+  « On note \(\ell\) la limite de \((u_n)\). »
+
+  \item Il faut citer la \textbf{continuité} de \(f\).
+
+  \item S'il y a plusieurs solutions, on utilise l'intervalle des termes pour conclure.
+\end{itemize}
+\end{boite}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.49\textwidth}
+\begin{boite}{Rédaction type}
+La suite \((u_n)\) est convergente ; on note \(\ell\) sa limite.
+
+La fonction \(f\) est continue sur l'intervalle considéré.
+
+Comme \(u_n\to\ell\), on a \(f(u_n)\to f(\ell)\).
+
+\ligne
+Or \(u_{n+1}=f(u_n)\), et \((u_{n+1})\) a la même limite que \((u_n)\). Donc :
+\[
+\ell=f(\ell).
+\]
+
+On résout cette équation et on conserve la solution compatible avec le contexte.
+\end{boite}
+
+\begin{boite}{Bilan à retenir}
+Phrase clé :
+
+\begin{center}
+\fbox{\begin{minipage}{0.88\linewidth}
+Par continuité de \(f\), on passe à la limite dans \(u_{n+1}=f(u_n)\).
+\end{minipage}}
+\end{center}
+
+La méthode donne une limite \textbf{possible}, une fois la convergence établie.
+\end{boite}
+\end{minipage}
+
+\begin{boite}{Exemple corrigé complet}
+On considère la suite \((u_n)\) définie par \(u_0=1\) et \(u_{n+1}=\sqrt{2+u_n}\). On admet que \((u_n)\) est convergente et que, pour tout \(n\), \(1\leq u_n\leq 2\). Déterminer sa limite.
+
+\textbf{Correction.}
+
+\ligne
+La suite \((u_n)\) est convergente ; on note \(\ell\) sa limite.
+
+La fonction \(f:x\mapsto\sqrt{2+x}\) est continue sur \([1,2]\).
+
+\ligne
+Comme \(u_n\to\ell\), on a \(f(u_n)\to f(\ell)\).
+
+\ligne
+Or \(u_{n+1}=f(u_n)\), et \((u_{n+1})\) a la même limite que \((u_n)\). Donc :
+\[
+\ell=f(\ell),\qquad \text{c'est-à-dire}\qquad \ell=\sqrt{2+\ell}.
+\]
+
+\ligne
+Comme \(\ell\in[1,2]\), on résout : \(\ell^2=2+\ell\), donc \((\ell-2)(\ell+1)=0\). On conserve la solution compatible avec \([1,2]\) : \(\boxed{\ell=2}\).
+\end{boite}
+
+\begin{boite}{Exemple guidé}
+Soit \((u_n)\) définie par \(u_0=0\) et \(u_{n+1}=\dfrac12u_n+1\). On a déjà montré que \((u_n)\) est croissante et majorée par \(2\).
+
+Compléter la rédaction en suivant exactement le modèle : convergence, notation de la limite, continuité, passage à la limite, équation de point fixe, résolution, conclusion.
+\end{boite}
 
 \end{document}

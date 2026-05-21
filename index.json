@@ -1,7 +1,7 @@
 {
   "schema": "maths_espace_prof.modeles_externes.v1",
-  "version": "2026-05-20-depot-initial",
-  "description": "Bibliothèque publique de modèles pédagogiques pour Maths Espace Prof. Remplacer TON_COMPTE par le compte GitHub réel après création du dépôt.",
+  "version": "2026-05-21-point-fixe-v4-valide",
+  "description": "Bibliothèque publique de modèles pédagogiques pour Maths Espace Prof. Le modèle point fixe Terminale spécialité v4 est remplacé par le vrai modèle validé.",
   "source": "github_public",
   "url_index_attendue": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/index.json",
   "modeles": [
@@ -27,13 +27,43 @@
           "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/fm_point_fixe_tspe_v4.tex"
         },
         {
+          "nom": "fm_point_fixe_tspe_v4.pdf",
+          "type": "pdf",
+          "role": "pdf_feuille",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/fm_point_fixe_tspe_v4.pdf"
+        },
+        {
+          "nom": "corr_fm_point_fixe_tspe_v4.tex",
+          "type": "tex",
+          "role": "source_latex_correction",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/corr_fm_point_fixe_tspe_v4.tex"
+        },
+        {
+          "nom": "corr_fm_point_fixe_tspe_v4.pdf",
+          "type": "pdf",
+          "role": "pdf_correction",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/corr_fm_point_fixe_tspe_v4.pdf"
+        },
+        {
+          "nom": "apercu_fm_point_fixe_tspe_v4_page1.png",
+          "type": "png",
+          "role": "apercu_feuille",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/apercu_fm_point_fixe_tspe_v4_page1.png"
+        },
+        {
+          "nom": "apercu_corr_fm_point_fixe_tspe_v4_page1.png",
+          "type": "png",
+          "role": "apercu_correction",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/apercu_corr_fm_point_fixe_tspe_v4_page1.png"
+        },
+        {
           "nom": "README_MODELE.md",
           "type": "md",
           "role": "note_modele",
           "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/feuilles_methodes/terminale_spe/fm_point_fixe_tspe_v4/README_MODELE.md"
         }
       ],
-      "notes_style": "Style sobre, très aéré, encadrés clairs, correction séparée. L'exemple corrigé doit reprendre exactement la rédaction de l'encadré méthode.",
+      "notes_style": "Vrai modèle validé : style sobre, très aéré, encadrés clairs, correction séparée. L’exemple corrigé reprend exactement la rédaction de l’encadré méthode.",
       "regles_ia": [
         "Ne pas surcharger en couleurs.",
         "Conserver une mise en page professionnelle et aérée.",
@@ -45,7 +75,8 @@
         "Ne pas ajouter de place élève inutile.",
         "L'exemple corrigé doit suivre exactement la rédaction modèle."
       ],
-      "date_ajout": "2026-05-20"
+      "date_ajout": "2026-05-21",
+      "date_mise_a_jour": "2026-05-21"
     },
     {
       "id": "controle_c1_tspe_type_bac",
