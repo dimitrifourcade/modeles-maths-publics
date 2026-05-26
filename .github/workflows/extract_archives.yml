@@ -1,0 +1,42 @@
+name: Extraire les archives de modèles
+
+on:
+  push:
+    paths:
+      - "documents_a_classer/**/*.zip"
+      - "scripts/extract_archives.py"
+      - ".github/workflows/extract_archives.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract_archives:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extraire les archives
+        run: python scripts/extract_archives.py
+
+      - name: Commit des fichiers extraits
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add documents_extraits_archives index_archives_extraites.json
+            git commit -m "Extraction automatique des archives"
+            git push
+          else
+            echo "Aucun fichier extrait à mettre à jour."
+          fi
