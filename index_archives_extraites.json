@@ -1,0 +1,9 @@
+{
+  "schema": "maths_espace_prof.archives_extraites.v1",
+  "version": "initialisation",
+  "source_archives": "documents_a_classer/**/*.zip",
+  "dossier_sortie": "documents_extraits_archives/",
+  "nombre_fichiers": 0,
+  "fichiers": [],
+  "note": "Ce fichier sera mis à jour automatiquement par la GitHub Action après ajout d'une archive ZIP."
+}
