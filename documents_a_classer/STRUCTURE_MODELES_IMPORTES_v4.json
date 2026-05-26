@@ -1,0 +1,30 @@
+{
+  "version": "v4",
+  "principe": "Tous les fichiers importés sont déjà des modèles ou références exploitables.",
+  "racine_site": "documents_a_classer",
+  "niveaux_lycee": [
+    "Seconde GT",
+    "Première spécifique — maths 1 h 30",
+    "Première spécialité",
+    "Terminale spécialité",
+    "Terminale STMG"
+  ],
+  "types_documents_lycee": [
+    "01_cours",
+    "02_activites_intro",
+    "03_fiches_methodes",
+    "04_exercices_guides",
+    "05_exercices_classiques",
+    "06_exercices_type_epreuve",
+    "07_automatismes_questions_flash",
+    "08_calculatrice_python",
+    "09_dm",
+    "10_controles_evaluations",
+    "11_fiches_revision_recap",
+    "12_corrections_ecrites",
+    "13_corrections_beamer",
+    "14_sujets_eleves",
+    "15_annexes_figures_images",
+    "16_sources_associees"
+  ]
+}

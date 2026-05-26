@@ -1,0 +1,400 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{array,booktabs,longtable,multicol}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\geometry{margin=1.45cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
+\definecolor{lightgraybox}{gray}{0.94}
+\definecolor{linegray}{gray}{0.35}
+
+\newcommand{\titrepartie}[1]{\vspace{0.35em}\noindent\colorbox{lightgraybox}{\parbox{\dimexpr\linewidth-2\fboxsep}{\textbf{#1}}}\vspace{0.35em}}
+\newcommand{\sujet}[1]{\vspace{0.45em}\noindent\textbf{#1}\par\vspace{0.2em}}
+\newcommand{\rep}[1]{\textbf{Réponse #1.}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\tsigng}{%
+\begin{center}
+\begin{tikzpicture}[x=1.45cm,y=0.68cm,>=stealth]
+\draw (0,0) rectangle (5,2);
+\draw (0,1) -- (5,1);
+\draw (1,0) -- (1,2);
+\foreach \x in {2,3.5} {\draw (\x,0) -- (\x,2);} 
+\node at (0.5,1.5) {$x$};
+\node at (1.5,1.5) {$-\infty$};
+\node at (2,1.5) {$1$};
+\node at (2.75,1.5) {}; 
+\node at (3.5,1.5) {$4$};
+\node at (4.25,1.5) {$+\infty$};
+\node at (0.5,0.5) {$g(x)$};
+\node at (1.5,0.5) {$+$};
+\node at (2,0.5) {$0$};
+\node at (2.75,0.5) {$-$};
+\node at (3.5,0.5) {$0$};
+\node at (4.25,0.5) {$+$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tvarsg}{%
+\begin{center}
+\begin{tikzpicture}[x=1.65cm,y=0.72cm,>=stealth]
+\draw (0,0) rectangle (4,2.2);
+\draw (0,1.35) -- (4,1.35);
+\draw (1,0) -- (1,2.2);
+\draw (2.5,0) -- (2.5,2.2);
+\node at (0.5,1.78) {$x$};
+\node at (1.35,1.78) {$-\infty$};
+\node at (2.5,1.78) {$\frac52$};
+\node at (3.45,1.78) {$+\infty$};
+\node at (0.5,0.68) {$g(x)$};
+\draw[->,thick] (1.2,1.05) -- (2.3,0.3);
+\draw[->,thick] (2.7,0.3) -- (3.75,1.05);
+\node at (2.5,0.18) {$-\frac94$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tvarsh}{%
+\begin{center}
+\begin{tikzpicture}[x=1.45cm,y=0.72cm,>=stealth]
+\draw (0,0) rectangle (5,2.2);
+\draw (0,1.35) -- (5,1.35);
+\draw (1,0) -- (1,2.2);
+\foreach \x in {2.3,3.7} {\draw (\x,0) -- (\x,2.2);} 
+\node at (0.5,1.78) {$t$};
+\node at (1.3,1.78) {$0$};
+\node at (2.3,1.78) {$3$};
+\node at (3.7,1.78) {$7$};
+\node at (0.5,0.68) {$h(t)$};
+\node at (1.3,0.25) {$7$};
+\draw[->,thick] (1.55,0.35) -- (2.1,1.05);
+\node at (2.3,1.12) {$16$};
+\draw[->,thick] (2.55,1.05) -- (3.45,0.25);
+\node at (3.7,0.18) {$0$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tsignh}{%
+\begin{center}
+\begin{tikzpicture}[x=1.7cm,y=0.68cm,>=stealth]
+\draw (0,0) rectangle (4,2);
+\draw (0,1) -- (4,1);
+\draw (1,0) -- (1,2);
+\draw (3,0) -- (3,2);
+\node at (0.5,1.5) {$t$};
+\node at (1.25,1.5) {$0$};
+\node at (3,1.5) {$7$};
+\node at (0.5,0.5) {$h(t)$};
+\node at (2,0.5) {$+$};
+\node at (3,0.5) {$0$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tsignf}{%
+\begin{center}
+\begin{tikzpicture}[x=1.45cm,y=0.68cm,>=stealth]
+\draw (0,0) rectangle (5,2);
+\draw (0,1) -- (5,1);
+\draw (1,0) -- (1,2);
+\foreach \x in {2,3.5} {\draw (\x,0) -- (\x,2);} 
+\node at (0.5,1.5) {$x$};
+\node at (1.45,1.5) {$-\infty$};
+\node at (2,1.5) {$-3$};
+\node at (3.5,1.5) {$\frac12$};
+\node at (4.3,1.5) {$+\infty$};
+\node at (0.5,0.5) {$f(x)$};
+\node at (1.45,0.5) {$+$};
+\node at (2,0.5) {$0$};
+\node at (2.75,0.5) {$-$};
+\node at (3.5,0.5) {$0$};
+\node at (4.3,0.5) {$+$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tvarsp}{%
+\begin{center}
+\begin{tikzpicture}[x=1.65cm,y=0.72cm,>=stealth]
+\draw (0,0) rectangle (4,2.2);
+\draw (0,1.35) -- (4,1.35);
+\draw (1,0) -- (1,2.2);
+\draw (2.5,0) -- (2.5,2.2);
+\node at (0.5,1.78) {$x$};
+\node at (1.35,1.78) {$-\infty$};
+\node at (2.5,1.78) {$1$};
+\node at (3.45,1.78) {$+\infty$};
+\node at (0.5,0.68) {$p(x)$};
+\draw[->,thick] (1.2,0.3) -- (2.25,1.05);
+\node at (2.5,1.12) {$8$};
+\draw[->,thick] (2.75,1.05) -- (3.75,0.3);
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tsignp}{%
+\begin{center}
+\begin{tikzpicture}[x=1.45cm,y=0.68cm,>=stealth]
+\draw (0,0) rectangle (5,2);
+\draw (0,1) -- (5,1);
+\draw (1,0) -- (1,2);
+\foreach \x in {2,3.5} {\draw (\x,0) -- (\x,2);} 
+\node at (0.5,1.5) {$x$};
+\node at (1.45,1.5) {$-\infty$};
+\node at (2,1.5) {$-1$};
+\node at (3.5,1.5) {$3$};
+\node at (4.3,1.5) {$+\infty$};
+\node at (0.5,0.5) {$p(x)$};
+\node at (1.45,0.5) {$-$};
+\node at (2,0.5) {$0$};
+\node at (2.75,0.5) {$+$};
+\node at (3.5,0.5) {$0$};
+\node at (4.3,0.5) {$-$};
+\end{tikzpicture}
+\end{center}}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Parcours de révision - Second degré}}\\[0.25em]
+{\large Première générale - spécialité mathématiques}\\[0.2em]
+\textbf{Corrigé v3 aligné avec l'énoncé v3 - version sans calculatrice}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Réponses aux questions flash}
+\titrepartie{Questions flash - Second degré}
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+\item Une équation ne se calcule pas : elle se résout. On peut écrire : \og On résout l'équation $3x+6=0$. On obtient $3x=-6$, puis $x=-2$. L'équation admet donc pour solution $-2$. \fg{}
+\item Il faut employer une équivalence et séparer les étapes : $x^2=9 \Longleftrightarrow x=3$ ou $x=-3$. L'équation admet donc deux solutions : $-3$ et $3$.
+\item Il faut distinguer implication et équivalence. On peut écrire : si $x=2$, alors $x^2=4$. En revanche, $x^2=4 \Longleftrightarrow x=2$ ou $x=-2$.
+\item C'est une écriture de la forme $a(x-\alpha)^2+\beta$, avec $a\neq 0$.
+\item Une fonction polynôme du second degré s'écrit $x\mapsto ax^2+bx+c$, avec $a\neq 0$.
+\item Le discriminant du trinôme $ax^2+bx+c$ est $\Delta=b^2-4ac$.
+\item Il permet de connaître le nombre de solutions réelles : aucune si $\Delta<0$, une si $\Delta=0$, deux si $\Delta>0$.
+\item Quand il est écrit sous la forme $a(x-x_1)(x-x_2)$, avec $a\neq 0$.
+\item Son sommet est le point $S(\alpha;\beta)$.
+\item Son axe de symétrie est la droite d'équation $x=\alpha$.
+\item Il a le signe de $a$ sur $]-\infty;x_1[$ et sur $]x_2;+\infty[$.
+\item Si $\Delta>0$, les solutions sont $x_1=\dfrac{-b-\sqrt{\Delta}}{2a}$ et $x_2=\dfrac{-b+\sqrt{\Delta}}{2a}$. Si $\Delta=0$, la solution unique est $x_0=-\dfrac{b}{2a}$.
+\item On peut l'écrire sous la forme $f(x)=a(x-x_1)(x-x_2)$ avec $a\neq 0$.
+\item On a $x_1+x_2=-\dfrac{b}{a}$.
+\item On a $x_1x_2=\dfrac{c}{a}$.
+\item La solution unique est $x=-\dfrac{b}{2a}$.
+\item Elle admet deux solutions réelles distinctes.
+\item Elle n'admet aucune solution réelle.
+\item L'abscisse du sommet est $-\dfrac{b}{2a}$.
+\item On calcule $f\left(-\dfrac{b}{2a}\right)$.
+\item Elle est tournée vers le haut.
+\item Elle est tournée vers le bas.
+\item Il est négatif sur $]x_1;x_2[$.
+\item Il est positif sur $]x_1;x_2[$.
+\item L'extremum vaut $\beta$ et il est atteint pour $x=\alpha$.
+\item La forme canonique.
+\item L'axe de symétrie est la droite d'équation
+\[
+ x=\frac{-\frac52+2}{2}=-\frac14.
+\]
+\item On a $a>0$ et $\Delta>0$.
+\item On a $a<0$ et $\Delta<0$.
+\item Une infinité : elles sont de la forme $a(x-1)(x-3)$, avec $a\neq 0$.
+\item Le coefficient dominant est négatif.
+\item Un seul, car $-x^2+6x-9=-(x-3)^2$.
+\item L'axe de symétrie est la droite d'équation $x=-\dfrac12$.
+\item Le trinôme est toujours négatif.
+\item Le trinôme est toujours positif.
+\end{enumerate}
+
+\newpage
+\section{Corrigés des sujets type bac / E3C}
+
+\sujet{Sujet 1 - Automatismes ciblés second degré}
+\begin{center}
+\begin{tabular}{c*{8}{>{\centering\arraybackslash}m{0.9cm}}}
+\toprule
+Question & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\midrule
+Réponse & b & a & b & b & b & b & b & a \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[leftmargin=*, itemsep=0.35em]
+\item $x^2=25 \Longleftrightarrow x=-5$ ou $x=5$.
+\item $\Delta=(-3)^2-4\times 2\times 1=9-8=1$.
+\item $x^2-5x+6=(x-2)(x-3)$.
+\item Dans $-2(x-3)^2+5$, le sommet est $S(3;5)$.
+\item Comme $3>0$, la fonction admet un minimum égal à $-4$.
+\item Comme le coefficient dominant est négatif et que les racines sont $1$ et $4$, le trinôme est positif entre ses deux racines.
+\item Le coefficient dominant de $(x+2)(x-5)$ est positif : le trinôme est positif à l'extérieur des racines $-2$ et $5$.
+\item $p(x)=-2(x-1)^2+8$ admet un maximum en $1$ : elle est croissante puis décroissante.
+\end{enumerate}
+
+\sujet{Sujet 2 - Étude d'un trinôme, signe et variations}
+On considère $g(x)=x^2-5x+4$.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.55em]
+\item On cherche deux nombres dont la somme vaut $5$ et le produit vaut $4$ : ce sont $1$ et $4$. Ainsi
+\[
+ g(x)=x^2-5x+4=(x-1)(x-4).
+\]
+\item Les racines de $g$ sont $1$ et $4$. Comme le coefficient dominant est positif, $g$ est positif à l'extérieur des racines et négatif entre les racines.
+\tsigng
+\item D'après le tableau de signe :
+\[
+ g(x)\geq 0 \Longleftrightarrow x\in ]-\infty;1]\cup[4;+\infty[.
+\]
+\item Pour tout réel $x$ :
+\[
+\begin{aligned}
+\left(x-\frac52\right)^2-\frac94
+&=x^2-5x+\frac{25}{4}-\frac94\\
+&=x^2-5x+\frac{16}{4}\\
+&=x^2-5x+4.
+\end{aligned}
+\]
+Donc
+\[
+ g(x)=\left(x-\frac52\right)^2-\frac94.
+\]
+\item La forme canonique montre que $g$ admet un minimum égal à $-\dfrac94$, atteint pour $x=\dfrac52$.
+\tvarsg
+\item Pour tout entier naturel $n$, le point $A_n$ a pour coordonnées $A_n(n;g(n))$.
+\begin{enumerate}[label=\alph*.]
+\item On a
+\[
+ g(n)=n^2-5n+4.
+\]
+De plus,
+\[
+\begin{aligned}
+ g(n+1)&=(n+1)^2-5(n+1)+4\\
+       &=n^2+2n+1-5n-5+4\\
+       &=n^2-3n.
+\end{aligned}
+\]
+\item Le coefficient directeur de la droite $(A_nA_{n+1})$ est
+\[
+ a_n=\frac{g(n+1)-g(n)}{(n+1)-n}.
+\]
+Comme $(n+1)-n=1$, on obtient
+\[
+ a_n=g(n+1)-g(n).
+\]
+Donc
+\[
+\begin{aligned}
+ a_n&=(n^2-3n)-(n^2-5n+4)\\
+    &=n^2-3n-n^2+5n-4\\
+    &=2n-4.
+\end{aligned}
+\]
+\item Pour tout entier naturel $n$, $a_n=2n-4$. La suite $(a_n)$ est donc arithmétique de raison $2$.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+\sujet{Sujet 3 - Hauteur d'un objet modélisée par une parabole}
+On considère $h(t)=-t^2+6t+7$ sur $[0;7]$.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.55em]
+\item Pour tout réel $t$ :
+\[
+\begin{aligned}
+16-(t-3)^2&=16-(t^2-6t+9)\\
+&=16-t^2+6t-9\\
+&=-t^2+6t+7.
+\end{aligned}
+\]
+Donc
+\[
+ h(t)=16-(t-3)^2.
+\]
+\item Comme $(t-3)^2\geq 0$, on a
+\[
+ -(t-3)^2\leq 0.
+\]
+Donc
+\[
+ h(t)\leq 16.
+\]
+L'égalité est atteinte lorsque $t=3$. La hauteur maximale est donc $16$ mètres, atteinte au bout de $3$ secondes.
+\item Sur $[0;7]$, la fonction $h$ est croissante sur $[0;3]$, puis décroissante sur $[3;7]$.
+\tvarsh
+\item On résout :
+\[
+ -t^2+6t+7=0.
+\]
+Or
+\[
+ -t^2+6t+7=-(t^2-6t-7)=-(t-7)(t+1).
+\]
+Donc
+\[
+ h(t)=0 \Longleftrightarrow t=7 \text{ ou } t=-1.
+\]
+Sur l'intervalle $[0;7]$, la seule solution est $t=7$.
+\item Sur $[0;7]$, la fonction $h$ est positive sur $[0;7[$ et nulle en $7$.
+\tsignh
+\item L'objet reste à une hauteur positive ou nulle de $t=0$ à $t=7$. La durée est donc de $7$ secondes.
+\item On résout sur $[0;7]$ :
+\[
+16-(t-3)^2\geq 12.
+\]
+Donc
+\[
+-(t-3)^2\geq -4.
+\]
+En multipliant par $-1$, on change le sens de l'inégalité :
+\[
+(t-3)^2\leq 4.
+\]
+Ainsi
+\[
+-2\leq t-3\leq 2.
+\]
+Donc
+\[
+1\leq t\leq 5.
+\]
+Sur l'intervalle $[0;7]$, l'objet est à une hauteur supérieure ou égale à $12$ mètres pour $t\in[1;5]$.
+\end{enumerate}
+
+\sujet{Sujet 4 - Tableaux de signe et tableaux de variations}
+On considère $f(x)=(2x-1)(x+3)$ et $p(x)=-2(x-1)^2+8$.
+
+\begin{enumerate}[leftmargin=*, itemsep=0.55em]
+\item Les racines de $f$ sont $-3$ et $\dfrac12$. Le coefficient dominant est positif, donc $f$ est positif à l'extérieur des racines et négatif entre les racines.
+\tsignf
+\item D'après le tableau de signe :
+\[
+ f(x)>0 \Longleftrightarrow x\in ]-\infty;-3[\cup\left]\frac12;+\infty\right[.
+\]
+\item La forme canonique de $p$ est $p(x)=-2(x-1)^2+8$. Comme $-2<0$, la fonction $p$ admet un maximum égal à $8$, atteint pour $x=1$.
+\tvarsp
+\item On factorise $p(x)$ :
+\[
+\begin{aligned}
+p(x)&=-2(x-1)^2+8\\
+&=-2\left((x-1)^2-4\right)\\
+&=-2\left((x-1)-2\right)\left((x-1)+2\right)\\
+&=-2(x-3)(x+1).
+\end{aligned}
+\]
+\item Les racines de $p$ sont $-1$ et $3$. Le coefficient dominant est négatif, donc $p$ est négatif à l'extérieur des racines et positif entre les racines.
+\tsignp
+\item D'après le tableau de signe :
+\[
+ p(x)\geq 0 \Longleftrightarrow x\in[-1;3].
+\]
+\end{enumerate}
+
+\end{document}

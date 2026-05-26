@@ -1,0 +1,338 @@
+{
+  "schema": "modeles_maths_publics.import_documents_valides.v1",
+  "date_generation": "2026-05-26T20:31:36",
+  "source": "ARCHIVE_DOCUMENTS_VALIDES_v3.zip",
+  "nombre_entrees": 33,
+  "entrees": [
+    {
+      "id": "ctrl_c1_v038_enonce_ab",
+      "titre": "C1 - énoncé contrôle",
+      "niveau": "Terminale spécialité",
+      "type_document": "10_controles_evaluations",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/10_controles_evaluations/ctrl_c1_v038_enonce_AB.pdf",
+      "nom_original": "ctrl_c1_v038_enonces_AB_MEILLEURE_VERSION_LOCALE_COMPATIBLE_CORRIGE_v043.pdf",
+      "notes_import": "Meilleure version locale de l'énoncé C1 ; v0.40 non retrouvée."
+    },
+    {
+      "id": "ctrl_c1_v043_corrige_ab",
+      "titre": "C1 - corrigé écrit contrôle",
+      "niveau": "Terminale spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/12_corrections_ecrites/ctrl_c1_v043_corrige_AB.pdf",
+      "nom_original": "ctrl_c1_v043_corriges_AB.pdf",
+      "notes_import": "Correction écrite C1 validée comme modèle."
+    },
+    {
+      "id": "ctrl_c1_v055_correction_beamer",
+      "titre": "C1 - Beamer correction contrôle",
+      "niveau": "Terminale spécialité",
+      "type_document": "13_corrections_beamer",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/13_corrections_beamer/ctrl_c1_v055_correction_beamer.pdf",
+      "nom_original": "ctrl_c1_v055_beamer_correction.pdf",
+      "notes_import": "Meilleure version locale du Beamer de correction C1."
+    },
+    {
+      "id": "fm_c1_recurrence_encadrement_double_v3",
+      "titre": "C1 - feuille-méthode récurrence encadrement double",
+      "niveau": "Terminale spécialité",
+      "type_document": "03_fiches_methodes",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/03_fiches_methodes/fm_c1_recurrence_encadrement_double_v3.pdf",
+      "nom_original": "01_fm_recurrence_encadrement_double_v3.pdf",
+      "notes_import": "Feuille-méthode C1 promue en finalisé probable."
+    },
+    {
+      "id": "feuille_python_seuil_c1",
+      "titre": "C1 - feuille Python seuil",
+      "niveau": "Terminale spécialité",
+      "type_document": "08_calculatrice_python",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/08_calculatrice_python/feuille_python_seuil_C1.pdf",
+      "nom_original": "04_feuille_python_seuil.pdf",
+      "notes_import": "Feuille Python seuil validée."
+    },
+    {
+      "id": "entrainement_bac_c1_v5_enonce_strict",
+      "titre": "C1 - entraînement bac énoncé strict",
+      "niveau": "Terminale spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/06_exercices_type_epreuve/entrainement_bac_C1_v5_enonce_STRICT.pdf",
+      "nom_original": "05_entrainement_bac_C1_v5_enonce_STRICT_C1.pdf",
+      "notes_import": "Doc 5 C1 v5 strict validé."
+    },
+    {
+      "id": "entrainement_bac_c1_v5_corrige_strict",
+      "titre": "C1 - entraînement bac corrigé strict",
+      "niveau": "Terminale spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/12_corrections_ecrites/entrainement_bac_C1_v5_corrige_STRICT.pdf",
+      "nom_original": "05_entrainement_bac_C1_v5_corrige_STRICT_C1.pdf",
+      "notes_import": "Corrigé associé au Doc 5 C1 v5 strict."
+    },
+    {
+      "id": "automatismes_c1_qcm_v2",
+      "titre": "C1 - automatismes QCM",
+      "niveau": "Terminale spécialité",
+      "type_document": "07_automatismes_questions_flash",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/07_automatismes_questions_flash/automatismes_C1_QCM_v2.pdf",
+      "nom_original": "03_automatismes_C1_QCM_v2.pdf",
+      "notes_import": "Feuille d'automatismes C1 QCM."
+    },
+    {
+      "id": "automatismes_c1_qcm_v2_corrige",
+      "titre": "C1 - corrigé automatismes QCM",
+      "niveau": "Terminale spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/12_corrections_ecrites/automatismes_C1_QCM_v2_corrige.pdf",
+      "nom_original": "03_corrige_automatismes_C1_QCM_v2.pdf",
+      "notes_import": "Corrigé écrit de la feuille d'automatismes C1."
+    },
+    {
+      "id": "automatismes_c1_qcm_v3_corrige_beamer_progressif",
+      "titre": "C1 - Beamer automatismes",
+      "niveau": "Terminale spécialité",
+      "type_document": "13_corrections_beamer",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/13_corrections_beamer/automatismes_C1_QCM_v3_corrige_beamer_progressif.pdf",
+      "nom_original": "03_corrige_automatismes_C1_beamer_v3_progressif.pdf",
+      "notes_import": "Beamer progressif de correction des automatismes C1."
+    },
+    {
+      "id": "parcours_second_degre_1spe_enonces_v3",
+      "titre": "Première spé - parcours second degré énoncé",
+      "niveau": "Première spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/premiere_specialite/06_exercices_type_epreuve/parcours_second_degre_1spe_enonces_v3.pdf",
+      "nom_original": "parcours_revision_second_degre_premiere_enonces_v3.pdf",
+      "notes_import": "Énoncé v3 du parcours second degré."
+    },
+    {
+      "id": "parcours_second_degre_1spe_corriges_v3_aligne",
+      "titre": "Première spé - parcours second degré corrigé",
+      "niveau": "Première spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/premiere_specialite/12_corrections_ecrites/parcours_second_degre_1spe_corriges_v3_aligne.pdf",
+      "nom_original": "parcours_revision_second_degre_premiere_corriges_v3_aligne.pdf",
+      "notes_import": "Corrigé v3 aligné et vérifié visuellement."
+    },
+    {
+      "id": "parcours_second_degre_1spe_corriges_v3_aligne",
+      "titre": "parcours_second_degre_1spe_corriges_v3_aligne",
+      "niveau": "Première spécialité",
+      "type_document": "16_sources_associees",
+      "statut_modele": "Source créée",
+      "fichier": "documents_a_classer/01_lycee/premiere_specialite/16_sources_associees/parcours_second_degre_1spe_corriges_v3_aligne.tex",
+      "nom_original": "parcours_revision_second_degre_premiere_corriges_v3_aligne.tex",
+      "notes_import": "Source LaTeX du corrigé v3 aligné."
+    },
+    {
+      "id": "parcours_geometrie_tspe_enonces_v3",
+      "titre": "Terminale - géométrie énoncé",
+      "niveau": "Terminale spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/06_exercices_type_epreuve/parcours_geometrie_tspe_enonces_v3.pdf",
+      "nom_original": "parcours_revision_geometrie_terminale_enonces_sujet3_aligne.pdf",
+      "notes_import": "Parcours géométrie Terminale - énoncé."
+    },
+    {
+      "id": "parcours_geometrie_tspe_corriges_v3",
+      "titre": "Terminale - géométrie corrigé",
+      "niveau": "Terminale spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/12_corrections_ecrites/parcours_geometrie_tspe_corriges_v3.pdf",
+      "nom_original": "parcours_revision_geometrie_terminale_corriges_sujet3_aligne.pdf",
+      "notes_import": "Parcours géométrie Terminale - corrigé aligné."
+    },
+    {
+      "id": "parcours_trigo_lgn_tspe_enonces_annales2025_v2",
+      "titre": "Terminale - parcours trigo/LGN énoncés",
+      "niveau": "Terminale spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/06_exercices_type_epreuve/parcours_trigo_lgn_tspe_enonces_annales2025_v2.pdf",
+      "nom_original": "parcours_revision_trigo_lgn_terminale_enonces_annales2025_v2.pdf",
+      "notes_import": "Parcours trigonométrie + LGN Terminale - énoncés."
+    },
+    {
+      "id": "parcours_probabilites_tspe_enonces_v8",
+      "titre": "Terminale - probabilités énoncé",
+      "niveau": "Terminale spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/06_exercices_type_epreuve/parcours_probabilites_tspe_enonces_v8.pdf",
+      "nom_original": "parcours_revision_probabilites_terminale_epure_recap_denombrement.pdf",
+      "notes_import": "Parcours probabilités Terminale - énoncé épuré."
+    },
+    {
+      "id": "parcours_probabilites_tspe_corriges_v2",
+      "titre": "Terminale - probabilités corrigé",
+      "niveau": "Terminale spécialité",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/12_corrections_ecrites/parcours_probabilites_tspe_corriges_v2.pdf",
+      "nom_original": "parcours_revision_probabilites_terminale_corriges-2.pdf",
+      "notes_import": "Parcours probabilités Terminale - corrigé associé probable."
+    },
+    {
+      "id": "recap_fonctions_tspe_carte_mentale_v15",
+      "titre": "Terminale - récap fonctions",
+      "niveau": "Terminale spécialité",
+      "type_document": "11_fiches_revision_recap",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/11_fiches_revision_recap/recap_fonctions_tspe_carte_mentale_v15.pdf",
+      "nom_original": "parcours_revision_fonctions_carte_mentale_v15.pdf",
+      "notes_import": "Fiche récapitulative fonctions."
+    },
+    {
+      "id": "recap_geometrie_espace_tspe_v13",
+      "titre": "Terminale - récap géométrie espace",
+      "niveau": "Terminale spécialité",
+      "type_document": "11_fiches_revision_recap",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/11_fiches_revision_recap/recap_geometrie_espace_tspe_v13.pdf",
+      "nom_original": "parcours_revision_geometrie_espace_carte_mentale_illustre_v13.pdf",
+      "notes_import": "Fiche récapitulative géométrie espace."
+    },
+    {
+      "id": "recap_probabilites_tspe_1page_v8",
+      "titre": "Terminale - récap probabilités 1 page",
+      "niveau": "Terminale spécialité",
+      "type_document": "11_fiches_revision_recap",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/11_fiches_revision_recap/recap_probabilites_tspe_1page_v8.pdf",
+      "nom_original": "parcours_revision_probabilites_carte_mentale_1page_v8.pdf",
+      "notes_import": "Fiche récapitulative probabilités."
+    },
+    {
+      "id": "recap_suites_tspe_v6",
+      "titre": "Terminale - récap suites",
+      "niveau": "Terminale spécialité",
+      "type_document": "11_fiches_revision_recap",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/11_fiches_revision_recap/recap_suites_tspe_v6.pdf",
+      "nom_original": "parcours_revision_suites_carte_mentale_propre_v6.pdf",
+      "notes_import": "Fiche récapitulative suites."
+    },
+    {
+      "id": "top_100_types_bac_tspe_2022_2025_v16",
+      "titre": "Terminale - top 100 type bac",
+      "niveau": "Terminale spécialité",
+      "type_document": "06_exercices_type_epreuve",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_specialite/06_exercices_type_epreuve/top_100_types_bac_tspe_2022_2025_v16.pdf",
+      "nom_original": "top_100_questions_types_bac_2022_2025_version_frequences_reperees_corrigee_v16_tables_strict_fix.pdf",
+      "notes_import": "Top 100 questions types bac ; modèle/source de révision."
+    },
+    {
+      "id": "feuilles_guidees_tstmg_eleves_final",
+      "titre": "TSTMG - feuilles guidées élèves",
+      "niveau": "Terminale STMG",
+      "type_document": "04_exercices_guides",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_stmg/04_exercices_guides/feuilles_guidees_TSTMG_eleves_FINAL.pdf",
+      "nom_original": "Feuilles_guidees_TSTMG_eleves_FINAL_sommaire_cliquable.pdf",
+      "notes_import": "Feuilles guidées élèves finalisées avec sommaire cliquable."
+    },
+    {
+      "id": "feuilles_guidees_tstmg_corriges_v9",
+      "titre": "TSTMG - corrigés feuilles guidées",
+      "niveau": "Terminale STMG",
+      "type_document": "12_corrections_ecrites",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_stmg/12_corrections_ecrites/feuilles_guidees_TSTMG_corriges_v9.pdf",
+      "nom_original": "PACK_TSTMG_feuilles_guidees_corriges_v9.pdf",
+      "notes_import": "Corrigés associés aux feuilles guidées TSTMG."
+    },
+    {
+      "id": "evaluation_tstmg_eleves_final",
+      "titre": "TSTMG - évaluation élèves",
+      "niveau": "Terminale STMG",
+      "type_document": "10_controles_evaluations",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/01_lycee/terminale_stmg/10_controles_evaluations/evaluation_TSTMG_eleves_FINAL.pdf",
+      "nom_original": "Evaluation_TSTMG_eleves_FINAL_sans_cercles.pdf",
+      "notes_import": "Évaluation élèves finalisée sans événements entourés."
+    },
+    {
+      "id": "mots_croises_tstmg_v2",
+      "titre": "Mots croisés Terminale STMG",
+      "niveau": "Terminale STMG",
+      "type_document": "05_exercices_classiques",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_stmg/05_exercices_classiques/mots_croises_TSTMG_v2.pdf",
+      "nom_original": "mots_croises_terminale_stmg_v2.pdf",
+      "notes_import": "Mots croisés Terminale STMG."
+    },
+    {
+      "id": "beamer_log_decimal_tstmg_v6",
+      "titre": "TSTMG - Beamer log décimal",
+      "niveau": "Terminale STMG",
+      "type_document": "01_cours",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/01_lycee/terminale_stmg/01_cours/beamer_log_decimal_TSTMG_v6.pdf",
+      "nom_original": "recap_log_decimal_une_slide_progressive_beamer_v6.pdf",
+      "notes_import": "Beamer progressif sur le logarithme décimal."
+    },
+    {
+      "id": "oraux_mp_x_ens_validation_pass26",
+      "titre": "MP X/ENS énoncés",
+      "niveau": "CPGE MP",
+      "type_document": "02_oraux_concours",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/02_cpge/mp/02_oraux_concours/oraux_MP_X_ENS_validation_PASS26.pdf",
+      "nom_original": "MP_X_ENS_VALIDATION_PASS26.pdf",
+      "notes_import": "Livrable MP X/ENS validé."
+    },
+    {
+      "id": "oraux_mp_ccp_final_pass19",
+      "titre": "MP CCP",
+      "niveau": "CPGE MP",
+      "type_document": "02_oraux_concours",
+      "statut_modele": "Finalisé probable",
+      "fichier": "documents_a_classer/02_cpge/mp/02_oraux_concours/oraux_MP_CCP_final_PASS19.pdf",
+      "nom_original": "MP_CCP_FINAL_PASS19.pdf",
+      "notes_import": "Livrable MP CCP final local."
+    },
+    {
+      "id": "preparation_oraux_analyse_algebre_v20m_gelee",
+      "titre": "Préparation oraux analyse/algèbre v20m",
+      "niveau": "CPGE transversal",
+      "type_document": "10_references_style",
+      "statut_modele": "Archive référence à conserver",
+      "fichier": "documents_a_classer/02_cpge/transversal/10_references_style/preparation_oraux_analyse_algebre_v20m_gelee.pdf",
+      "nom_original": "preparation_oraux_analyse_algebre_v20m_version_finale_gelee.pdf",
+      "notes_import": "Référence de travail conservée hors livrables élèves."
+    },
+    {
+      "id": "modele_feuille_methode_point_fixe_v4",
+      "titre": "Feuille-méthode point fixe v4",
+      "niveau": "Référence style",
+      "type_document": "01_feuilles_methodes",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/04_references_style/01_feuilles_methodes/modele_feuille_methode_point_fixe_v4.pdf",
+      "nom_original": "feuille_methode_point_fixe_v4.pdf",
+      "notes_import": "Modèle validé prioritaire de feuille-méthode."
+    },
+    {
+      "id": "modele_tableaux_signe_variation_tikz",
+      "titre": "Modèle tableaux signe/variation TikZ",
+      "niveau": "Référence style",
+      "type_document": "06_tikz_tableaux",
+      "statut_modele": "Finalisé certain",
+      "fichier": "documents_a_classer/04_references_style/06_tikz_tableaux/modele_tableaux_signe_variation_tikz.pdf",
+      "nom_original": "tableaux_signe_variation_pro_tikz_lignes_corrigees.pdf",
+      "notes_import": "Modèle validé de tableaux de signe/variation TikZ."
+    }
+  ]
+}
