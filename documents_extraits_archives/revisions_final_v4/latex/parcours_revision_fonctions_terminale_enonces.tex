@@ -1,0 +1,687 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.7cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{246,246,246}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdfauthor={},pdftitle={Parcours de révision -- Fonctions -- Énoncés}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.28em}
+\renewcommand{\arraystretch}{1.12}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.25em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+\newcounter{question}
+\newcounter{reponse}
+
+\tikzset{
+  tabouter/.style={draw=tableline, line width=0.85pt},
+  tabline/.style={draw=tableline, line width=0.55pt},
+  forbidden/.style={draw=tableline, line width=0.95pt},
+  vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},
+  tabtext/.style={font=\small},
+  tabmath/.style={font=\small},
+  labelcell/.style={font=\small\bfseries, text=deepblue},
+  pointvalue/.style={font=\small\bfseries},
+  endvalue/.style={font=\small},
+}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.75em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=grisclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{
+  enhanced,
+  breakable,
+  colback=grisclair,
+  colframe=black!55,
+  boxrule=0.55pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+  title=\textbf{#1},
+  coltitle=black,
+  colbacktitle=black!12,
+  before skip=2mm,
+  after skip=2mm
+}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+\sloppy
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Fonctions}\\[1mm]
+
+\end{center}
+\vspace{1mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\includepdf[pages=-,pagecommand={},fitpaper=true]{parcours_revision_fonctions_carte_mentale_v15.pdf}
+
+\clearpage
+\section*{Partie 2 -- Questions flashs}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flashs}
+\setcounter{question}{0}
+\begin{blocquestions}{A. Vocabulaire essentiel}
+  \item \origine{266} Qu'appelle-t-on une fonction affine ?
+  \item \origine{267} Qu'appelle-t-on une fonction polynôme du second degré ?
+  \item \origine{268} Qu'appelle-t-on une fonction rationnelle ?
+  \item \origine{269} Qu'appelle-t-on le domaine de définition d'une fonction ?
+  \item \origine{270} Qu'appelle-t-on une valeur interdite ?
+  \item \origine{274} Qu'appelle-t-on une racine de l'équation $f(x)=0$ ?
+  \item \origine{275} Qu'appelle-t-on une fonction dérivable sur un intervalle ?
+  \item \origine{276} Qu'appelle-t-on le coefficient directeur d'une tangente ?
+  \item \origine{277} Qu'appelle-t-on un extremum local ?
+  \item \origine{280} Qu'appelle-t-on une fonction monotone sur un intervalle ?
+\end{blocquestions}
+\begin{blocquestions}{B. Limites, continuité et TVI}
+  \item \origine{96} Que vaut $\displaystyle\lim_{x\to+\infty}(3x^2-5x+1)$ ?
+  \item \origine{97} Que vaut $\displaystyle\lim_{x\to-\infty}\dfrac{2x-1}{x+3}$ ?
+  \item \origine{98} Que vaut $\displaystyle\lim_{x\to2}\dfrac{x^2-4}{x-2}$ ?
+  \item \origine{99} Qu'est-ce qu'une forme indéterminée ?
+  \item \origine{103} Dans une fonction rationnelle, quel terme regarde-t-on d'abord pour la limite en $\pm\infty$ ?
+  \item \origine{104} Qu'est-ce qu'une asymptote verticale ?
+  \item \origine{105} Qu'est-ce qu'une asymptote horizontale à droite ?
+  \item \origine{107} Que signifie qu'une fonction est continue en $a$ ?
+  \item \origine{109} Quel théorème utilise-t-on pour montrer l'existence d'une solution de $f(x)=k$ ?
+  \item \origine{110} Que faut-il souvent ajouter pour obtenir l'unicité d'une solution ?
+\end{blocquestions}
+\begin{blocquestions}{C. Exponentielle et logarithme}
+  \item \origine{111} Comment note-t-on le logarithme népérien ?
+  \item \origine{112} Quelle fonction est la réciproque de l'exponentielle ?
+  \item \origine{113} Sur quel intervalle la fonction $\ln$ est-elle définie ?
+  \item \origine{114} Que vaut $\ln(1)$ ?
+  \item \origine{115} Que vaut $\ln(e)$ ?
+  \item \origine{116} Que vaut $e^0$ ?
+  \item \origine{117} Que vaut $\ln(e^x)$ ?
+  \item \origine{118} Que vaut $e^{\ln x}$ pour $x>0$ ?
+  \item \origine{119} Quelle propriété vérifie $\ln(ab)$ pour $a>0$ et $b>0$ ?
+  \item \origine{120} Quelle propriété vérifie $\ln\left(\dfrac{a}{b}\right)$ pour $a>0$ et $b>0$ ?
+\end{blocquestions}
+\begin{blocquestions}{D. Dérivation, tangente, variations et convexité}
+  \item \origine{125} Que vaut la dérivée de $e^x$ ?
+  \item \origine{126} Que vaut la dérivée de $e^{ax+b}$ ?
+  \item \origine{127} Que vaut la dérivée de $\ln(x)$ sur $]0,+\infty[$ ?
+  \item \origine{128} Que vaut la dérivée de $\ln(ax+b)$ ?
+  \item \origine{139} Que représente géométriquement $f'(a)$ ?
+  \item \origine{140} Quelle est l'équation de la tangente à la courbe de $f$ au point d'abscisse $a$ ?
+  \item \origine{141} Que signifie géométriquement $f'(a)=0$ ?
+  \item \origine{142} Quelle information donne le signe de $f'(x)$ ?
+  \item \origine{146} Qu'est-ce qu'une fonction convexe ?
+  \item \origine{147} Quelle condition simple utilise-t-on souvent pour étudier la convexité ?
+\end{blocquestions}
+\begin{blocquestions}{E. Primitives, intégrales, équations différentielles et calculs flash}
+  \item \origine{155} Qu'est-ce qu'une primitive de $f$ sur un intervalle ?
+  \item \origine{157} Donner une primitive de $e^x$.
+  \item \origine{160} Donner une primitive de $\dfrac1x$ sur $]0,+\infty[$.
+  \item \origine{164} Quelle relation existe-t-il entre intégrale et primitive ?
+  \item \origine{166} Qu'est-ce qu'une équation différentielle homogène du type $y'+ay=0$ ?
+  \item \origine{167} Quelle est la forme générale des solutions de $y'+ay=0$ ?
+  \item \origine{237} Dériver $x\mapsto 3x^2$.
+\end{blocquestions}
+\clearpage
+\section*{Partie 3 -- Sujets de bac}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets de bac}
+\titreSujet{Sujet 1 -- Exponentielle, équation différentielle, convexité et aire}{Asie, 5 septembre 2025, sujet 1, exercice 1}
+
+Soit $f$ la fonction définie sur $\mathbb R$ par
+\[
+f(x)=xe^{-2x}.
+\]
+On admet que $f$ est deux fois dérivable sur $\mathbb R$ et on note $f'$ la dérivée de la fonction $f$.
+On note $\mathcal C_f$ la courbe représentative de $f$ dans un repère orthonormé du plan.
+
+Pour chacune des affirmations suivantes, préciser si elle est vraie ou fausse, puis justifier la réponse donnée. Toute réponse non argumentée ne sera pas prise en compte.
+
+\noindent\textbf{Affirmation 1.}\quad Pour tout réel $x$, on a
+\[
+f'(x)=(-2x+1)e^{-2x}.
+\]
+
+\noindent\textbf{Affirmation 2.}\quad La fonction $f$ est une solution sur $\mathbb R$ de l'équation différentielle :
+\[
+y'+2y=e^{-2x}.
+\]
+
+\noindent\textbf{Affirmation 3.}\quad La fonction $f$ est convexe sur $]-\infty;1]$.
+
+\noindent\textbf{Affirmation 4.}\quad L'équation $f(x)=-1$ admet une unique solution sur $\mathbb R$.
+
+\noindent\textbf{Affirmation 5.}\quad L'aire du domaine délimité par la courbe $\mathcal C_f$, l'axe des abscisses et les droites d'équation $x=0$ et $x=1$ est égale à
+\[
+\dfrac14-\dfrac{3e^{-2}}4.
+\]
+
+\newpage
+\titreSujet{Sujet 2 -- Logarithme, variations et convexité}{Polynésie, 18 juin 2025, sujet 2, exercice 2}
+
+On considère la fonction $f$ définie sur l'intervalle $]2;+\infty[$ par
+\[
+f(x)=x\ln(x-2).
+\]
+Une partie de la courbe représentative $\mathcal C_f$ de la fonction $f$ est donnée ci-dessous.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=11cm,height=6cm,
+axis lines=middle,
+xmin=1.8,xmax=8.5,
+ymin=-15,ymax=15,
+xtick={2,3,4,5,6,7,8},
+ytick={-15,-10,-5,0,5,10,15},
+grid=both,
+samples=200,
+clip=false,
+]
+\addplot[domain=2.05:8.5, thick] {x*ln(x-2)} node[pos=0.93, above] {$\mathcal C_f$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+  \item Conjecturer, à l'aide du graphique, le sens de variation de $f$, ses limites aux bornes de son ensemble de définition ainsi que les éventuelles asymptotes.
+  \item Résoudre l'équation $f(x)=0$ sur $]2;+\infty[$.
+  \item Calculer $\displaystyle\lim_{\substack{x\to 2\\ x>2}} f(x)$. Ce résultat confirme-t-il l'une des conjectures faites à la question 1 ?
+  \item Démontrer que, pour tout $x$ appartenant à $]2;+\infty[$,
+  \[
+f'(x)=\ln(x-2)+\dfrac{x}{x-2}.
+  \]
+  \item On considère la fonction $g$ définie sur l'intervalle $]2;+\infty[$ par $g(x)=f'(x)$.
+  \begin{enumerate}
+    \item Démontrer que, pour tout $x$ appartenant à $]2;+\infty[$, on a :
+    \[
+g'(x)=\dfrac{x-4}{(x-2)^2}.
+    \]
+    \item On admet que $\displaystyle\lim_{\substack{x\to 2\\x>2}}g(x)=+\infty$ et que $\displaystyle\lim_{x\to+\infty}g(x)=+\infty$.
+
+    En déduire le tableau des variations de la fonction $g$ sur $]2;+\infty[$. On fera apparaître la valeur exacte de l'extremum de la fonction $g$.
+    \item En déduire que, pour tout $x$ appartenant à $]2;+\infty[$, $g(x)>0$.
+    \item En déduire le sens de variation de la fonction $f$ sur $]2;+\infty[$.
+  \end{enumerate}
+  \item Étudier la convexité de la fonction $f$ sur $]2;+\infty[$ et préciser les coordonnées d'un éventuel point d'inflexion de la courbe représentative de la fonction $f$.
+  \item Combien de valeurs de $x$ existe-t-il pour lesquelles la courbe représentative de $f$ admet une tangente de coefficient directeur égal à $3$ ?
+\end{enumerate}
+
+\newpage
+\titreSujet{Sujet 3 -- Équation différentielle et étude d'une exponentielle}{Amérique du Sud, 21 novembre 2024, jour 1, exercice 1}
+
+\textbf{Partie A}
+
+On considère l'équation différentielle
+\[
+(E):\quad y'+\dfrac14 y=20e^{-\frac14 x},
+\]
+d'inconnue $y$, fonction définie et dérivable sur l'intervalle $[0;+\infty[$.
+
+\begin{enumerate}
+  \item Déterminer la valeur du réel $a$ tel que la fonction $g$ définie sur l'intervalle $[0;+\infty[$ par
+  \[
+g(x)=axe^{-\frac14 x}
+  \]
+  soit une solution particulière de l'équation différentielle $(E)$.
+  \item On considère l'équation différentielle
+  \[
+  (E'):\quad y'+\dfrac14 y=0,
+  \]
+  d'inconnue $y$, fonction définie et dérivable sur l'intervalle $[0;+\infty[$. Déterminer les solutions de l'équation différentielle $(E')$.
+  \item En déduire les solutions de l'équation différentielle $(E)$.
+  \item Déterminer la solution $f$ de l'équation différentielle $(E)$ telle que $f(0)=8$.
+\end{enumerate}
+
+\textbf{Partie B}
+
+On considère la fonction $f$ définie sur l'intervalle $[0;+\infty[$ par
+\[
+f(x)=(20x+8)e^{-\frac14 x}.
+\]
+On admet que la fonction $f$ est dérivable sur l'intervalle $[0;+\infty[$ et on note $f'$ sa fonction dérivée sur l'intervalle $[0;+\infty[$. De plus, on admet que
+\[
+\lim_{x\to+\infty} f(x)=0.
+\]
+
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item Justifier que, pour tout réel $x$ positif,
+    \[
+f'(x)=(18-5x)e^{-\frac14 x}.
+    \]
+    \item En déduire le tableau de variations de la fonction $f$. On précisera la valeur exacte du maximum de la fonction $f$ sur l'intervalle $[0;+\infty[$.
+  \end{enumerate}
+  \item Dans cette question, on s'intéresse à l'équation $f(x)=8$.
+  \begin{enumerate}
+    \item Justifier que l'équation $f(x)=8$ admet une unique solution, notée $\alpha$, dans l'intervalle $[14;15]$.
+    \item Recopier et compléter le tableau ci-dessous en faisant tourner étape par étape la fonction \texttt{solution\_equation} ci-dessous, écrite en langage Python.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$a$ & 14 & & & & \\ \hline
+$b$ & 15 & & & & \\ \hline
+$b-a$ & 1 & & & & \\ \hline
+$m$ & 14,5 & & & & \\ \hline
+Condition $f(m)>8$ & FAUX & & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{Verbatim}[frame=single, fontsize=\small]
+from math import exp
+
+def f(x):
+    return (20*x + 8)*exp(-1/4*x)
+
+def solution_equation():
+    a, b = 14, 15
+    while b - a > 0.1:
+        m = (a+b)/2
+        if f(m) > 8:
+            a = m
+        else:
+            b = m
+    return a, b
+\end{Verbatim}
+
+\noindent\textbf{2.c.}\quad Quel est l'objectif de la fonction \texttt{solution\_equation} dans le contexte de la question ?
+
+\newpage
+\titreSujet{Sujet 4 -- Logarithme, continuité et suite associée}{Centres étrangers, 12 juin 2025, sujet 1, exercice 3}
+
+\textbf{Partie A}
+
+On considère la fonction $f$ définie sur l'intervalle $]-1;+\infty[$ par
+\[
+f(x)=4\ln(x+1)-\dfrac{x^2}{25}.
+\]
+On admet que la fonction $f$ est dérivable sur l'intervalle $]-1;+\infty[$.
+
+\begin{enumerate}
+  \item Déterminer la limite de la fonction $f$ en $-1$.
+  \item Montrer que, pour tout $x$ appartenant à l'intervalle $]-1;+\infty[$, on a :
+  \[
+f'(x)=\dfrac{100-2x-2x^2}{25(x+1)}.
+  \]
+  \item Étudier les variations de la fonction $f$ sur l'intervalle $]-1;+\infty[$ puis en déduire que la fonction $f$ est strictement croissante sur l'intervalle $[2;6{,}5]$.
+  \item On considère $h$ la fonction définie sur l'intervalle $[2;6{,}5]$ par $h(x)=f(x)-x$.
+
+  On donne ci-dessous le tableau de variations de la fonction $h$ :
+
+  \begin{center}
+  \begin{tikzpicture}[x=1cm,y=1cm]
+    \def\L{2.25}
+    \def\C{3.00}
+    \def\W{11.25}
+    \def\H{2.70}
+    \def\Yx{1.90}
+    \def\Xm{5.25}
+
+    % Fonds
+    \fill[softgray] (0,\Yx) rectangle (\W,\H);
+    \fill[softblue] (0,0) rectangle (\L,\Yx);
+
+    % Cadre et séparations
+    \draw[tabouter] (0,0) rectangle (\W,\H);
+    \draw[tabline] (0,\Yx) -- (\W,\Yx);
+    \draw[tabline] (\L,0) -- (\L,\H);
+    \draw[tabline] (\Xm,0) -- (\Xm,\Yx);
+
+    % Libellés
+    \node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$x$};
+    \node[labelcell] at ({\L/2},{\Yx/2}) {$h(x)$};
+
+    % Ligne x
+    \node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$2$};
+    \node[pointvalue] at (\Xm,{(\Yx+\H)/2}) {$m\simeq 2{,}364$};
+    \node[pointvalue] at ({\W-0.45},{(\Yx+\H)/2}) {$6{,}5$};
+
+    % Valeurs et flèches
+    \node[endvalue] at ({\L+0.45},0.35) {$h(2)$};
+    \node[pointvalue] at (\Xm,1.45) {$M\simeq 2{,}265$};
+    \node[endvalue] at ({\W-0.60},0.35) {$h(6{,}5)$};
+
+    \draw[vararrow] ({\L+0.90},0.50) -- ({\Xm-0.70},1.35);
+    \draw[vararrow] ({\Xm+0.70},1.35) -- ({\W-1.15},0.50);
+  \end{tikzpicture}
+  \end{center}
+  Montrer que l'équation $h(x)=0$ admet une unique solution $\alpha\in[2;6{,}5]$.
+  \item On considère le script suivant, écrit en langage Python :
+\begin{Verbatim}[frame=single, fontsize=\small]
+from math import *
+
+def f(x):
+    return 4*log(1+x) - (x**2)/25
+
+def bornes(n):
+    p = 1/10**n
+    x = 6
+    while f(x) - x > 0:
+        x = x + p
+    return (x-p, x)
+\end{Verbatim}
+On rappelle qu'en langage Python :
+\begin{itemize}
+  \item la commande \texttt{log(x)} renvoie la valeur $\ln(x)$ ;
+  \item la commande \texttt{c**d} renvoie la valeur de $c^d$.
+\end{itemize}
+  \begin{enumerate}
+    \item Donner les valeurs renvoyées par la commande \texttt{bornes(2)}. On donnera les valeurs arrondies au centième.
+    \item Interpréter ces valeurs dans le contexte de l'exercice.
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Partie B}
+
+Dans cette partie, on pourra utiliser les résultats obtenus dans la partie A.
+
+On considère la suite $(u_n)$ définie par $u_0=2$ et, pour tout entier naturel $n$,
+\[
+u_{n+1}=f(u_n).
+\]
+
+\begin{enumerate}
+  \item Montrer par récurrence que, pour tout entier naturel $n$,
+  \[
+  2\leqslant u_n\leqslant u_{n+1}<6{,}5.
+  \]
+  \item En déduire que la suite $(u_n)$ converge vers une limite $\ell$.
+  \item On rappelle que le réel $\alpha$, défini dans la partie A, est la solution de l'équation $h(x)=0$ sur l'intervalle $[2;6{,}5]$. Justifier que $\ell=\alpha$.
+\end{enumerate}
+
+\newpage
+\titreSujet{Sujet 5 -- Trigonométrie, convexité et intégration}{Amérique du Nord, 22 mai 2025, sujet 2, exercice 4}
+
+On désigne par $f$ la fonction définie sur l'intervalle $[0;\pi]$ par
+\[
+f(x)=e^x\sin(x).
+\]
+On note $\mathcal C_f$ la courbe représentative de $f$ dans un repère.
+
+\textbf{Partie A}
+
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item Démontrer que, pour tout réel $x$ de l'intervalle $[0;\pi]$,
+    \[
+f'(x)=e^x[\sin(x)+\cos(x)].
+    \]
+    \item Justifier que la fonction $f$ est strictement croissante sur l'intervalle $\left[0;\dfrac{\pi}{2}\right]$.
+  \end{enumerate}
+  \item
+  \begin{enumerate}
+    \item Déterminer une équation de la tangente $T$ à la courbe $\mathcal C_f$ au point d'abscisse $0$.
+    \item Démontrer que la fonction $f$ est convexe sur l'intervalle $\left[0;\dfrac{\pi}{2}\right]$.
+    \item En déduire que, pour tout réel $x$ de l'intervalle $\left[0;\dfrac{\pi}{2}\right]$,
+    \[
+e^x\sin(x)\geqslant x.
+    \]
+  \end{enumerate}
+  \item Justifier que le point d'abscisse $\dfrac{\pi}{2}$ de la courbe représentative de la fonction $f$ est un point d'inflexion.
+\end{enumerate}
+
+\textbf{Partie B}
+
+On note
+\[
+I=\int_0^{\frac{\pi}{2}}e^x\sin(x)\,dx\qquad\text{et}\qquad J=\int_0^{\frac{\pi}{2}}e^x\cos(x)\,dx.
+\]
+
+\begin{enumerate}
+  \item En intégrant par parties l'intégrale $I$ de deux manières différentes, établir les deux relations suivantes :
+  \[
+  I=1+J\qquad\text{et}\qquad I=e^{\frac{\pi}{2}}-J.
+  \]
+  \item En déduire que
+  \[
+  I=\dfrac{1+e^{\frac{\pi}{2}}}{2}.
+  \]
+  \item On note $g$ la fonction définie sur $\mathbb R$ par $g(x)=x$.
+
+  Les courbes représentatives des fonctions $f$ et $g$ sont tracées dans le repère orthogonal ci-dessous sur l'intervalle $[0;\pi]$.
+  Calculer la valeur exacte de l'aire du domaine hachuré situé entre les courbes $\mathcal C_f$ et $\mathcal C_g$ et les droites d'équation $x=0$ et $x=\dfrac{\pi}{2}$.
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=11cm,height=6cm,
+axis lines=middle,
+xmin=0,xmax=3.25,
+ymin=0,ymax=9,
+xtick={0,1,2,3},
+ytick={0,2,4,6,8},
+grid=both,
+samples=200,
+]
+\addplot[domain=0:3.14159, thick] {exp(x)*sin(deg(x))} node[pos=0.80, above] {$\mathcal C_f$};
+\addplot[domain=0:3.14159, thick] {x} node[pos=0.90, below] {$\mathcal C_g$};
+\addplot[domain=0:1.5708, fill=gray!25, draw=none] {exp(x)*sin(deg(x))} \closedcycle;
+\addplot[domain=0:1.5708, fill=white, draw=none] {x} \closedcycle;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\titreSujet{Sujet 6 -- Équation différentielle, vitesse et intégration}{Métropole, 18 juin 2025, sujet 2, exercice 4}
+
+L'objet de cet exercice est l'étude de l'arrêt d'un chariot sur un manège, à partir du moment où il entre dans la zone de freinage en fin de parcours.
+
+On note $t$ le temps écoulé, exprimé en seconde, à partir du moment où le chariot arrive sur la zone de freinage.
+On modélise la distance parcourue par le chariot dans la zone de freinage, exprimée en mètre, en fonction de $t$, à l'aide d'une fonction notée $d$ définie sur $[0;+\infty[$.
+On a ainsi $d(0)=0$.
+Par ailleurs, on admet que cette fonction $d$ est dérivable sur son ensemble de définition. On note $d'$ sa fonction dérivée.
+
+\textbf{Partie A}
+
+Sur la figure ci-dessous, on a tracé dans un repère orthonormé :
+\begin{itemize}
+  \item la courbe représentative $\mathcal C_d$ de la fonction $d$ ;
+  \item la tangente $T$ à la courbe $\mathcal C_d$ au point $A$ d'abscisse $4{,}7$ ;
+  \item l'asymptote $\Delta$ à $\mathcal C_d$ en $+\infty$.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=11cm,height=6cm,
+axis lines=middle,
+xmin=0,xmax=12,
+ymin=0,ymax=25,
+xtick={0,2,4,6,8,10,12},
+ytick={0,5,10,15,20,25},
+grid=both,
+samples=200,
+]
+\addplot[domain=0:12, thick] {exp(-0.6*x)*(-5*x/3 - 205/9) + 205/9} node[pos=0.78, above] {$\mathcal C_d$};
+\addplot[domain=0:12, dashed] {205/9} node[pos=0.95, above] {$\Delta$};
+\addplot[domain=2.3:7.2, thick] { (exp(-0.6*4.7)*(-5*4.7/3 - 205/9) + 205/9) + ((12+4.7)*exp(-0.6*4.7))*(x-4.7)} node[pos=0.95, above] {$T$};
+\addplot[only marks, mark=*] coordinates {(4.7,{exp(-0.6*4.7)*(-5*4.7/3 - 205/9) + 205/9})} node[above left] {$A$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Dans cette partie, aucune justification n'est attendue. Avec la précision que permet le graphique, répondre aux questions ci-dessous.
+
+D'après ce modèle :
+\begin{enumerate}
+  \item Au bout de combien de temps le chariot aura-t-il parcouru $15$ m dans la zone de freinage ?
+  \item Quelle longueur minimale doit être prévue pour la zone de freinage ?
+  \item Que vaut $d'(4{,}7)$ ? Interpréter ce résultat dans le contexte de l'exercice.
+\end{enumerate}
+
+\textbf{Partie B}
+
+On rappelle que $t$ désigne le temps écoulé, en seconde, à partir du moment où le chariot arrive sur la zone de freinage.
+On modélise la vitesse instantanée du chariot, en mètre par seconde, en fonction de $t$, par une fonction $v$ définie sur $[0;+\infty[$.
+
+On admet que :
+\begin{itemize}
+  \item la fonction $v$ est dérivable sur son ensemble de définition, et on note $v'$ sa fonction dérivée ;
+  \item la fonction $v$ est une solution de l'équation différentielle
+  \[
+  (E):\quad y'+0{,}6y=e^{-0{,}6t},
+  \]
+  où $y$ est une fonction inconnue et où $y'$ est la fonction dérivée de $y$.
+\end{itemize}
+On précise de plus que, lors de son arrivée sur la zone de freinage, la vitesse du chariot est égale à $12$ m.s$^{-1}$, c'est-à-dire $v(0)=12$.
+
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item On considère l'équation différentielle
+    \[
+    (E'):\quad y'+0{,}6y=0.
+    \]
+    Déterminer les solutions de l'équation différentielle $(E')$ sur $[0;+\infty[$.
+    \item Soit $g$ la fonction définie sur $[0;+\infty[$ par
+    \[
+g(t)=te^{-0{,}6t}.
+    \]
+    Vérifier que la fonction $g$ est une solution de l'équation différentielle $(E)$.
+    \item En déduire les solutions de l'équation différentielle $(E)$ sur $[0;+\infty[$.
+    \item En déduire que, pour tout réel $t$ appartenant à l'intervalle $[0;+\infty[$, on a :
+    \[
+v(t)=(12+t)e^{-0{,}6t}.
+    \]
+  \end{enumerate}
+  \item Dans cette question, on étudie la fonction $v$ sur $[0;+\infty[$.
+  \begin{enumerate}
+    \item Montrer que, pour tout réel $t\in[0;+\infty[$,
+    \[
+v'(t)=(-6{,}2-0{,}6t)e^{-0{,}6t}.
+    \]
+    \item En admettant que
+    \[
+v(t)=12e^{-0{,}6t}+\dfrac{1}{0{,}6}\times 0{,}6te^{-0{,}6t},
+    \]
+    déterminer la limite de $v$ en $+\infty$.
+    \item Étudier le sens de variation de la fonction $v$ et dresser son tableau de variation complet. Justifier.
+    \item Montrer que l'équation $v(t)=1$ admet une solution unique $\alpha$, dont on donnera une valeur approchée au dixième.
+  \end{enumerate}
+  \item Lorsque la vitesse du chariot est inférieure ou égale à $1$ mètre par seconde, un système mécanique se déclenche permettant son arrêt complet.
+
+  Déterminer au bout de combien de temps ce système entre en action. Justifier.
+\end{enumerate}
+
+\textbf{Partie C}
+
+On rappelle que, pour tout réel $t$ appartenant à l'intervalle $[0;+\infty[$,
+\[
+v(t)=(12+t)e^{-0{,}6t}.
+\]
+On admet que, pour tout réel $t$ dans l'intervalle $[0;+\infty[$,
+\[
+d(t)=\int_0^t v(x)\,dx.
+\]
+
+\begin{enumerate}
+  \item À l'aide d'une intégration par parties, montrer que la distance parcourue par le chariot entre les instants $0$ et $t$ est donnée par :
+  \[
+d(t)=e^{-0{,}6t}\left(-\dfrac53t-\dfrac{205}{9}\right)+\dfrac{205}{9}.
+  \]
+  \item On rappelle que le dispositif d'arrêt se déclenche lorsque la vitesse du chariot est inférieure ou égale à $1$ mètre par seconde.
+
+  Déterminer, selon ce modèle, une valeur approchée au centième de la distance parcourue par le chariot dans la zone de freinage avant le déclenchement de ce dispositif.
+\end{enumerate}
+\end{document}

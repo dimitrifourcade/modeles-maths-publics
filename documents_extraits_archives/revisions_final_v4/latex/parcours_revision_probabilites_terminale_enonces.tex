@@ -1,0 +1,925 @@
+
+\documentclass[11pt,a4paper]{article}
+
+% ------------------------------------------------------------
+% Préambule commun minimal
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% ------------------------------------------------------------
+% Couleurs et style
+% ------------------------------------------------------------
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bleufonce,
+  urlcolor=bleufonce,
+  pdftitle={Parcours de révision -- Probabilités -- Terminale spécialité},
+  pdfauthor={}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\Bin}{\mathcal B}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+
+
+% Styles TikZ pour arbres de probabilités propres et lisibles
+\tikzset{
+  probaNoeud/.style={font=\small, inner sep=1.2pt},
+  probaEtiq/.style={font=\footnotesize, fill=white, inner sep=1.35pt},
+  probaBranche/.style={draw, line width=0.45pt, line cap=round},
+  probaRacine/.style={circle, fill=black, inner sep=0.9pt}
+}
+
+% ------------------------------------------------------------
+% Questions flashs : style repris du fichier source
+% ------------------------------------------------------------
+\newcounter{question}
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=1.5mm,
+    title={\bfseries #1},
+    coltitle=white,
+    colbacktitle=bleufonce,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+% ------------------------------------------------------------
+% Carte mentale : macros reprises du fichier source
+% ------------------------------------------------------------
+\newcommand{\sep}{\vspace{0.55mm}}
+\tcbset{
+    enhanced,
+    arc=2mm,
+    outer arc=2mm,
+    boxrule=0.42pt,
+    left=1.15mm,
+    right=1.15mm,
+    top=0.75mm,
+    bottom=0.75mm,
+    boxsep=0.35mm,
+    before skip=0.8mm,
+    after skip=0.8mm,
+    fonttitle=\bfseries\footnotesize,
+    coltitle=encre,
+    before upper=\raggedright\fontsize{8.05}{8.75}\selectfont,
+}
+
+\newtcolorbox{fichebox}[3][]{
+    colback=white,
+    colframe=#2!72!black,
+    colbacktitle=#2!18,
+    coltitle=#2!50!black,
+    borderline west={0.9mm}{0pt}{#2!78!black},
+    title={#3},
+    drop fuzzy shadow=black!5,
+    #1
+}
+
+\newcommand{\tagcol}[2]{%
+\begin{tcolorbox}[
+    enhanced,
+    colback=#1!11,
+    colframe=#1!45!black,
+    boxrule=0.42pt,
+    arc=2mm,
+    left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,
+    before skip=0mm,
+    after skip=0.85mm,
+    fontupper=\bfseries\scriptsize,
+    colupper=#1!55!black
+]
+\centering #2
+\end{tcolorbox}}
+
+\newtcolorbox{panel}[1]{
+    colback=fondpage,
+    colframe=fondpage,
+    boxrule=0pt,
+    arc=0mm,
+    left=0mm,
+    right=0mm,
+    top=0mm,
+    bottom=0mm,
+    height=168mm,
+    valign=top,
+    before skip=0mm,
+    after skip=0mm
+}
+
+\newcommand{\titrepage}{%
+\begin{tcolorbox}[
+    colback=white,
+    colframe=bleu!70!black,
+    boxrule=0.65pt,
+    arc=3mm,
+    left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,
+    before skip=0mm,
+    after skip=1.4mm,
+    drop fuzzy shadow=black!10
+]
+{\Large\bfseries Parcours de révision -- Probabilités}\hfill
+
+\end{tcolorbox}}
+
+% ------------------------------------------------------------
+% Listings Python
+% ------------------------------------------------------------
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true
+}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Probabilités}\\[1mm]
+
+\end{center}
+
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+% ------------------------------------------------------------
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=6.5mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+\fontsize{8.05}{8.75}\selectfont
+
+\titrepage
+
+\noindent
+% ============================================================
+% COLONNE 1
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{bleu}{1. ÉVÉNEMENTS \& CONDITIONNEMENT}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Événements et notations}
+\begin{itemize}
+    \item $A$, $B$ : événements ; $\overline A$ : contraire de $A$.
+    \item $A\cap B$ : $A$ \textbf{et} $B$ ; $A\cup B$ : $A$ \textbf{ou} $B$.
+    \item $P_A(B)=P(B\mid A)$ : probabilité de $B$ \textbf{sachant} $A$.
+\end{itemize}
+\end{fichebox}
+
+\begin{fichebox}{vert}{Probabilité conditionnelle}
+Si $P(A)\neq 0$ :
+\[
+P_A(B)=\frac{P(A\cap B)}{P(A)}.
+\]
+Donc :
+\[
+P(A\cap B)=P(A)\times P_A(B).
+\]
+\textbf{Phrase :} $P_A(B)$ est la probabilité que $B$ soit réalisé sachant que $A$ est réalisé.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Indépendance}
+$A$ et $B$ sont indépendants si :
+\[
+P(A\cap B)=P(A)P(B).
+\]
+Si $P(A)\neq 0$ :
+\[
+P_A(B)=P(B).
+\]
+\textbf{Idée :} savoir que $A$ est réalisé ne change pas la probabilité de $B$.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 2
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{orange}{2. ARBRES \& PROBABILITÉS TOTALES}
+\begin{panel}{orange}
+
+\begin{fichebox}{bleu}{Arbre pondéré}
+\begin{center}
+\resizebox{0.95\linewidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[probaRacine] (O) at (0,0) {};
+  \node[probaNoeud] (A) at (1.45,0.85) {$A$};
+  \node[probaNoeud] (nA) at (1.45,-0.85) {$\overline A$};
+  \node[probaNoeud] (AB) at (3.85,1.28) {$B$};
+  \node[probaNoeud] (AnB) at (3.85,0.42) {$\overline B$};
+  \node[probaNoeud] (nAB) at (3.85,-0.42) {$B$};
+  \node[probaNoeud] (nAnB) at (3.85,-1.28) {$\overline B$};
+  \draw[probaBranche] (O) -- (A.west) node[probaEtiq, midway, above, sloped] {$P(A)$};
+  \draw[probaBranche] (O) -- (nA.west) node[probaEtiq, midway, below, sloped] {$P(\overline A)$};
+  \draw[probaBranche] (A.east) -- (AB.west) node[probaEtiq, pos=.52, above, sloped] {$P_A(B)$};
+  \draw[probaBranche] (A.east) -- (AnB.west) node[probaEtiq, pos=.52, below, sloped] {$P_A(\overline B)$};
+  \draw[probaBranche] (nA.east) -- (nAB.west) node[probaEtiq, pos=.52, above, sloped] {$P_{\overline A}(B)$};
+  \draw[probaBranche] (nA.east) -- (nAnB.west) node[probaEtiq, pos=.52, below, sloped] {$P_{\overline A}(\overline B)$};
+\end{tikzpicture}%
+}
+\end{center}
+\vspace{-1mm}
+\begin{itemize}
+    \item À un même nœud, la somme des branches vaut $1$.
+    \item La probabilité d'un chemin est le \textbf{produit} des branches.
+    \item La probabilité d'un événement est la \textbf{somme} des chemins qui le réalisent.
+\end{itemize}
+\[
+P(A\cap B)=P(A)\times P_A(B).
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Probabilités totales}
+\textbf{Rédaction modèle :}
+
+\medskip
+\begin{center}
+$A$ et $\overline A$ forment une partition de l'univers.
+
+\smallskip
+D'après la formule des\\ probabilités totales, on a :
+\end{center}
+\[
+P(B)=P(A\cap B)+P(\overline A\cap B).
+\]
+Avec un arbre :
+\[
+\begin{aligned}
+P(B)&=P(A)P_A(B)\\[-0.15em]
+&\quad+P(\overline A)P_{\overline A}(B).
+\end{aligned}
+\]
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 3
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{vert}{3. VARIABLES ALÉATOIRES}
+\begin{panel}{vert}
+
+\begin{fichebox}{bleu}{Variable aléatoire}
+Une variable aléatoire associe un nombre à chaque issue.
+
+\medskip
+\textbf{Phrase modèle :}
+\[
+\text{On note }X\text{ la variable aléatoire égale à }\ldots
+\]
+Toujours préciser ce que $X$ compte ou mesure.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Loi de probabilité}
+Donner la loi de $X$, c'est donner toutes les valeurs possibles et leurs probabilités :
+\[
+\begin{array}{c|cccc}
+x_i & x_1 & x_2 & \cdots & x_n\\
+\hline
+P(X=x_i)&p_1&p_2&\cdots&p_n
+\end{array}
+\]
+avec :
+\[
+p_1+p_2+\cdots+p_n=1.
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Espérance, variance, écart-type}
+\[
+E(X)=\sum x_i p_i
+\]
+\[
+V(X)=\sum p_i\bigl(x_i-E(X)\bigr)^2
+\]
+\[
+\sigma(X)=\sqrt{V(X)}.
+\]
+\textbf{Interprétation :} l'espérance est une \textbf{moyenne théorique} sur un très grand nombre de répétitions.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 4
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{violet}{4. BERNOULLI \& LOI BINOMIALE}
+\begin{panel}{violet}
+
+\begin{fichebox}{bleu}{Bernoulli : une épreuve}
+Une épreuve de Bernoulli a exactement deux issues :
+\begin{itemize}
+    \item succès $S$, de probabilité $p$ ;
+    \item échec $\overline S$, de probabilité $1-p$.
+\end{itemize}
+\[
+P(S)=p \qquad P(\overline S)=1-p.
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Justifier une loi binomiale}
+\textbf{Rédaction modèle :}
+
+\smallskip
+On considère l'épreuve de Bernoulli : \dotfill
+
+\smallskip
+Le succès est : « \ldots » ; sa probabilité est $p=\ldots$.
+
+\smallskip
+On répète cette épreuve $n$ fois de manière \textbf{identique et indépendante}.
+
+\smallskip
+$X$ compte le nombre de succès. Donc :
+\[
+X\sim\Bin(n;p).
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Loi binomiale : formules}
+Si $X\sim\Bin(n;p)$, alors, pour $0\leq k\leq n$ :
+\[
+P(X=k)=\binom nk p^k(1-p)^{n-k}.
+\]
+\[
+E(X)=np\qquad V(X)=np(1-p)
+\]
+\[
+\sigma(X)=\sqrt{np(1-p)}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Traduire les événements}
+\footnotesize
+\begin{tabularx}{\linewidth}{>{\bfseries}X >{\centering\arraybackslash}X}
+Expression & Probabilité \\
+\hline
+exactement $k$ & $P(X=k)$ \\
+au plus $k$ & $P(X\leq k)$ \\
+moins de $k$ & $P(X\leq k-1)$ \\
+au moins $k$ & $P(X\geq k)$ \\
+plus de $k$ & $P(X\geq k+1)$ \\
+au moins un & $1-P(X=0)$
+\end{tabularx}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+
+
+
+
+\newpage
+\thispagestyle{empty}
+
+\begin{tcolorbox}[
+    colback=white,
+    colframe=bleu!70!black,
+    boxrule=0.65pt,
+    arc=3mm,
+    left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,
+    before skip=0mm,
+    after skip=1.4mm,
+    drop fuzzy shadow=black!10
+]
+{\Large\bfseries Parcours de révision -- Probabilités}\hfill
+
+
+\vspace{0.25mm}
+
+\end{tcolorbox}
+
+\noindent
+% ============================================================
+% PAGE 2 - COLONNE 1
+% ============================================================
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{bleu}{5. CARDINAUX \& PRINCIPES DE COMPTAGE}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Cardinal et équiprobabilité}
+Pour un ensemble fini $E$ :
+\[
+\operatorname{Card}(E)=\text{nombre d'éléments de }E.
+\]
+En équiprobabilité :
+\[
+P(A)=\frac{\operatorname{Card}(A)}{\operatorname{Card}(\Omega)}
+=\frac{\text{cas favorables}}{\text{cas possibles}}.
+\]
+\textbf{Réflexe :} identifier l'univers $\Omega$, puis l'événement $A$.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Réunion et complémentaire}
+Pour deux ensembles finis :
+\[
+\begin{aligned}
+\operatorname{Card}(E\cup F)
+&=\operatorname{Card}(E)+\operatorname{Card}(F)\\[-0.2em]
+&\quad-\operatorname{Card}(E\cap F).
+\end{aligned}
+\]
+Si $E$ et $F$ sont disjoints :
+\[
+\operatorname{Card}(E\cup F)=\operatorname{Card}(E)+\operatorname{Card}(F).
+\]
+Si $A\subset E$ :
+\[
+\operatorname{Card}(\overline A)=\operatorname{Card}(E)-\operatorname{Card}(A).
+\]
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% PAGE 2 - COLONNE 2
+% ============================================================
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{orange}{6. CHOIX SUCCESSIFS : L'ORDRE COMPTE}
+\begin{panel}{orange}
+
+\begin{fichebox}{vert}{Les trois formules}
+Dans un ensemble à $n$ éléments :
+\[
+\begin{array}{c|c}
+\text{Situation} & \text{Nombre}\\
+\hline
+k\text{ choix avec répétition} & n^k\\[0.2em]
+k\text{ choix sans répétition} & A_n^k\\[0.2em]
+\text{ordonner les }n\text{ éléments} & n!
+\end{array}
+\]
+avec :
+\[
+A_n^k=n(n-1)\cdots(n-k+1)=\frac{n!}{(n-k)!}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{gris}{Exemples typiques}
+\begin{itemize}
+    \item Code à $k$ caractères : souvent $n^k$.
+    \item Podium, ordre d'interrogation : arrangement.
+    \item Ranger tous les objets : permutation $n!$.
+\end{itemize}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% PAGE 2 - COLONNE 3
+% ============================================================
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{vert}{7. CHOIX SANS ORDRE \& COEFFICIENTS BINOMIAUX}
+\begin{panel}{vert}
+
+\begin{fichebox}{vert}{Combinaisons et parties}
+Choisir $k$ éléments parmi $n$, \textbf{sans tenir compte de l'ordre} :
+\[
+\binom nk=\frac{n!}{k!(n-k)!}.
+\]
+\emph{On choisit $k$ éléments parmi $n$, sans tenir compte de l'ordre. Il y a donc $\binom nk$ possibilités.}
+
+\medskip
+Nombre de parties d'un ensemble à $n$ éléments :
+\[
+2^n.
+\]
+Dans $\Bin(n;p)$, $\binom nk$ compte les placements des $k$ succès.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Coefficients binomiaux utiles}
+\[
+\binom n0=1,\quad \binom nn=1,
+\qquad \binom n1=n.
+\]
+\[
+\binom nk=\binom n{n-k}.
+\]
+Relation de Pascal :
+\[
+\binom nk+\binom n{k+1}=\binom {n+1}{k+1}.
+\]
+Somme d'une ligne :
+\[
+\sum_{k=0}^{n}\binom nk=2^n.
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Table de décision}
+\begin{tabularx}{\linewidth}{>{\bfseries}X>{\centering\arraybackslash}X}
+Question & Formule \\
+\hline
+ordre + répétitions & $n^k$ \\
+ordre + éléments distincts & $A_n^k$ \\
+ordonner tous les éléments & $n!$ \\
+sans ordre & $\binom nk$ \\
+toutes les parties & $2^n$
+\end{tabularx}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\end{landscape}
+\clearpage
+\restoregeometry
+\pagecolor{white}\color{black}
+\pagestyle{fancy}
+
+% ------------------------------------------------------------
+\section*{Partie 2 -- Questions flashs}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flashs}
+\setcounter{question}{0}
+\begin{blocquestions}{A. Vocabulaire essentiel}
+\item Qu'appelle-t-on l'univers en probabilités ? \origine{287}
+\item Qu'appelle-t-on une expérience aléatoire ? \origine{310}
+\item Qu'appelle-t-on une issue ? \origine{309}
+\item Qu'appelle-t-on la loi de probabilité d'une variable aléatoire ? \origine{286}
+\item Qu'est-ce qu'une variable aléatoire réelle ? \origine{75}
+\item Que note-t-on souvent pour l'évènement contraire de \(A\) ? \origine{43}
+\item Que signifie \(A\cap B\) ? \origine{41}
+\item Que signifie \(A\cup B\) ? \origine{42}
+\item Qu'appelle-t-on deux évènements incompatibles ? \origine{288}
+\item Qu'appelle-t-on deux évènements indépendants ? \origine{289}
+\item Qu'appelle-t-on une partition de l'univers ? \origine{312}
+\item Qu'est-ce qu'une épreuve de Bernoulli ? \origine{57}
+\end{blocquestions}
+
+\begin{blocquestions}{B. Premiers calculs et arbres de probabilités}
+\item Que vaut \(P(\overline{A})\) ? \origine{44}
+\item Quelle est la probabilité de l'évènement impossible ? \origine{55}
+\item Quelle est la probabilité de l'évènement certain ? \origine{56}
+\item Si \(P(A)=0{,}35\), que vaut \(P(\overline{A})\) ? \origine{371}
+\item Si \(A\) et \(B\) forment une partition de l'univers, que vaut \(P(A)+P(B)\) ? \origine{372}
+\item Dans une épreuve de Bernoulli de probabilité de succès \(0{,}2\), quelle est la probabilité de l'échec ? \origine{373}
+\item Quelle est la formule de la probabilité conditionnelle ? \origine{39}
+\item Quelle formule permet de retrouver \(P(A\cap B)\) ? \origine{40}
+\item Calculer \(P_B(A)\) sachant que \(P(A\cap B)=\dfrac15\) et \(P(B)=\dfrac3{10}\). \origine{660}
+\item Comment calcule-t-on la probabilité d'un chemin dans un arbre ? \origine{46}
+\item Comment calcule-t-on la probabilité d'un évènement obtenu par plusieurs chemins ? \origine{47}
+\item Quelle est la formule des probabilités totales avec une partition \((B_i)\) ? \origine{49}
+\end{blocquestions}
+
+\begin{blocquestions}{C. Loi binomiale}
+\item Qu'est-ce qu'un schéma de Bernoulli ? \origine{58}
+\item Quand une variable aléatoire suit-elle une loi binomiale ? \origine{59}
+\item Comment note-t-on une loi binomiale de paramètres \(n\) et \(p\) ? \origine{60}
+\item Quelles valeurs peut prendre une variable \(X\sim\mathcal{B}(n,p)\) ? \origine{61}
+\item Dans une loi binomiale, que compte la variable aléatoire ? \origine{221}
+\item Quelle est la formule de \(P(X=k)\) pour \(X\sim\mathcal{B}(n,p)\) ? \origine{62}
+\item Écrire \(P(X=3)\) si \(X\sim\mathcal{B}\!\left(8;\dfrac14\right)\). \origine{655}
+\item Quelle est l'espérance d'une loi binomiale \(\mathcal{B}(n,p)\) ? \origine{63}
+\item Que représente l'espérance dans un contexte concret ? \origine{64}
+\item Si \(X\sim\mathcal{B}(10;0{,}2)\), que vaut \(E(X)\) ? \origine{222}
+\item Quelle est la variance d'une loi binomiale \(\mathcal{B}(n,p)\) ? \origine{65}
+\item Quel est l'écart-type d'une loi binomiale \(\mathcal{B}(n,p)\) ? \origine{66}
+\item Quelle formule utilise-t-on souvent pour « au moins un succès » ? \origine{67}
+\end{blocquestions}
+
+\begin{blocquestions}{D. Variables aléatoires finies}
+\item Donner la formule de l'espérance d'une variable aléatoire finie \(X\). \origine{489}
+\item Donner la formule de la variance d'une variable aléatoire finie \(X\). \origine{490}
+\item Comment définit-on l'écart-type d'une variable aléatoire \(X\) ? \origine{491}
+\item Calculer l'espérance d'une variable aléatoire \(X\) telle que \(P(X=0)=\dfrac14\), \(P(X=1)=\dfrac12\), \(P(X=3)=\dfrac14\). \origine{665}
+\item Quelle propriété vérifient les probabilités d'une loi finie ? \origine{540}
+\item Quelle notation représente l'évènement « \(X\) prend la valeur \(a\) » ? \origine{542}
+\item Comment calcule-t-on \(P(X\leqslant a)\) à partir de la loi de \(X\) ? \origine{543}
+\end{blocquestions}
+
+\begin{blocquestions}{E. Rédaction type bac}
+\item Quels sont les points de rédaction importants pour justifier que \(X\) suit une loi binomiale ? \origine{396}
+\item Quels sont les points de rédaction importants pour utiliser la formule des probabilités totales ? \origine{395}
+\item On note \(X\) le nombre de succès obtenus en \(10\) essais indépendants. Un élève écrit : « \(X\) suit une loi binomiale car on répète \(10\) fois l'expérience. » Comment formuler proprement la réponse pour avoir tous les points ? \origine{335}
+\item Pour trouver la probabilité d'un évènement \(B\) situé au bout des branches d'un arbre de probabilités, un élève écrit : « On applique la formule des probabilités totales avec \(A\) et \(\overline{A}\). » Comment formuler proprement la réponse pour avoir tous les points ? \origine{336}
+\item Dans un exercice, un élève écrit : « La probabilité de \(A\cap B\), c'est \(P(A)\times P(B)\). » Comment formuler proprement la réponse pour avoir tous les points ? \origine{353}
+\item À propos d'une loi binomiale, un élève écrit : « Au moins un succès, c'est \(1-P(X\geqslant 1)\). » Comment formuler proprement la réponse pour avoir tous les points ? \origine{414}
+\end{blocquestions}
+
+\clearpage
+
+% ------------------------------------------------------------
+\section*{Partie 3 -- Sujets de bac}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets de bac}
+\section*{Sujet 1 -- Groupes sanguins et donneurs universels}
+{\small\emph{Référence : Baccalauréat Métropole, 17 juin 2025, sujet 1, exercice 1.}}
+
+On compte quatre groupes sanguins dans l'espèce humaine : A, B, AB et O. Chaque groupe sanguin peut présenter un facteur rhésus. Lorsqu'il est présent, on dit que le rhésus est positif, sinon on dit qu'il est négatif.
+
+Au sein de la population française, on sait que :
+\begin{itemize}
+  \item 45 \% des individus appartiennent au groupe A, et parmi eux 85 \% sont de rhésus positif ;
+  \item 10 \% des individus appartiennent au groupe B, et parmi eux 84 \% sont de rhésus positif ;
+  \item 3 \% des individus appartiennent au groupe AB, et parmi eux 82 \% sont de rhésus positif.
+\end{itemize}
+
+On choisit au hasard une personne dans la population française.
+
+On désigne par :
+\begin{itemize}
+  \item $A$ l'événement : « la personne choisie est de groupe sanguin A » ;
+  \item $B$ l'événement : « la personne choisie est de groupe sanguin B » ;
+  \item $AB$ l'événement : « la personne choisie est de groupe sanguin AB » ;
+  \item $O$ l'événement : « la personne choisie est de groupe sanguin O » ;
+  \item $R$ l'événement : « la personne choisie a un facteur rhésus positif ».
+\end{itemize}
+
+Pour un événement quelconque $E$, on note $\overline E$ l'événement contraire de $E$ et $p(E)$ la probabilité de $E$.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[probaRacine] (racine) at (0,0) {};
+
+  \node[probaNoeud] (A)  at (2.65, 1.80) {$A$};
+  \node[probaNoeud] (B)  at (2.65, 0.60) {$B$};
+  \node[probaNoeud] (AB) at (2.65,-0.60) {$AB$};
+  \node[probaNoeud] (O)  at (2.65,-1.80) {$O$};
+
+  \node[probaNoeud] (AR)  at (5.55, 2.12) {$R$};
+  \node[probaNoeud] (AnR) at (5.55, 1.48) {$\overline R$};
+  \node[probaNoeud] (BR)  at (5.55, 0.92) {$R$};
+  \node[probaNoeud] (BnR) at (5.55, 0.28) {$\overline R$};
+  \node[probaNoeud] (ABR)  at (5.55,-0.28) {$R$};
+  \node[probaNoeud] (ABnR) at (5.55,-0.92) {$\overline R$};
+  \node[probaNoeud] (OR)  at (5.55,-1.48) {$R$};
+  \node[probaNoeud] (OnR) at (5.55,-2.12) {$\overline R$};
+
+  \draw[probaBranche] (racine) -- (A.west)  node[probaEtiq, midway, above, sloped] {$\cdots$};
+  \draw[probaBranche] (racine) -- (B.west)  node[probaEtiq, midway, above, sloped] {$\cdots$};
+  \draw[probaBranche] (racine) -- (AB.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+  \draw[probaBranche] (racine) -- (O.west)  node[probaEtiq, midway, below, sloped] {$\cdots$};
+
+  \draw[probaBranche] (A.east) -- (AR.west)   node[probaEtiq, midway, above, sloped] {$\cdots$};
+  \draw[probaBranche] (A.east) -- (AnR.west)  node[probaEtiq, midway, below, sloped] {$\cdots$};
+  \draw[probaBranche] (B.east) -- (BR.west)   node[probaEtiq, midway, above, sloped] {$\cdots$};
+  \draw[probaBranche] (B.east) -- (BnR.west)  node[probaEtiq, midway, below, sloped] {$\cdots$};
+  \draw[probaBranche] (AB.east) -- (ABR.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+  \draw[probaBranche] (AB.east) -- (ABnR.west)node[probaEtiq, midway, below, sloped] {$\cdots$};
+  \draw[probaBranche] (O.east) -- (OR.west);
+  \draw[probaBranche] (O.east) -- (OnR.west);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+  \item Recopier l'arbre ci-dessus en complétant les dix pointillés.
+\item Montrer que $p(B\cap R)=0{,}084$. Interpréter ce résultat dans le contexte de l'exercice.
+\item On précise que $p(R)=0{,}8397$. Montrer que $p_O(R)=0{,}83$.
+\item On dit qu'un individu est « donneur universel » lorsque son sang peut être transfusé à toute personne sans risque d'incompatibilité. Le groupe O de rhésus négatif est le seul vérifiant cette caractéristique. Montrer que la probabilité qu'un individu choisi au hasard dans la population française soit donneur universel est de $0{,}0714$.
+\item Lors d'une collecte de sang, on choisit un échantillon de 100 personnes dans la population d'une ville française. Cette population est suffisamment grande pour assimiler ce choix à un tirage avec remise. On note $X$ la variable aléatoire qui à chaque échantillon de 100 personnes associe le nombre de donneurs universels dans cet échantillon.
+  \begin{enumerate}
+    \item Justifier que $X$ suit une loi binomiale dont on précisera les paramètres.
+    \item Déterminer à $10^{-3}$ près la probabilité qu'il y ait au plus 7 donneurs universels dans cet échantillon.
+    \item Montrer que l'espérance $E(X)$ de la variable aléatoire $X$ est égale à $7{,}14$ et que sa variance $V(X)$ est égale à $6{,}63$ à $10^{-2}$ près.
+  \end{enumerate}
+\item Lors de la semaine nationale du don du sang, une collecte de sang est organisée dans $N$ villes françaises choisies au hasard numérotées $1,2,3,\ldots,N$, où $N$ est un entier naturel non nul.
+
+  On considère la variable aléatoire $X_1$ qui à chaque échantillon de 100 personnes de la ville 1 associe le nombre de donneurs universels dans cet échantillon. On définit de la même manière les variables aléatoires $X_2$ pour la ville 2, ..., $X_N$ pour la ville $N$.
+
+  On suppose que ces variables aléatoires sont indépendantes et qu'elles admettent la même espérance égale à $7{,}14$ et la même variance égale à $6{,}63$.
+
+  On considère la variable aléatoire
+  \[
+  M_N=\dfrac{X_1+X_2+\cdots+X_N}{N}.
+  \]
+  \begin{enumerate}
+    \item Que représente la variable aléatoire $M_N$ dans le contexte de l'exercice ?
+    \item Calculer l'espérance $E(M_N)$.
+    \item On désigne par $V(M_N)$ la variance de la variable aléatoire $M_N$. Montrer que
+    \[
+    V(M_N)=\dfrac{6{,}63}{N}.
+    \]
+    \item Déterminer la plus petite valeur de $N$ pour laquelle l'inégalité de Bienaymé-Tchebychev permet d'affirmer que
+    \[
+    P(7<M_N<7{,}28)>0{,}95.
+    \]
+  \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\section*{Sujet 2 -- Chutes en roller et temps d'attente}
+{\small\emph{Référence : Baccalauréat Métropole, 18 juin 2025, sujet 2, exercice 1.}}
+
+Les deux parties peuvent être traitées indépendamment. Dans cet exercice on s'intéresse à des personnes venues séjourner dans un centre multisports au cours du week-end. Les résultats des probabilités demandées seront arrondis au millième si nécessaire.
+
+\subsubsection*{Partie A}
+
+Le centre propose aux personnes venues pour un week-end une formule d'initiation au roller composée de deux séances de cours.
+
+On choisit au hasard une personne parmi celles ayant souscrit à cette formule.
+
+On désigne par $A$ et $B$ les événements suivants :
+\begin{itemize}
+  \item $A$ : « la personne chute pendant la première séance » ;
+  \item $B$ : « la personne chute pendant la deuxième séance ».
+\end{itemize}
+
+Pour un événement $E$ quelconque, on note $P(E)$ sa probabilité et $\overline E$ son événement contraire.
+
+Des observations permettent d'admettre que $P(A)=0{,}6$.
+
+De plus on constate que :
+\begin{itemize}
+  \item si la personne chute pendant la première séance, la probabilité qu'elle chute pendant la deuxième est de $0{,}3$ ;
+  \item si la personne ne chute pas pendant la première séance, la probabilité qu'elle chute pendant la deuxième est de $0{,}4$.
+\end{itemize}
+
+\begin{enumerate}
+  \item Représenter la situation par un arbre pondéré.
+\item Calculer la probabilité $P(\overline A\cap \overline B)$ et interpréter le résultat.
+\item Montrer que $P(B)=0{,}34$.
+\item La personne ne chute pas pendant la deuxième séance de cours. Calculer la probabilité qu'elle n'ait pas chuté lors de la première séance.
+\item On appelle $X$ la variable aléatoire qui, à chaque échantillon de 100 personnes ayant souscrit à la formule, associe le nombre d'entre elles n'ayant chuté ni lors de la première ni lors de la deuxième séance.
+
+  On assimile le choix d'un échantillon de 100 personnes à un tirage avec remise.
+
+  On admet que la probabilité qu'une personne ne chute ni lors de la première ni lors de la deuxième séance est de $0{,}24$.
+  \begin{enumerate}
+    \item Montrer que la variable aléatoire $X$ suit une loi binomiale dont on précisera les paramètres.
+    \item Quelle est la probabilité d'avoir, dans un échantillon de 100 personnes ayant souscrit à la formule, au moins 20 personnes qui ne chutent ni lors de la première ni lors de la deuxième séance ?
+    \item Calculer l'espérance $E(X)$ et interpréter le résultat dans le contexte de l'exercice.
+  \end{enumerate}
+\end{enumerate}
+
+\subsubsection*{Partie B}
+
+On choisit au hasard une personne venue un week-end au centre multisport. On note $T_1$ la variable aléatoire donnant son temps d'attente total en minute avant les accès aux activités sportives pendant la journée du samedi et $T_2$ la variable aléatoire donnant son temps d'attente total en minutes avant les accès aux activités sportives pendant la journée du dimanche.
+
+On admet que :
+\begin{itemize}
+  \item $T_1$ suit une loi de probabilité d'espérance $E(T_1)=40$ et d'écart-type $\sigma(T_1)=10$ ;
+  \item $T_2$ suit une loi de probabilité d'espérance $E(T_2)=60$ et d'écart-type $\sigma(T_2)=16$ ;
+  \item les variables aléatoires $T_1$ et $T_2$ sont indépendantes.
+\end{itemize}
+
+On note $T$ la variable aléatoire donnant le temps total d'attente avant les accès aux activités sportives lors des deux jours, exprimé en minute. Ainsi on a $T=T_1+T_2$.
+
+\begin{enumerate}
+  \item Déterminer l'espérance $E(T)$ de la variable aléatoire $T$. Interpréter le résultat dans le contexte de l'exercice.
+\item Montrer que la variance $V(T)$ de la variable aléatoire $T$ est égale à $356$.
+\item À l'aide de l'inégalité de Bienaymé-Tchebychev, montrer que, pour une personne choisie au hasard parmi celles venues un week-end au centre multisports, la probabilité que son temps total d'attente $T$ soit strictement compris entre 60 et 140 minutes est supérieure à $0{,}77$.
+\end{enumerate}
+
+\newpage
+
+\section*{Sujet 3 -- Jeu vidéo et suite probabiliste}
+{\small\emph{Référence : Baccalauréat Asie, 11 juin 2024, sujet 2, exercice 2.}}
+
+Léa passe une bonne partie de ses journées à jouer à un jeu vidéo et s'intéresse aux chances de victoire de ses prochaines parties.
+
+Elle estime que si elle vient de gagner une partie, elle gagne la suivante dans 70 \% des cas.
+
+Mais si elle vient de subir une défaite, d'après elle, la probabilité qu'elle gagne la suivante est de $0{,}2$.
+
+De plus, elle pense avoir autant de chance de gagner la première partie que de la perdre.
+
+On s'appuiera sur les affirmations de Léa pour répondre aux questions de cet exercice.
+
+Pour tout entier naturel $n$ non nul, on définit les événements suivants :
+\begin{itemize}
+  \item $G_n$ : « Léa gagne la $n$-ième partie de la journée » ;
+  \item $D_n$ : « Léa perd la $n$-ième partie de la journée ».
+\end{itemize}
+
+Pour tout entier naturel $n$ non nul, on note $g_n$ la probabilité de l'événement $G_n$. On a donc $g_1=0{,}5$.
+
+\begin{enumerate}
+  \item Quelle est la valeur de la probabilité conditionnelle $p_{G_1}(D_2)$ ?
+\item Recopier et compléter l'arbre des probabilités ci-dessous qui modélise la situation pour les deux premières parties de la journée.
+  \begin{center}
+  \begin{tikzpicture}[x=1cm,y=1cm]
+    \node[probaRacine] (r) at (0,0) {};
+    \node[probaNoeud] (G1) at (2.15,0.92) {$G_1$};
+    \node[probaNoeud] (D1) at (2.15,-0.92) {$D_1$};
+    \node[probaNoeud] (G2a) at (4.85,1.28) {$G_2$};
+    \node[probaNoeud] (D2a) at (4.85,0.56) {$D_2$};
+    \node[probaNoeud] (G2b) at (4.85,-0.56) {$G_2$};
+    \node[probaNoeud] (D2b) at (4.85,-1.28) {$D_2$};
+
+    \draw[probaBranche] (r) -- (G1.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+    \draw[probaBranche] (r) -- (D1.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+    \draw[probaBranche] (G1.east) -- (G2a.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+    \draw[probaBranche] (G1.east) -- (D2a.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+    \draw[probaBranche] (D1.east) -- (G2b.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+    \draw[probaBranche] (D1.east) -- (D2b.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+  \end{tikzpicture}
+  \end{center}
+\item Calculer $g_2$.
+\item Soit $n$ un entier naturel non nul.
+  \begin{enumerate}
+    \item Recopier et compléter l'arbre des probabilités ci-dessous qui modélise la situation pour les $n$-ième et $(n+1)$-ième parties de la journée.
+    \begin{center}
+    \begin{tikzpicture}[x=1cm,y=1cm]
+      \node[probaRacine] (r) at (0,0) {};
+      \node[probaNoeud] (Gn) at (2.15,0.92) {$G_n$};
+      \node[probaNoeud] (Dn) at (2.15,-0.92) {$D_n$};
+      \node[probaNoeud] (Gna) at (4.95,1.28) {$G_{n+1}$};
+      \node[probaNoeud] (Dna) at (4.95,0.56) {$D_{n+1}$};
+      \node[probaNoeud] (Gnb) at (4.95,-0.56) {$G_{n+1}$};
+      \node[probaNoeud] (Dnb) at (4.95,-1.28) {$D_{n+1}$};
+
+      \draw[probaBranche] (r) -- (Gn.west) node[probaEtiq, midway, above, sloped] {$g_n$};
+      \draw[probaBranche] (r) -- (Dn.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+      \draw[probaBranche] (Gn.east) -- (Gna.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+      \draw[probaBranche] (Gn.east) -- (Dna.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+      \draw[probaBranche] (Dn.east) -- (Gnb.west) node[probaEtiq, midway, above, sloped] {$\cdots$};
+      \draw[probaBranche] (Dn.east) -- (Dnb.west) node[probaEtiq, midway, below, sloped] {$\cdots$};
+    \end{tikzpicture}
+    \end{center}
+    \item Justifier que pour tout entier naturel $n$ non nul,
+    \[
+    g_{n+1}=0{,}5g_n+0{,}2.
+    \]
+  \end{enumerate}
+\item Pour tout entier naturel $n$ non nul, on pose $v_n=g_n-0{,}4$.
+  \begin{enumerate}
+    \item Montrer que la suite $(v_n)$ est géométrique. On précisera son premier terme et sa raison.
+    \item Montrer que, pour tout entier naturel $n$ non nul,
+    \[
+    g_n=0{,}1\times 0{,}5^{n-1}+0{,}4.
+    \]
+  \end{enumerate}
+  \item Étudier les variations de la suite $(g_n)$.
+\item Donner, en justifiant, la limite de la suite $(g_n)$. Interpréter le résultat dans le contexte de l'énoncé.
+\item Déterminer, par le calcul, le plus petit entier $n$ tel que $g_n-0{,}4\leqslant 0{,}001$.
+\item Recopier et compléter les lignes 4, 5 et 6 de la fonction suivante, écrite en langage Python, afin qu'elle renvoie le plus petit rang à partir duquel les termes de la suite $(g_n)$ sont tous inférieurs ou égaux à $0{,}4+e$, où $e$ est un nombre réel strictement positif.
+\begin{lstlisting}
+def seuil(e):
+    g = 0.5
+    n = 1
+    while ...:
+        g = 0.5 * ... + 0.2
+        n = ...
+    return n
+\end{lstlisting}
+\end{enumerate}
+
+\end{document}

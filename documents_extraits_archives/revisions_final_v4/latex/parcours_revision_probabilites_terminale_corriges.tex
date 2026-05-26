@@ -1,0 +1,696 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.7cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{246,246,246}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bleufonce,
+  urlcolor=bleufonce,
+  pdftitle={Parcours de révision -- Probabilités -- Corrigés},
+  pdfauthor={}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.28em}
+\renewcommand{\arraystretch}{1.12}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.25em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\Bin}{\mathcal B}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+\newcounter{reponse}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,right=2mm,top=2mm,bottom=1.5mm,
+    title={\bfseries #1},
+    coltitle=white,
+    colbacktitle=bleufonce,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{
+  enhanced,
+  breakable,
+  colback=grisclair,
+  colframe=black!55,
+  boxrule=0.55pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=2mm,bottom=1.5mm,
+  title=\textbf{#1},
+  coltitle=black,
+  colbacktitle=black!12,
+  before skip=2mm,
+  after skip=2mm
+}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\e}{\mathrm e}
+
+\tikzset{
+  tabouter/.style={draw=tableline, line width=0.85pt},
+  tabline/.style={draw=tableline, line width=0.55pt},
+  forbidden/.style={draw=tableline, line width=0.95pt},
+  vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},
+  tabtext/.style={font=\small},
+  tabmath/.style={font=\small},
+  labelcell/.style={font=\small\bfseries, text=deepblue},
+  pointvalue/.style={font=\small\bfseries},
+  endvalue/.style={font=\small},
+}
+
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Probabilités}\\[1mm]
+
+\end{center}
+
+\vspace{1mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Corrections des questions flashs}
+\addcontentsline{toc}{section}{Partie 1 -- Corrections des questions flashs}
+\setcounter{reponse}{0}
+
+\begin{blocreponses}{Réponses -- A. Vocabulaire essentiel}
+  \item L'univers est l'ensemble de toutes les issues possibles.
+  \item Une expérience aléatoire est une expérience dont on ne peut pas prévoir avec certitude l'issue.
+  \item Une issue est un résultat possible d'une expérience aléatoire.
+  \item La loi de probabilité d'une variable aléatoire donne les valeurs prises par cette variable et les probabilités associées.
+  \item Une variable aléatoire réelle est une grandeur numérique dépendant du hasard.
+  \item L'évènement contraire de $A$ se note souvent $\overline A$.
+  \item $A\cap B$ signifie : « $A$ et $B$ ».
+  \item $A\cup B$ signifie : « $A$ ou $B$ ».
+  \item Deux évènements incompatibles ne peuvent pas se produire en même temps : $A\cap B=\varnothing$.
+  \item Deux évènements sont indépendants lorsque $P(A\cap B)=P(A)P(B)$.
+  \item Une partition de l'univers est une famille d'évènements incompatibles deux à deux dont la réunion est l'univers.
+  \item Une épreuve de Bernoulli est une expérience aléatoire à deux issues : succès ou échec.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- B. Premiers calculs et arbres de probabilités}
+  \item $P(\overline A)=1-P(A)$.
+  \item La probabilité de l'évènement impossible est $0$.
+  \item La probabilité de l'évènement certain est $1$.
+  \item $P(\overline A)=1-0{,}35=0{,}65$.
+  \item Si $A$ et $B$ forment une partition de l'univers, alors $P(A)+P(B)=1$.
+  \item La probabilité de l'échec est $1-0{,}2=0{,}8$.
+  \item Si $P(B)\neq0$, alors $P_B(A)=\dfrac{P(A\cap B)}{P(B)}$.
+  \item $P(A\cap B)=P(B)\times P_B(A)$, ou encore $P(A\cap B)=P(A)\times P_A(B)$.
+  \item $P_B(A)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{\frac15}{\frac3{10}}=\dfrac15\times\dfrac{10}{3}=\dfrac23$.
+  \item On calcule la probabilité d'un chemin en multipliant les probabilités inscrites sur ses branches.
+  \item On additionne les probabilités des différents chemins qui réalisent l'évènement.
+  \item Si les évènements $B_i$ forment une partition de l'univers, alors $P(A)=\displaystyle\sum_i P(B_i\cap A)=\sum_i P(B_i)P_{B_i}(A)$.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- C. Loi binomiale}
+  \item Un schéma de Bernoulli est une répétition d'épreuves de Bernoulli identiques et indépendantes, avec la même probabilité de succès.
+  \item Une variable aléatoire suit une loi binomiale lorsqu'elle compte le nombre de succès dans un schéma de Bernoulli.
+  \item On note $X\sim\mathcal B(n,p)$.
+  \item Une variable $X\sim\mathcal B(n,p)$ peut prendre toutes les valeurs entières de $0$ à $n$.
+  \item Elle compte le nombre de succès.
+  \item $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$.
+  \item $P(X=3)=\binom83\left(\dfrac14\right)^3\left(\dfrac34\right)^5$.
+  \item Pour $X\sim\mathcal B(n,p)$, $E(X)=np$.
+  \item Dans un contexte concret, l'espérance représente une valeur moyenne attendue sur un grand nombre de répétitions.
+  \item $E(X)=10\times0{,}2=2$.
+  \item Pour $X\sim\mathcal B(n,p)$, $V(X)=np(1-p)$.
+  \item $\sigma(X)=\sqrt{V(X)}=\sqrt{np(1-p)}$.
+  \item On utilise souvent $P(X\geqslant1)=1-P(X=0)$.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- D. Variables aléatoires finies}
+  \item Si $X$ prend les valeurs $x_1,\ldots,x_n$, alors $E(X)=\displaystyle\sum_{i=1}^n x_iP(X=x_i)$.
+  \item $V(X)=E\bigl((X-E(X))^2\bigr)$, ou $V(X)=\displaystyle\sum_i (x_i-E(X))^2P(X=x_i)$.
+  \item $\sigma(X)=\sqrt{V(X)}$.
+  \item $E(X)=0\times\dfrac14+1\times\dfrac12+3\times\dfrac14=\dfrac12+\dfrac34=\dfrac54=1{,}25$.
+  \item Les probabilités sont positives et leur somme vaut $1$.
+  \item On note cet évènement $\{X=a\}$.
+  \item On additionne les probabilités des valeurs de $X$ inférieures ou égales à $a$.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- E. Rédaction type bac}
+  \item Il faut préciser les épreuves de Bernoulli, l'indépendance, le caractère identique des répétitions, le succès et sa probabilité, puis dire que $X$ compte le nombre de succès. On conclut alors $X\sim\mathcal B(n,p)$.
+  \item Il faut annoncer la partition avant la formule. Par exemple : « $A$ et $\overline A$ forment une partition de l'univers. D'après la formule des probabilités totales, on a : $P(B)=P(A\cap B)+P(\overline A\cap B)$. »
+  \item On peut écrire : « On répète $10$ expériences de Bernoulli identiques et indépendantes, de même probabilité de succès $p$. La variable aléatoire $X$ compte le nombre de succès obtenus. Donc $X\sim\mathcal B(10,p)$. »
+  \item Il faut annoncer la partition avant la formule : « $A$ et $\overline A$ forment une partition de l'univers. D'après la formule des probabilités totales, $P(B)=P(A\cap B)+P(\overline A\cap B)$. »
+  \item Il faut ajouter l'hypothèse : « Si $A$ et $B$ sont indépendants, alors $P(A\cap B)=P(A)P(B)$. » Sans indépendance, cette égalité n'est pas vraie en général.
+  \item L'évènement contraire de « au moins un succès » est « aucun succès ». Donc $P(X\geqslant1)=1-P(X=0)$.
+\end{blocreponses}
+
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets de bac}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets de bac}
+
+\titreSujet{Sujet 1 -- Groupes sanguins et donneurs universels}{Métropole, juin 2025, sujet 1, exercice 1}
+
+\begin{correctionbox}{1. Arbre pondéré}
+On complète d'abord les probabilités des quatre groupes sanguins :
+\[
+p(O)=1-p(A)-p(B)-p(AB)=1-0{,}45-0{,}10-0{,}03=0{,}42.
+\]
+Les probabilités conditionnelles contraires valent :
+\[
+p_A(\overline R)=0{,}15,\qquad p_B(\overline R)=0{,}16,\qquad p_{AB}(\overline R)=0{,}18.
+\]
+
+\begin{center}
+\begin{tikzpicture}[grow=right, level distance=2.8cm, sibling distance=18mm,
+  every node/.style={font=\small}, edge from parent/.style={draw},
+  edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+\node {}
+  child {node {$O$}
+    child {node {$\overline R$}}
+    child {node {$R$}}
+    edge from parent node[below] {$0{,}42$}}
+  child {node {$AB$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}18$}}
+    child {node {$R$} edge from parent node[above] {$0{,}82$}}
+    edge from parent node[below] {$0{,}03$}}
+  child {node {$B$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}16$}}
+    child {node {$R$} edge from parent node[above] {$0{,}84$}}
+    edge from parent node[above] {$0{,}10$}}
+  child {node {$A$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}15$}}
+    child {node {$R$} edge from parent node[above] {$0{,}85$}}
+    edge from parent node[above] {$0{,}45$}};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{2. Calcul de $p(B\cap R)$}
+On utilise la formule d'une probabilité d'intersection avec une probabilité conditionnelle :
+\[
+p(B\cap R)=p(B)\times p_B(R)=0{,}10\times 0{,}84=0{,}084.
+\]
+Ainsi, la probabilité qu'une personne choisie au hasard soit de groupe sanguin B et de rhésus positif est égale à $0{,}084$, soit $8{,}4\,\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul de $p_O(R)$}
+Les événements $A$, $B$, $AB$ et $O$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+p(R)=p(A\cap R)+p(B\cap R)+p(AB\cap R)+p(O\cap R).
+\]
+Donc
+\[
+0{,}8397=0{,}45\times0{,}85+0{,}10\times0{,}84+0{,}03\times0{,}82+0{,}42\times p_O(R).
+\]
+Or
+\[
+0{,}45\times0{,}85+0{,}10\times0{,}84+0{,}03\times0{,}82=0{,}4911.
+\]
+Ainsi,
+\[
+0{,}42\times p_O(R)=0{,}8397-0{,}4911=0{,}3486,
+\]
+puis
+\[
+p_O(R)=\dfrac{0{,}3486}{0{,}42}=0{,}83.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Probabilité d'être donneur universel}
+Un donneur universel est une personne de groupe O et de rhésus négatif. On cherche donc $p(O\cap \overline R)$.
+
+D'après la question précédente, $p_O(R)=0{,}83$, donc $p_O(\overline R)=0{,}17$.
+
+Ainsi,
+\[
+p(O\cap \overline R)=p(O)\times p_O(\overline R)=0{,}42\times0{,}17=0{,}0714.
+\]
+La probabilité qu'un individu choisi au hasard dans la population française soit donneur universel est donc $0{,}0714$, soit $7{,}14\,\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Loi binomiale}
+\begin{enumerate}
+  \item On répète $100$ expériences de Bernoulli indépendantes et identiques, car le choix de l'échantillon est assimilé à un tirage avec remise. Le succès est : « la personne choisie est donneur universel », de probabilité $p=0{,}0714$. La variable aléatoire $X$ compte le nombre de succès parmi les 100 personnes. Donc
+  \[
+  X\sim \mathcal B(100;0{,}0714).
+  \]
+
+  \item On cherche $P(X\leqslant 7)$. À la calculatrice, avec $X\sim\mathcal B(100;0{,}0714)$,
+  \[
+  P(X\leqslant 7)\approx 0{,}577.
+  \]
+  La probabilité qu'il y ait au plus 7 donneurs universels dans cet échantillon est donc environ $0{,}577$.
+
+  \item Pour une loi binomiale $\mathcal B(n;p)$, on a $E(X)=np$ et $V(X)=np(1-p)$. Donc
+  \[
+  E(X)=100\times0{,}0714=7{,}14,
+  \]
+  et
+  \[
+  V(X)=100\times0{,}0714\times(1-0{,}0714)=6{,}630204\approx 6{,}63.
+  \]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Moyenne sur $N$ villes et Bienaymé-Tchebychev}
+\begin{enumerate}
+  \item La variable aléatoire $M_N$ représente le nombre moyen de donneurs universels dans les échantillons de 100 personnes prélevés dans les $N$ villes.
+
+  \item Par linéarité de l'espérance,
+  \[
+  E(M_N)=E\left(\dfrac{X_1+X_2+\cdots+X_N}{N}\right)
+  =\dfrac{E(X_1)+E(X_2)+\cdots+E(X_N)}{N}.
+  \]
+  Comme chaque variable $X_i$ a pour espérance $7{,}14$, on obtient
+  \[
+  E(M_N)=\dfrac{N\times7{,}14}{N}=7{,}14.
+  \]
+
+  \item Comme les variables $X_1,\ldots,X_N$ sont indépendantes,
+  \[
+  V(X_1+\cdots+X_N)=V(X_1)+\cdots+V(X_N)=N\times6{,}63.
+  \]
+  Donc
+  \[
+  V(M_N)=V\left(\dfrac{X_1+\cdots+X_N}{N}\right)=\dfrac{1}{N^2}V(X_1+\cdots+X_N)
+  =\dfrac{N\times6{,}63}{N^2}=\dfrac{6{,}63}{N}.
+  \]
+
+  \item On remarque que
+  \[
+  7<M_N<7{,}28 \quad \Longleftrightarrow \quad |M_N-7{,}14|<0{,}14.
+  \]
+  D'après l'inégalité de Bienaymé-Tchebychev,
+  \[
+  P\left(|M_N-E(M_N)|\geqslant 0{,}14\right)\leqslant \dfrac{V(M_N)}{0{,}14^2}.
+  \]
+  Donc
+  \[
+  P\left(|M_N-7{,}14|\geqslant 0{,}14\right)\leqslant \dfrac{6{,}63}{N\times0{,}0196}.
+  \]
+  Ainsi,
+  \[
+  P(7<M_N<7{,}28)\geqslant 1-\dfrac{6{,}63}{N\times0{,}0196}.
+  \]
+  On veut que ce minorant soit strictement supérieur à $0{,}95$ :
+  \[
+  1-\dfrac{6{,}63}{N\times0{,}0196}>0{,}95.
+  \]
+  Cela équivaut à
+  \[
+  \dfrac{6{,}63}{N\times0{,}0196}<0{,}05,
+  \]
+  donc
+  \[
+  N>\dfrac{6{,}63}{0{,}05\times0{,}0196}\approx6765{,}31.
+  \]
+  La plus petite valeur entière possible est donc
+  \[
+  \boxed{N=6766}.
+  \]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+
+\titreSujet{Sujet 2 -- Chutes en roller et temps d'attente}{Métropole, juin 2025, sujet 2, exercice 1}
+
+\subsubsection*{Partie A}
+
+\begin{correctionbox}{1. Arbre pondéré}
+On a $P(A)=0{,}6$, donc $P(\overline A)=0{,}4$. De plus,
+\[
+P_A(B)=0{,}3,\quad P_A(\overline B)=0{,}7,
+\quad P_{\overline A}(B)=0{,}4,
+\quad P_{\overline A}(\overline B)=0{,}6.
+\]
+
+\begin{center}
+\begin{tikzpicture}[grow=right,
+  level 1/.style={level distance=2.7cm, sibling distance=30mm},
+  level 2/.style={level distance=2.7cm, sibling distance=12mm},
+  every node/.style={font=\small}, edge from parent/.style={draw},
+  edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+\node {}
+  child {node {$\overline A$}
+    child {node {$\overline B$} edge from parent node[below] {$0{,}6$}}
+    child {node {$B$} edge from parent node[above] {$0{,}4$}}
+    edge from parent node[below] {$0{,}4$}}
+  child {node {$A$}
+    child {node {$\overline B$} edge from parent node[below] {$0{,}7$}}
+    child {node {$B$} edge from parent node[above] {$0{,}3$}}
+    edge from parent node[above] {$0{,}6$}};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{2. Calcul de $P(\overline A\cap\overline B)$}
+\[
+P(\overline A\cap\overline B)=P(\overline A)\times P_{\overline A}(\overline B)=0{,}4\times0{,}6=0{,}24.
+\]
+La probabilité qu'une personne ne chute ni pendant la première séance ni pendant la deuxième séance est donc égale à $0{,}24$.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul de $P(B)$}
+Les événements $A$ et $\overline A$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+P(B)=P(A\cap B)+P(\overline A\cap B).
+\]
+Donc
+\[
+P(B)=P(A)P_A(B)+P(\overline A)P_{\overline A}(B)=0{,}6\times0{,}3+0{,}4\times0{,}4.
+\]
+Ainsi,
+\[
+P(B)=0{,}18+0{,}16=0{,}34.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Probabilité conditionnelle inverse}
+On cherche $P_{\overline B}(\overline A)$.
+
+D'après la formule des probabilités conditionnelles,
+\[
+P_{\overline B}(\overline A)=\dfrac{P(\overline A\cap\overline B)}{P(\overline B)}.
+\]
+Or $P(\overline A\cap\overline B)=0{,}24$ et
+\[
+P(\overline B)=1-P(B)=1-0{,}34=0{,}66.
+\]
+Donc
+\[
+P_{\overline B}(\overline A)=\dfrac{0{,}24}{0{,}66}\approx0{,}364.
+\]
+La probabilité que la personne n'ait pas chuté lors de la première séance sachant qu'elle n'a pas chuté pendant la deuxième est donc environ $0{,}364$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Loi binomiale}
+\begin{enumerate}
+  \item On répète $100$ expériences de Bernoulli indépendantes et identiques, car le choix d'un échantillon de 100 personnes est assimilé à un tirage avec remise. Le succès est : « la personne ne chute ni pendant la première séance ni pendant la deuxième », de probabilité $p=0{,}24$. La variable aléatoire $X$ compte le nombre de succès parmi les 100 personnes. Donc
+  \[
+  X\sim\mathcal B(100;0{,}24).
+  \]
+
+  \item On cherche
+  \[
+  P(X\geqslant20)=1-P(X\leqslant19).
+  \]
+  À la calculatrice, avec $X\sim\mathcal B(100;0{,}24)$,
+  \[
+  P(X\geqslant20)\approx0{,}855.
+  \]
+  La probabilité d'avoir au moins 20 personnes qui ne chutent ni lors de la première ni lors de la deuxième séance est donc environ $0{,}855$.
+
+  \item Pour une loi binomiale $\mathcal B(n;p)$, on a $E(X)=np$. Donc
+  \[
+  E(X)=100\times0{,}24=24.
+  \]
+  Sur un grand nombre d'échantillons de 100 personnes, on peut s'attendre en moyenne à environ 24 personnes qui ne chutent ni pendant la première séance ni pendant la deuxième.
+\end{enumerate}
+\end{correctionbox}
+
+\subsubsection*{Partie B}
+
+\begin{correctionbox}{1. Espérance de $T$}
+Comme $T=T_1+T_2$, par linéarité de l'espérance,
+\[
+E(T)=E(T_1)+E(T_2)=40+60=100.
+\]
+Le temps total d'attente moyen pendant le week-end est donc de 100 minutes.
+\end{correctionbox}
+
+\begin{correctionbox}{2. Variance de $T$}
+On sait que $\sigma(T_1)=10$, donc $V(T_1)=10^2=100$, et que $\sigma(T_2)=16$, donc $V(T_2)=16^2=256$.
+
+Les variables aléatoires $T_1$ et $T_2$ sont indépendantes, donc
+\[
+V(T)=V(T_1+T_2)=V(T_1)+V(T_2)=100+256=356.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{3. Inégalité de Bienaymé-Tchebychev}
+On remarque que
+\[
+60<T<140 \quad \Longleftrightarrow \quad |T-100|<40.
+\]
+D'après l'inégalité de Bienaymé-Tchebychev,
+\[
+P(|T-E(T)|\geqslant40)\leqslant \dfrac{V(T)}{40^2}.
+\]
+Comme $E(T)=100$ et $V(T)=356$, on obtient
+\[
+P(|T-100|\geqslant40)\leqslant \dfrac{356}{1600}=0{,}2225.
+\]
+Donc
+\[
+P(|T-100|<40)\geqslant1-0{,}2225=0{,}7775.
+\]
+Ainsi,
+\[
+P(60<T<140)\geqslant0{,}7775>0{,}77.
+\]
+On a bien montré que la probabilité demandée est supérieure à $0{,}77$.
+\end{correctionbox}
+
+\newpage
+
+\titreSujet{Sujet 3 -- Jeu vidéo et suite probabiliste}{Asie, juin 2024, sujet 2, exercice 2}
+
+\begin{correctionbox}{1. Probabilité conditionnelle}
+Si Léa vient de gagner une partie, elle gagne la suivante dans 70 \% des cas. Donc, sachant qu'elle a gagné la première partie, elle perd la deuxième avec probabilité
+\[
+p_{G_1}(D_2)=1-0{,}7=0{,}3.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Arbre des deux premières parties}
+Comme Léa pense avoir autant de chances de gagner la première partie que de la perdre, on a $P(G_1)=0{,}5$ et $P(D_1)=0{,}5$.
+
+\begin{center}
+\begin{tikzpicture}[grow=right,
+  level 1/.style={level distance=2.5cm, sibling distance=30mm},
+  level 2/.style={level distance=2.5cm, sibling distance=12mm},
+  every node/.style={font=\small}, edge from parent/.style={draw},
+  edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+\node {}
+  child {node {$D_1$}
+    child {node {$D_2$} edge from parent node[below] {$0{,}8$}}
+    child {node {$G_2$} edge from parent node[above] {$0{,}2$}}
+    edge from parent node[below] {$0{,}5$}}
+  child {node {$G_1$}
+    child {node {$D_2$} edge from parent node[below] {$0{,}3$}}
+    child {node {$G_2$} edge from parent node[above] {$0{,}7$}}
+    edge from parent node[above] {$0{,}5$}};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul de $g_2$}
+Les événements $G_1$ et $D_1$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+g_2=P(G_2)=P(G_1\cap G_2)+P(D_1\cap G_2).
+\]
+Donc
+\[
+g_2=P(G_1)p_{G_1}(G_2)+P(D_1)p_{D_1}(G_2)=0{,}5\times0{,}7+0{,}5\times0{,}2.
+\]
+Ainsi,
+\[
+g_2=0{,}35+0{,}10=0{,}45.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Relation de récurrence}
+\begin{enumerate}
+  \item L'arbre général est le suivant.
+  \begin{center}
+  \begin{tikzpicture}[grow=right,
+    level 1/.style={level distance=2.7cm, sibling distance=30mm},
+    level 2/.style={level distance=2.7cm, sibling distance=12mm},
+    every node/.style={font=\small}, edge from parent/.style={draw},
+    edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+  \node {}
+    child {node {$D_n$}
+      child {node {$D_{n+1}$} edge from parent node[below] {$0{,}8$}}
+      child {node {$G_{n+1}$} edge from parent node[above] {$0{,}2$}}
+      edge from parent node[below] {$1-g_n$}}
+    child {node {$G_n$}
+      child {node {$D_{n+1}$} edge from parent node[below] {$0{,}3$}}
+      child {node {$G_{n+1}$} edge from parent node[above] {$0{,}7$}}
+      edge from parent node[above] {$g_n$}};
+  \end{tikzpicture}
+  \end{center}
+
+  \item Les événements $G_n$ et $D_n$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+  \[
+  g_{n+1}=P(G_{n+1})=P(G_n\cap G_{n+1})+P(D_n\cap G_{n+1}).
+  \]
+  Donc
+  \[
+  g_{n+1}=g_n\times0{,}7+(1-g_n)\times0{,}2.
+  \]
+  Ainsi,
+  \[
+  g_{n+1}=0{,}7g_n+0{,}2-0{,}2g_n=0{,}5g_n+0{,}2.
+  \]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{5. Suite géométrique auxiliaire}
+\begin{enumerate}
+  \item Pour tout entier naturel $n$ non nul,
+  \[
+  v_{n+1}=g_{n+1}-0{,}4.
+  \]
+  Or $g_{n+1}=0{,}5g_n+0{,}2$, donc
+  \[
+  v_{n+1}=0{,}5g_n+0{,}2-0{,}4=0{,}5g_n-0{,}2=0{,}5(g_n-0{,}4)=0{,}5v_n.
+  \]
+  La suite $(v_n)$ est donc géométrique de raison $0{,}5$.
+
+  Son premier terme est
+  \[
+  v_1=g_1-0{,}4=0{,}5-0{,}4=0{,}1.
+  \]
+
+  \item Comme $(v_n)$ est géométrique de premier terme $v_1=0{,}1$ et de raison $0{,}5$, on a, pour tout entier naturel $n$ non nul,
+  \[
+  v_n=0{,}1\times0{,}5^{n-1}.
+  \]
+  Or $v_n=g_n-0{,}4$, donc
+  \[
+  g_n=0{,}1\times0{,}5^{n-1}+0{,}4.
+  \]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Variations de $(g_n)$}
+Pour tout entier naturel $n$ non nul,
+\[
+g_{n+1}-g_n=(0{,}5g_n+0{,}2)-g_n=-0{,}5g_n+0{,}2=-0{,}5(g_n-0{,}4).
+\]
+Or
+\[
+g_n-0{,}4=0{,}1\times0{,}5^{n-1}>0.
+\]
+Donc
+\[
+g_{n+1}-g_n<0.
+\]
+La suite $(g_n)$ est donc strictement décroissante.
+\end{correctionbox}
+
+\begin{correctionbox}{7. Limite de $(g_n)$}
+Comme $0<0{,}5<1$, on a
+\[
+\lim_{n\to+\infty}0{,}5^{n-1}=0.
+\]
+Donc
+\[
+\lim_{n\to+\infty}g_n=0{,}1\times0+0{,}4=0{,}4.
+\]
+À long terme, selon le modèle de Léa, la probabilité qu'elle gagne la $n$-ième partie de la journée se stabilise vers $0{,}4$, c'est-à-dire $40\,\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{8. Seuil}
+On cherche le plus petit entier $n$ tel que
+\[
+g_n-0{,}4\leqslant0{,}001.
+\]
+Or
+\[
+g_n-0{,}4=0{,}1\times0{,}5^{n-1}.
+\]
+On résout donc
+\[
+0{,}1\times0{,}5^{n-1}\leqslant0{,}001.
+\]
+Cela équivaut à
+\[
+0{,}5^{n-1}\leqslant0{,}01.
+\]
+En utilisant les logarithmes :
+\[
+(n-1)\ln(0{,}5)\leqslant \ln(0{,}01).
+\]
+Comme $\ln(0{,}5)<0$, le sens de l'inégalité change lorsqu'on divise :
+\[
+n-1\geqslant \dfrac{\ln(0{,}01)}{\ln(0{,}5)}\approx6{,}64.
+\]
+Donc $n\geqslant7{,}64$, et le plus petit entier convenable est
+\[
+\boxed{n=8}.
+\]
+Vérification :
+\[
+g_8-0{,}4=0{,}1\times0{,}5^7=0{,}00078125\leqslant0{,}001.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{9. Fonction Python}
+La condition de boucle doit être vraie tant que $g$ est strictement supérieur à $0{,}4+e$. À chaque passage dans la boucle, on calcule le terme suivant et on augmente le rang de 1.
+
+\begin{lstlisting}
+def seuil(e):
+    g = 0.5
+    n = 1
+    while g > 0.4 + e:
+        g = 0.5 * g + 0.2
+        n = n + 1
+    return n
+\end{lstlisting}
+\end{correctionbox}
+
+
+
+
+\end{document}

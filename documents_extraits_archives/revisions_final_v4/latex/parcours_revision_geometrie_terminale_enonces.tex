@@ -1,0 +1,565 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdftitle={Parcours de révision -- Géométrie dans l'espace -- Terminale spécialité},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\vu}{\vec u}
+\newcommand{\vv}{\vec v}
+\newcommand{\vw}{\vec w}
+\newcommand{\vn}{\vec n}
+\newcommand{\vd}{\vec d}
+\newcommand{\norme}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ps}{\cdot}
+\newcommand{\e}{\mathrm e}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2.5mm,
+    bottom=1.5mm,
+    toptitle=1.2mm,
+    bottomtitle=1.2mm,
+    lefttitle=2mm,
+    righttitle=2mm,
+    before upper=\vspace{0.7mm},
+    before skip=3.5mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2.5mm,
+    bottom=1.5mm,
+    toptitle=1.2mm,
+    bottomtitle=1.2mm,
+    lefttitle=2mm,
+    righttitle=2mm,
+    before upper=\vspace{0.7mm},
+    before skip=3.5mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+% Styles de la carte mentale de cours
+\setlist[itemize]{
+    leftmargin=1.1em,
+    itemsep=0.10em,
+    topsep=0.15em,
+    parsep=0pt,
+    partopsep=0pt,
+    label=\textcolor{black!65}{\raisebox{0.15ex}{\tiny$\blacktriangleright$}}
+}
+\tcbset{
+    enhanced,
+    arc=2.2mm,
+    outer arc=2.2mm,
+    boxrule=0.45pt,
+    left=1.55mm,
+    right=1.55mm,
+    top=1.65mm,
+    bottom=1.65mm,
+    boxsep=0.8mm,
+    before skip=1.6mm,
+    after skip=1.6mm,
+    fonttitle=\bfseries\small,
+    coltitle=encre,
+    before upper=\raggedright\fontsize{9.05}{10.9}\selectfont,
+}
+\newtcolorbox{fichebox}[3][]{
+    colback=white,
+    colframe=#2!72!black,
+    colbacktitle=#2!15,
+    coltitle=#2!55!black,
+    borderline west={1mm}{0pt}{#2!78!black},
+    title={#3},
+    drop fuzzy shadow=black!4,
+    #1
+}
+\newcommand{\tagcol}[2]{%
+\begin{tcolorbox}[
+    enhanced,
+    colback=#1!11,
+    colframe=#1!45!black,
+    boxrule=0.42pt,
+    arc=2.2mm,
+    left=1mm,right=1mm,top=0.55mm,bottom=0.55mm,
+    before skip=0mm,
+    after skip=1mm,
+    fontupper=\bfseries\small,
+    colupper=#1!55!black
+]
+\centering #2
+\end{tcolorbox}}
+\newcommand{\titrepage}{%
+\begin{tcolorbox}[
+    colback=white,
+    colframe=bleu!70!black,
+    boxrule=0.65pt,
+    arc=3mm,
+    left=2.5mm,right=2.5mm,top=1.2mm,bottom=1.2mm,
+    before skip=0mm,
+    after skip=1.6mm,
+    drop fuzzy shadow=black!8
+]
+{\Large\bfseries Parcours de révision -- Géométrie dans l'espace}
+\end{tcolorbox}}
+
+\tikzset{tabouter/.style={draw=tableline, line width=0.85pt},tabline/.style={draw=tableline, line width=0.55pt},forbidden/.style={draw=tableline, line width=0.95pt},vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},tabtext/.style={font=\small},tabmath/.style={font=\small},labelcell/.style={font=\small\bfseries, text=deepblue},pointvalue/.style={font=\small\bfseries},endvalue/.style={font=\small}}
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Géométrie dans l'espace}\\[1mm]
+
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=8mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+\fontsize{8.55}{10.05}\selectfont
+\titrepage
+
+\noindent
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{bleu}{1. REPÉRAGE ET VECTEURS}
+
+\begin{fichebox}{bleu}{Coordonnées utiles}
+Si $A(x_A;y_A;z_A)$ et $B(x_B;y_B;z_B)$ :
+\[
+\vect{AB}(x_B-x_A\,;\,y_B-y_A\,;\,z_B-z_A).
+\]
+Si $\vu(x;y;z)$ :
+\[
+\norme{\vu}=\sqrt{x^2+y^2+z^2}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Distance et milieu}
+\[
+AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2+(z_B-z_A)^2}.
+\]
+\[
+I\left(\frac{x_A+x_B}{2};\frac{y_A+y_B}{2};\frac{z_A+z_B}{2}\right).
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Colinéarité}
+\[
+\vu \text{ et } \vv \text{ colinéaires}\iff \exists k\in\R,\ \vu=k\vv.
+\]
+Coordonnées non proportionnelles $\Rightarrow$ vecteurs non colinéaires.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Coplanarité}
+\[
+\vu,\vv,\vw \text{ coplanaires}\iff \vw=a\vu+b\vv.
+\]
+Trois vecteurs non coplanaires sont linéairement indépendants et forment une base de l'espace.
+\end{fichebox}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{vert}{2. DROITES ET PLANS}
+
+\begin{fichebox}{vert}{Droite paramétrée}
+Une droite passant par $A(x_A;y_A;z_A)$ et de vecteur directeur $\vu(a;b;c)$ admet une représentation :
+\[
+\begin{cases}
+ x=x_A+ta,\\[-0.5mm]
+ y=y_A+tb,\\[-0.5mm]
+ z=z_A+tc,
+\end{cases}
+\quad t\in\R.
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Plan et vecteur normal}
+Si $P$ admet pour vecteur normal $\vn(a;b;c)$, alors :
+\[
+P: ax+by+cz+d=0.
+\]
+Réciproquement, dans $ax+by+cz+d=0$, un vecteur normal est :
+\[
+\vn(a;b;c).
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Équation de plan : réflexe}
+Une équation est de la forme :
+\[
+ax+by+cz+d=0.
+\]
+Comme un point $A$ appartient au plan, ses coordonnées vérifient l'équation : cela permet de trouver $d$.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Positions relatives}
+\begin{tabularx}{\linewidth}{>{\bfseries}l X}
+Deux droites & sécantes, parallèles, confondues ou non coplanaires.\\
+Deux plans & sécants selon une droite, parallèles ou confondus.\\
+Droite/plan & sécants, parallèles ou droite incluse dans le plan.
+\end{tabularx}
+\end{fichebox}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.318\linewidth}
+\tagcol{violet}{3. PRODUIT SCALAIRE, ORTHOGONALITÉ, DISTANCES}
+
+\begin{fichebox}{vert}{Produit scalaire}
+Dans un repère orthonormé, si $\vu(x;y;z)$ et $\vv(x';y';z')$ :
+\[
+\vu\ps\vv=xx'+yy'+zz'.
+\]
+Avec les normes :
+\[
+\vu\ps\vv=\norme{\vu}\,\norme{\vv}\cos(\theta).
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Orthogonalité}
+\[
+\vu\perp \vv \iff \vu\ps\vv=0.
+\]
+Deux droites sont orthogonales si leurs vecteurs directeurs sont orthogonaux.
+
+\medskip
+Elles sont perpendiculaires si elles sont orthogonales et sécantes.
+\end{fichebox}
+
+\begin{fichebox}{violet}{Droite orthogonale à un plan}
+Pour montrer qu'une droite est orthogonale à un plan, on montre qu'un vecteur directeur de la droite est orthogonal à \textbf{deux vecteurs non colinéaires} du plan.
+\[
+\vd\ps\vu=0 \quad\text{et}\quad \vd\ps\vv=0.
+\]
+Alors $\vd$ est un vecteur normal au plan.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Projeté et distance}
+Le projeté orthogonal est le point le plus proche.
+
+Si $H$ est le projeté de $A$ sur une droite $d$ :
+\[
+H\in d \quad\text{et}\quad (AH)\perp d,
+\qquad d(A,d)=AH.
+\]
+Si $H$ est le projeté de $A$ sur un plan $P$ :
+\[
+H\in P \quad\text{et}\quad (AH)\perp P,
+\qquad d(A,P)=AH.
+\]
+\end{fichebox}
+
+\end{minipage}
+\end{landscape}
+
+\restoregeometry
+\pagestyle{fancy}
+\nopagecolor
+\color{black}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em,label=\textbullet}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+\clearpage
+
+\section*{Partie 2 -- Questions flashs}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flashs}
+\setcounter{question}{0}
+\begin{blocquestions}{A. Repères, vecteurs, droites et plans}
+  \item Dans l'espace, comment calcule-t-on les coordonnées de $\overrightarrow{AB}$ ? \origine{170}
+  \item Comment calcule-t-on les coordonnées du milieu de $[AB]$ ? \origine{171}
+  \item Comment montre-t-on que trois points $A$, $B$, $C$ sont alignés ? \origine{172}
+  \item Que signifie « deux vecteurs sont colinéaires » ? \origine{173}
+  \item Qu'est-ce qu'un vecteur directeur d'une droite ? \origine{174}
+  \item Qu'est-ce qu'une représentation paramétrique d'une droite ? \origine{175}
+  \item Dans une représentation paramétrique, quel rôle joue le paramètre ? \origine{176}
+  \item Comment reconnaît-on qu'un point appartient à une droite paramétrée ? \origine{177}
+  \item Qu'est-ce qu'un vecteur normal à un plan ? \origine{178}
+  \item Si $\vec n=(a,b,c)$ est normal à un plan, quelle forme a une équation cartésienne de ce plan ? \origine{179}
+  \item Comment vérifie-t-on qu'un point appartient à un plan d'équation $ax+by+cz+d=0$ ? \origine{180}
+  \item Que fait-on souvent pour déterminer l'intersection de deux plans dont on connaît les équations ? \origine{181}
+  \item Quand deux plans sont-ils parallèles ? \origine{182}
+  \item Quand une droite est-elle parallèle à un plan ? \origine{183}
+  \item Que signifie que quatre points sont coplanaires ? \origine{184}
+  \item Comment peut-on montrer que quatre points $A$, $B$, $C$, $D$ ne sont pas coplanaires ? \origine{185}
+\end{blocquestions}
+
+\begin{blocquestions}{B. Distances, produit scalaire et normes}
+  \item Quelle est la formule du volume d'une pyramide ? \origine{186}
+  \item Dans un repère orthonormé, quelle est la formule du produit scalaire de $\vec u(x,y,z)$ et $\vec v(x',y',z')$ ? \origine{187}
+  \item Que vaut $\vec u\cdot \vec u$ ? \origine{188}
+  \item Quand deux vecteurs non nuls sont-ils orthogonaux ? \origine{189}
+  \item Quelle formule relie produit scalaire et angle ? \origine{190}
+  \item Comment calcule-t-on la norme d'un vecteur de coordonnées $(x,y,z)$ ? \origine{191}
+  \item Comment calcule-t-on la distance entre deux points $A$ et $B$ dans un repère orthonormé ? \origine{192}
+  \item Quand une droite est-elle orthogonale à un plan ? \origine{193}
+  \item Qu'est-ce que le projeté orthogonal d'un point sur un plan ? \origine{194}
+  \item Si $H$ est le projeté orthogonal d'un point $A$ sur un plan $(P)$, que représente la longueur $AH$ ? \origine{195}
+  \item Quel vecteur directeur lit-on sur $x=1+2t$, $y=3-t$, $z=4+5t$ ? \origine{250}
+  \item Quel est le vecteur normal du plan $2x-y+3z-4=0$ ? \origine{251}
+  \item Si deux vecteurs non nuls vérifient $\vec u\cdot\vec v=0$, que peut-on conclure ? \origine{252}
+\end{blocquestions}
+
+\begin{blocquestions}{C. Définitions et rédaction}
+  \item Qu'appelle-t-on deux droites coplanaires ? \origine{295}
+  \item Qu'appelle-t-on une équation cartésienne d'un plan ? \origine{316}
+  \item Qu'appelle-t-on la norme d'un vecteur ? \origine{317}
+  \item Dans un exercice de géométrie de l'espace, un élève écrit : « L'équation de $\vec u$ est $(1;2;3)$. » Comment formuler proprement la réponse pour avoir tous les points ? \origine{320}
+\end{blocquestions}
+
+\begin{blocquestions}{D. Calculs directs}
+  \item Quelles sont les coordonnées de $\overrightarrow{AB}$ si $A(1;2;3)$ et $B(4;0;5)$ ? \origine{384}
+  \item Que vaut le produit scalaire de $(1;0;2)$ et $(3;-1;1)$ ? \origine{386}
+  \item Quel critère de produit scalaire permet de montrer qu'un triangle $ABC$ est rectangle en $A$ ? \origine{537}
+  \item Quel est l'ensemble des points $M$ tels que $\overrightarrow{MA}\cdot\overrightarrow{MB}=0$ ? \origine{538}
+  \item Comment détermine-t-on une équation cartésienne d'une droite connaissant un point et un vecteur normal ? \origine{539}
+\end{blocquestions}
+\clearpage
+\section*{Partie 3 -- Sujets de bac}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets de bac}
+\titreSujet{Sujet 1 -- Vrai / faux dans l'espace}{Amérique du Nord, 21 mai 2025, jour 1, exercice 3}
+
+Pour chacune des affirmations suivantes, indiquer si elle est vraie ou fausse. Chaque réponse doit être justifiée. Une réponse non justifiée ne rapporte aucun point.
+
+L'espace est rapporté à un repère orthonormé $(O;\vec{i},\vec{j},\vec{k})$.
+On considère la droite $(d)$ dont une représentation paramétrique est :
+\[
+\begin{cases}
+ x=3-2t,\\
+ y=-1,\\
+ z=2-6t,
+\end{cases}\qquad t\in\mathbb{R}.
+\]
+On considère également les points suivants :
+\[
+A(3;-3;-2),\qquad B(5;-4;-1),
+\]
+$C$ est le point de la droite $(d)$ d'abscisse $2$ et $H$ est le projeté orthogonal du point $B$ sur le plan $\mathcal P$ d'équation
+\[
+x+3z-7=0.
+\]
+
+\par\medskip
+\noindent\textbf{Affirmation 1.}\quad La droite $(d)$ et l'axe des ordonnées sont deux droites non coplanaires.
+
+\medskip
+\noindent\textbf{Affirmation 2.}\quad Le plan passant par $A$ et orthogonal à la droite $(d)$ a pour équation cartésienne :
+\[
+  x+3z+3=0.
+\]
+
+\medskip
+\noindent\textbf{Affirmation 3.}\quad Une mesure, exprimée en radian, de l'angle géométrique $\widehat{BAC}$ est $\dfrac{\pi}{6}$.
+
+\medskip
+\noindent\textbf{Affirmation 4.}\quad La distance $BH$ est égale à $\dfrac{\sqrt{10}}{2}$.
+
+\newpage
+\titreSujet{Sujet 2 -- Plan, projeté orthogonal et tétraèdre}{Polynésie, 18 juin 2025, sujet 2, exercice 3}
+
+L'espace est rapporté à un repère orthonormé $(O;\vec{i},\vec{j},\vec{k})$.
+On considère les points suivants :
+\[
+A(1;3;0),\qquad B(-1;4;5),\qquad C(0;1;0),\qquad D(-2;2;1).
+\]
+
+\begin{enumerate}
+  \item Montrer que les points $A$, $B$ et $C$ déterminent un plan.
+  \item Montrer que le triangle $ABC$ est rectangle en $A$.
+  \item Soit $\Delta$ la droite passant par le point $D$ et de vecteur directeur
+  \[
+  \vec{u}\begin{pmatrix}2\\-1\\1\end{pmatrix}.
+  \]
+  \begin{enumerate}
+    \item Démontrer que la droite $\Delta$ est orthogonale au plan $(ABC)$.
+    \item Justifier que le plan $(ABC)$ admet pour équation cartésienne :
+    \[
+    2x-y+z+1=0.
+    \]
+    \item Déterminer une représentation paramétrique de la droite $\Delta$.
+  \end{enumerate}
+  \item On appelle $H$ le point de coordonnées
+  \[
+  H\left(-\dfrac{2}{3};\dfrac{4}{3};\dfrac{5}{3}\right).
+  \]
+  Vérifier que $H$ est le projeté orthogonal du point $D$ sur le plan $(ABC)$.
+  \item On rappelle que le volume d'un tétraèdre est donné par
+  \[
+  V=\dfrac13 B\times h,
+  \]
+  où $B$ est l'aire d'une base du tétraèdre et $h$ est sa hauteur relative à cette base.
+  \begin{enumerate}
+    \item Montrer que $DH=\dfrac{2\sqrt6}{3}$.
+    \item En déduire le volume du tétraèdre $ABCD$.
+  \end{enumerate}
+  \item On considère la droite $d$ de représentation paramétrique :
+  \[
+  \begin{cases}
+  x=1-2k,\\
+  y=-3k,\\
+  z=1+k,
+  \end{cases}\qquad k\in\mathbb{R}.
+  \]
+  La droite $d$ et le plan $(ABC)$ sont-ils sécants ou parallèles ?
+\end{enumerate}
+
+\newpage
+\titreSujet{Sujet 3 -- Drones et plan dans l'espace}{Polynésie, 20 juin 2024, sujet 2, exercice 4}
+
+Une commune décide de remplacer le traditionnel feu d'artifice du 14 juillet par un spectacle de drones lumineux.
+
+Pour le pilotage des drones, l'espace est muni d'un repère orthonormé $(O;\vec{i},\vec{j},\vec{k})$ dont l'unité est la centaine de mètres.
+La position de chaque drone est modélisée par un point et chaque drone est envoyé d'un point de départ $D$ de coordonnées $(2;5;1)$.
+
+On souhaite former avec des drones des figures en les positionnant dans un même plan $\mathcal P$.
+Trois drones sont positionnés aux points
+\[
+A(-1;-1;17),\qquad B(4;-2;4),\qquad C(1;-3;7).
+\]
+
+\begin{enumerate}
+  \item Justifier que les points $A$, $B$ et $C$ ne sont pas alignés.
+\end{enumerate}
+Dans la suite, on note $\mathcal P$ le plan $(ABC)$ et on considère le vecteur
+\[
+\vec n\begin{pmatrix}2\\-3\\1\end{pmatrix}.
+\]
+\begin{enumerate}[resume]
+  \item
+  \begin{enumerate}
+    \item Justifier que $\vec n$ est normal au plan $(ABC)$.
+    \item Démontrer qu'une équation cartésienne du plan $\mathcal P$ est
+    \[
+    2x-3y+z-18=0.
+    \]
+  \end{enumerate}
+  \item Le pilote des drones décide d'envoyer un quatrième drone en prenant comme trajectoire la droite $d$ dont une représentation paramétrique est donnée par
+  \[
+  d:\begin{cases}
+  x=3t+2,\\
+  y=t+5,\\
+  z=4t+1,
+  \end{cases}\qquad t\in\mathbb{R}.
+  \]
+  \begin{enumerate}
+    \item Déterminer un vecteur directeur de la droite $d$.
+    \item Afin que ce nouveau drone soit également placé dans le plan $\mathcal P$, déterminer par le calcul les coordonnées du point $E$, intersection de la droite $d$ avec le plan $\mathcal P$.
+  \end{enumerate}
+  \item Le pilote des drones décide d'envoyer un cinquième drone le long de la droite $\Delta$ qui passe par le point $D$ et qui est perpendiculaire au plan $\mathcal P$. Ce cinquième drone est placé lui aussi dans le plan $\mathcal P$, soit à l'intersection entre la droite $\Delta$ et le plan $\mathcal P$.
+
+  On admet que le point $F(6;-1;3)$ correspond à cet emplacement.
+
+  Démontrer que la distance entre le point de départ $D$ et le plan $\mathcal P$ vaut $2\sqrt{14}$ centaines de mètres.
+  \item L'organisatrice du spectacle demande au pilote d'envoyer un nouveau drone dans le plan, peu importe sa position dans le plan, toujours à partir du point $D$.
+
+  Sachant qu'il reste $40$ secondes avant le début du spectacle et que le drone vole en trajectoire rectiligne à $18{,}6$ m.s$^{-1}$, le nouveau drone peut-il arriver à temps ?
+\end{enumerate}
+\end{document}

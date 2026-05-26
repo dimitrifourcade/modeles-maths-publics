@@ -1,0 +1,720 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.7cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{246,246,246}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdfauthor={},pdftitle={Parcours de révision -- Fonctions -- Corrigés}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.28em}
+\renewcommand{\arraystretch}{1.12}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.25em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+\newcounter{question}
+\newcounter{reponse}
+
+\tikzset{
+  tabouter/.style={draw=tableline, line width=0.85pt},
+  tabline/.style={draw=tableline, line width=0.55pt},
+  forbidden/.style={draw=tableline, line width=0.95pt},
+  vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},
+  tabtext/.style={font=\small},
+  tabmath/.style={font=\small},
+  labelcell/.style={font=\small\bfseries, text=deepblue},
+  pointvalue/.style={font=\small\bfseries},
+  endvalue/.style={font=\small},
+}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.75em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=grisclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{
+  enhanced,
+  breakable,
+  colback=grisclair,
+  colframe=black!55,
+  boxrule=0.55pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+  title=\textbf{#1},
+  coltitle=black,
+  colbacktitle=black!12,
+  before skip=2mm,
+  after skip=2mm
+}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+\sloppy
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Fonctions}\\[1mm]
+
+\end{center}
+\vspace{1mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Corrections des questions flashs}
+\addcontentsline{toc}{section}{Partie 1 -- Corrections des questions flashs}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Réponses -- A. Vocabulaire essentiel}
+  \item \origine{266} Une fonction de la forme $x\mapsto ax+b$.
+  \item \origine{267} Une fonction de la forme $x\mapsto ax^2+bx+c$, avec $a\neq0$.
+  \item \origine{268} Une fonction écrite comme quotient de deux polynômes.
+  \item \origine{269} L'ensemble des réels pour lesquels la fonction a un sens.
+  \item \origine{270} Une valeur exclue du domaine de définition.
+  \item \origine{274} Un réel $\alpha$ tel que $f(\alpha)=0$.
+  \item \origine{275} Une fonction dérivable en tout point de cet intervalle.
+  \item \origine{276} Le nombre $f'(a)$ au point d'abscisse $a$.
+  \item \origine{277} Un maximum local ou un minimum local.
+  \item \origine{280} Une fonction qui y est toujours croissante ou toujours décroissante.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- B. Limites, continuité et TVI}
+  \item \origine{96} $+\infty$.
+  \item \origine{97} $2$.
+  \item \origine{98} $4$.
+  \item \origine{99} Une forme pour laquelle on ne peut pas conclure directement sur la limite.
+  \item \origine{103} Le terme de plus haut degré.
+  \item \origine{104} Une droite $x=a$ lorsque $f(x)\to\pm\infty$ quand $x\to a$.
+  \item \origine{105} Une droite $y=\ell$ lorsque $f(x)\to\ell$ quand $x\to+\infty$.
+  \item \origine{107} $\displaystyle\lim_{x\to a} f(x)=f(a)$.
+  \item \origine{109} Le théorème des valeurs intermédiaires.
+  \item \origine{110} Que la fonction soit strictement monotone.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- C. Exponentielle et logarithme}
+  \item \origine{111} $\ln$.
+  \item \origine{112} Le logarithme népérien.
+  \item \origine{113} Sur $]0,+\infty[$.
+  \item \origine{114} $0$.
+  \item \origine{115} $1$.
+  \item \origine{116} $1$.
+  \item \origine{117} $x$.
+  \item \origine{118} $x$.
+  \item \origine{119} $\ln(ab)=\ln(a)+\ln(b)$.
+  \item \origine{120} $\ln\left(\dfrac{a}{b}\right)=\ln(a)-\ln(b)$.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- D. Dérivation, tangente, variations et convexité}
+  \item \origine{125} $e^x$.
+  \item \origine{126} $a e^{ax+b}$.
+  \item \origine{127} $\dfrac1x$.
+  \item \origine{128} $\dfrac{a}{ax+b}$, sur l'intervalle où cela a un sens.
+  \item \origine{139} Le coefficient directeur de la tangente à la courbe au point d'abscisse $a$.
+  \item \origine{140} $y=f'(a)(x-a)+f(a)$.
+  \item \origine{141} La tangente est horizontale au point d'abscisse $a$.
+  \item \origine{142} Les variations de $f$.
+  \item \origine{146} Une fonction dont la courbe est au-dessus de ses tangentes.
+  \item \origine{147} Le signe de $f''$.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- E. Primitives, intégrales, équations différentielles et calculs flash}
+  \item \origine{155} Une fonction $F$ telle que $F'=f$ sur cet intervalle.
+  \item \origine{157} Une primitive est $e^x$.
+  \item \origine{160} Une primitive est $\ln(x)$.
+  \item \origine{164} Si $F'=f$, alors $\displaystyle\int_a^b f(x)\,dx=F(b)-F(a)$.
+  \item \origine{166} Une équation différentielle sans second membre.
+  \item \origine{167} $y(x)=Ce^{-ax}$, avec $C\in\mathbb R$.
+  \item \origine{237} $x\mapsto 6x$.
+\end{blocreponses}
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets de bac}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets de bac}
+\titreSujet{Sujet 1 -- Exponentielle, équation différentielle, convexité et aire}{Asie, 5 septembre 2025, sujet 1, exercice 1}
+
+\begin{correctionbox}{Affirmation 1}
+Pour tout réel $x$, on a
+\[
+f'(x)=1\times \e^{-2x}+x\times(-2)\e^{-2x}=(1-2x)\e^{-2x}.
+\]
+L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 2}
+On calcule
+\[
+f'(x)+2f(x)=(1-2x)\e^{-2x}+2x\e^{-2x}=\e^{-2x}.
+\]
+La fonction $f$ est donc solution de $y'+2y=\e^{-2x}$. L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 3}
+On dérive $f'(x)=(1-2x)\e^{-2x}$ :
+\[
+f''(x)=-2\e^{-2x}-2(1-2x)\e^{-2x}=4(x-1)\e^{-2x}.
+\]
+Comme $\e^{-2x}>0$, le signe de $f''(x)$ est celui de $x-1$. La fonction $f$ est donc concave sur $]-\infty;1]$ et convexe sur $[1;+\infty[$. L'affirmation est \textbf{fausse}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 4}
+On sait que $f'(x)=(1-2x)\e^{-2x}$. Comme $\e^{-2x}>0$, $f$ est croissante sur $]-\infty;\frac12]$ puis décroissante sur $[\frac12;+\infty[$.
+De plus
+\[
+\lim_{x\to-\infty}x\e^{-2x}=-\infty,
+\qquad f\left(\dfrac12\right)=\dfrac{1}{2e}>0,
+\qquad \lim_{x\to+\infty}x\e^{-2x}=0^+.
+\]
+Sur $]-\infty;\frac12]$, la fonction passe une seule fois de $-\infty$ à une valeur positive. Sur $[\frac12;+\infty[$, elle reste positive. L'équation $f(x)=-1$ admet donc une unique solution. L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 5}
+Sur $[0;1]$, $f(x)=x\e^{-2x}\geqslant0$. L'aire demandée vaut donc
+\[
+\int_0^1 x\e^{-2x}\,dx.
+\]
+Une primitive est
+\[
+F(x)=-\left(\dfrac{x}{2}+\dfrac14\right)\e^{-2x}.
+\]
+Donc
+\[
+\int_0^1 x\e^{-2x}\,dx
+=F(1)-F(0)
+=-\dfrac34\e^{-2}+\dfrac14
+=\dfrac14-\dfrac{3\e^{-2}}4.
+\]
+L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 2 -- Logarithme, variations et convexité}{Polynésie, 18 juin 2025, sujet 2, exercice 2}
+
+\begin{correctionbox}{1. Conjectures graphiques}
+À la lecture du graphique, on peut conjecturer que la fonction $f$ est strictement croissante sur $]2;+\infty[$, que
+\[
+\lim_{x\to2^+}f(x)=-\infty
+\quad\text{et}\quad
+\lim_{x\to+\infty}f(x)=+\infty.
+\]
+La droite d'équation $x=2$ semble être une asymptote verticale.
+\end{correctionbox}
+
+\begin{correctionbox}{2. Équation $f(x)=0$}
+Sur $]2;+\infty[$, on a $x\neq0$, donc
+\[
+f(x)=0 \Longleftrightarrow x\ln(x-2)=0
+\Longleftrightarrow \ln(x-2)=0
+\Longleftrightarrow x-2=1.
+\]
+Ainsi
+\[
+\boxed{x=3}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{3. Limite en $2$}
+Lorsque $x\to2^+$, on a $x\to2$ et $\ln(x-2)\to-\infty$. Donc
+\[
+\lim_{x\to2^+}x\ln(x-2)=-\infty.
+\]
+Cela confirme l'existence d'une asymptote verticale d'équation $x=2$.
+\end{correctionbox}
+
+\begin{correctionbox}{4. Dérivée}
+Pour tout $x>2$,
+\[
+f'(x)=1\times\ln(x-2)+x\times\dfrac1{x-2}
+=\ln(x-2)+\dfrac{x}{x-2}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{5. Étude de $g=f'$}
+\begin{enumerate}
+\item Pour tout $x>2$,
+\[
+g'(x)=\dfrac1{x-2}+\dfrac{(x-2)-x}{(x-2)^2}
+=\dfrac{x-2-2}{(x-2)^2}
+=\dfrac{x-4}{(x-2)^2}.
+\]
+
+\item Comme $(x-2)^2>0$, le signe de $g'(x)$ est celui de $x-4$. Donc $g$ est décroissante sur $]2;4]$ puis croissante sur $[4;+\infty[$.
+De plus
+\[
+g(4)=\ln2+\dfrac42=\ln2+2.
+\]
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\def\L{2.1}\def\W{10.4}\def\H{2.55}\def\Yx{1.75}\def\Xm{5.8}
+\fill[softgray] (0,\Yx) rectangle (\W,\H);
+\fill[softblue] (0,0) rectangle (\L,\Yx);
+\draw[tabouter] (0,0) rectangle (\W,\H);
+\draw[tabline] (0,\Yx) -- (\W,\Yx);
+\draw[tabline] (\L,0) -- (\L,\H);
+\draw[tabline] (\Xm,0) -- (\Xm,\Yx);
+\draw[forbidden] (\L+0.06,0) -- (\L+0.06,\H);
+\draw[forbidden] (\L+0.14,0) -- (\L+0.14,\H);
+\node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$x$};
+\node[labelcell] at ({\L/2},{\Yx/2}) {$g(x)$};
+\node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$2$};
+\node[pointvalue] at (\Xm,{(\Yx+\H)/2}) {$4$};
+\node[tabmath] at ({\W-0.6},{(\Yx+\H)/2}) {$+\infty$};
+\node[endvalue] at ({\L+0.9},1.35) {$+\infty$};
+\node[pointvalue] at (\Xm,0.35) {$\ln2+2$};
+\node[endvalue] at ({\W-0.8},1.35) {$+\infty$};
+\draw[vararrow] ({\L+1.4},1.25) -- ({\Xm-0.65},0.5);
+\draw[vararrow] ({\Xm+0.65},0.5) -- ({\W-1.25},1.25);
+\end{tikzpicture}
+\end{center}
+
+\item Le minimum de $g$ est $\ln2+2>0$. Donc, pour tout $x>2$, $g(x)>0$.
+
+\item Comme $f'(x)=g(x)>0$, la fonction $f$ est strictement croissante sur $]2;+\infty[$.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Convexité}
+Comme $f''(x)=g'(x)=\dfrac{x-4}{(x-2)^2}$, la fonction $f$ est concave sur $]2;4]$ et convexe sur $[4;+\infty[$.
+La courbe admet un point d'inflexion pour $x=4$, de coordonnées
+\[
+\boxed{(4;4\ln2)}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{7. Tangentes de coefficient directeur 3}
+Une tangente de coefficient directeur $3$ correspond à une solution de
+\[
+f'(x)=3,
+\]
+c'est-à-dire $g(x)=3$. Or $g$ tend vers $+\infty$ en $2^+$, décroît jusqu'à $\ln2+2<3$, puis croît vers $+\infty$.
+Il y a donc deux solutions. La courbe admet donc \textbf{deux} tangentes de coefficient directeur $3$.
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 3 -- Équation différentielle et étude d'une exponentielle}{Amérique du Sud, 21 novembre 2024, jour 1, exercice 1}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item Pour $g(x)=ax\e^{-x/4}$,
+\[
+g'(x)=a\e^{-x/4}-\dfrac a4x\e^{-x/4}.
+\]
+Donc
+\[
+g'(x)+\dfrac14g(x)=a\e^{-x/4}.
+\]
+Pour que $g$ soit solution de $(E)$, il faut $a=20$.
+
+\item Les solutions de $y'+\frac14y=0$ sont
+\[
+y(x)=C\e^{-x/4},\qquad C\in\mathbb R.
+\]
+
+\item Les solutions de $(E)$ sont donc
+\[
+y(x)=20x\e^{-x/4}+C\e^{-x/4}=(20x+C)\e^{-x/4},\qquad C\in\mathbb R.
+\]
+
+\item La condition $f(0)=8$ donne $C=8$. Ainsi
+\[
+f(x)=(20x+8)\e^{-x/4}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item On dérive :
+\[
+f'(x)=20\e^{-x/4}+(20x+8)\left(-\dfrac14\right)\e^{-x/4}
+=(18-5x)\e^{-x/4}.
+\]
+Comme $\e^{-x/4}>0$, le signe de $f'(x)$ est celui de $18-5x$.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\def\L{2.1}\def\W{10.8}\def\H{2.75}\def\Yx{1.92}\def\Xm{5.7}
+\fill[softgray] (0,\Yx) rectangle (\W,\H);
+\fill[softblue] (0,0) rectangle (\L,\Yx);
+\draw[tabouter] (0,0) rectangle (\W,\H);
+\draw[tabline] (0,\Yx) -- (\W,\Yx);
+\draw[tabline] (\L,0) -- (\L,\H);
+\draw[tabline] (\Xm,0) -- (\Xm,\Yx);
+\node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$x$};
+\node[labelcell] at ({\L/2},{\Yx/2}) {$f(x)$};
+\node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$0$};
+\node[pointvalue] at (\Xm,{(\Yx+\H)/2}) {$\frac{18}{5}$};
+\node[tabmath] at ({\W-0.6},{(\Yx+\H)/2}) {$+\infty$};
+\node[endvalue] at ({\L+0.5},0.35) {$8$};
+\node[pointvalue] at (\Xm,1.45) {$80\e^{-9/10}$};
+\node[endvalue] at ({\W-0.7},0.35) {$0$};
+\draw[vararrow] ({\L+0.95},0.5) -- ({\Xm-0.75},1.35);
+\draw[vararrow] ({\Xm+0.75},1.35) -- ({\W-1.15},0.5);
+\end{tikzpicture}
+\end{center}
+
+Le maximum est atteint en $x=\frac{18}{5}$ et vaut
+\[
+f\left(\dfrac{18}{5}\right)=80\e^{-9/10}.
+\]
+
+\item Sur $[14;15]$, la fonction $f$ est strictement décroissante car $14>\frac{18}{5}$. De plus
+\[
+f(14)\approx8{,}70>8,
+\qquad
+f(15)\approx7{,}24<8.
+\]
+Par continuité et stricte monotonie, l'équation $f(x)=8$ admet une unique solution $\alpha$ dans $[14;15]$.
+
+Le tableau d'exécution est :
+\[
+\begin{array}{|c|c|c|c|c|}
+\hline
+ a&14&14&14{,}25&14{,}375\\ \hline
+ b&15&14{,}5&14{,}5&14{,}5\\ \hline
+ b-a&1&0{,}5&0{,}25&0{,}125\\ \hline
+ m&14{,}5&14{,}25&14{,}375&14{,}4375\\ \hline
+ f(m)>8&\text{FAUX}&\text{VRAI}&\text{VRAI}&\text{VRAI}\\ \hline
+\end{array}
+\]
+À la fin, l'algorithme renvoie l'intervalle
+\[
+[14{,}4375;14{,}5].
+\]
+Son objectif est de donner un encadrement de la solution $\alpha$ de l'équation $f(x)=8$ avec une amplitude inférieure ou égale à $0{,}1$.
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 4 -- Logarithme, continuité et suite associée}{Centres étrangers, 12 juin 2025, sujet 1, exercice 3}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item Lorsque $x\to-1^+$, on a $x+1\to0^+$, donc $\ln(x+1)\to-\infty$. Ainsi
+\[
+\lim_{x\to-1^+}f(x)=-\infty.
+\]
+
+\item Pour tout $x>-1$,
+\[
+f'(x)=\dfrac4{x+1}-\dfrac{2x}{25}
+=\dfrac{100-2x(x+1)}{25(x+1)}
+=\dfrac{100-2x-2x^2}{25(x+1)}.
+\]
+
+\item Sur $]-1;+\infty[$, le dénominateur est positif. Le signe de $f'(x)$ est donc celui de
+\[
+100-2x-2x^2=-2(x^2+x-50).
+\]
+L'unique racine appartenant à l'intervalle est
+\[
+\beta=\dfrac{-1+\sqrt{201}}2\approx6{,}59.
+\]
+La fonction $f$ est donc croissante sur $]-1;\beta]$ puis décroissante sur $[\beta;+\infty[$. Comme $6{,}5<\beta$, elle est strictement croissante sur $[2;6{,}5]$.
+
+\item La fonction $h$ est continue sur $[2;6{,}5]$. On a
+\[
+h(2)=4\ln3-\dfrac4{25}-2\approx2{,}23>0,
+\]
+et
+\[
+h(6{,}5)=4\ln(7{,}5)-\dfrac{6{,}5^2}{25}-6{,}5\approx-0{,}13<0.
+\]
+D'après le tableau de variations fourni, $h$ est d'abord croissante puis décroissante, avec un maximum positif. Elle ne peut donc pas s'annuler sur la partie croissante, puis s'annule une seule fois sur la partie décroissante. L'équation $h(x)=0$ admet donc une unique solution $\alpha\in[2;6{,}5]$.
+
+\item L'appel \texttt{bornes(2)} renvoie
+\[
+\boxed{(6{,}36;6{,}37)}.
+\]
+Ces valeurs donnent un encadrement au centième de la solution $\alpha$ de l'équation $f(x)=x$ :
+\[
+6{,}36<\alpha<6{,}37.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item Montrons par récurrence que $2\leqslant u_n\leqslant u_{n+1}<6{,}5$.
+Pour $n=0$, $u_0=2$ et
+\[
+u_1=f(2)=4\ln3-\dfrac4{25}\approx4{,}23,
+\]
+donc $2\leqslant u_0\leqslant u_1<6{,}5$.
+Supposons $2\leqslant u_n\leqslant u_{n+1}<6{,}5$. Comme $f$ est croissante sur $[2;6{,}5]$,
+\[
+f(2)\leqslant f(u_n)\leqslant f(u_{n+1})<f(6{,}5).
+\]
+Or $f(u_n)=u_{n+1}$, $f(u_{n+1})=u_{n+2}$ et $f(6{,}5)\approx6{,}37<6{,}5$. Donc
+\[
+2\leqslant u_{n+1}\leqslant u_{n+2}<6{,}5.
+\]
+La propriété est démontrée.
+
+\item La suite $(u_n)$ est croissante et majorée par $6{,}5$, donc elle converge vers une limite $\ell$.
+
+\item Comme $f$ est continue sur $[2;6{,}5]$, on peut passer à la limite dans $u_{n+1}=f(u_n)$ :
+\[
+\ell=f(\ell).
+\]
+Donc $h(\ell)=f(\ell)-\ell=0$. Or $\alpha$ est l'unique solution de $h(x)=0$ sur $[2;6{,}5]$, donc
+\[
+\ell=\alpha.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 5 -- Trigonométrie, convexité et intégration}{Amérique du Nord, 22 mai 2025, sujet 2, exercice 4}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item On dérive :
+\[
+f'(x)=\e^x\sin x+\e^x\cos x=\e^x(\sin x+\cos x).
+\]
+Sur $\left[0;\frac\pi2\right]$, $\sin x\geqslant0$ et $\cos x\geqslant0$, et leur somme est strictement positive. Donc $f'(x)>0$ et $f$ est strictement croissante sur cet intervalle.
+
+\item On a $f(0)=0$ et $f'(0)=1$. La tangente en $0$ a donc pour équation
+\[
+y=x.
+\]
+Ensuite
+\[
+f''(x)=\e^x(\sin x+\cos x)+\e^x(\cos x-\sin x)=2\e^x\cos x.
+\]
+Sur $\left[0;\frac\pi2\right]$, $f''(x)\geqslant0$, donc $f$ est convexe.
+Une fonction convexe est au-dessus de ses tangentes ; en particulier, au-dessus de la tangente en $0$. Donc
+\[
+\e^x\sin x\geqslant x
+\]
+pour tout $x\in\left[0;\frac\pi2\right]$.
+
+\item Le signe de $f''(x)=2\e^x\cos x$ change lorsque $x$ traverse $\frac\pi2$ : positif avant, négatif après. Le point d'abscisse $\frac\pi2$ est donc un point d'inflexion.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item Première intégration par parties, avec $u=\sin x$ et $v'=\e^x$ :
+\[
+I=\left[\e^x\sin x\right]_0^{\pi/2}-\int_0^{\pi/2}\e^x\cos x\,dx
+=\e^{\pi/2}-J.
+\]
+Deuxième intégration par parties, avec $u=\e^x$ et $v'=\sin x$ :
+\[
+I=\left[-\e^x\cos x\right]_0^{\pi/2}+\int_0^{\pi/2}\e^x\cos x\,dx
+=1+J.
+\]
+
+\item En additionnant les deux expressions,
+\[
+2I=1+\e^{\pi/2},
+\]
+donc
+\[
+I=\dfrac{1+\e^{\pi/2}}2.
+\]
+
+\item Sur $\left[0;\frac\pi2\right]$, on a $f(x)\geqslant x$. L'aire vaut donc
+\[
+\int_0^{\pi/2}\left(\e^x\sin x-x\right)\,dx
+=I-\left[\dfrac{x^2}{2}\right]_0^{\pi/2}.
+\]
+Ainsi
+\[
+\mathcal A=\dfrac{1+\e^{\pi/2}}2-\dfrac{\pi^2}{8}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 6 -- Équation différentielle, vitesse et intégration}{Métropole, 18 juin 2025, sujet 2, exercice 4}
+
+\begin{correctionbox}{Partie A}
+D'après le graphique :
+\begin{enumerate}
+\item Le chariot a parcouru environ $15$ m au bout de $2$ secondes.
+\item L'asymptote horizontale est proche de $23$ m. Une longueur minimale de $23$ m semble donc suffisante.
+\item Le coefficient directeur de la tangente en $A$ est environ
+\[
+d'(4{,}7)\approx0{,}96.
+\]
+Cela signifie qu'au bout de $4{,}7$ secondes, la vitesse du chariot est d'environ $0{,}96$ m.s$^{-1}$.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item Les solutions de $(E')$ sont
+\[
+y(t)=C\e^{-0{,}6t},\qquad C\in\mathbb R.
+\]
+Pour $g(t)=t\e^{-0{,}6t}$,
+\[
+g'(t)=\e^{-0{,}6t}-0{,}6t\e^{-0{,}6t},
+\]
+donc
+\[
+g'(t)+0{,}6g(t)=\e^{-0{,}6t}.
+\]
+Ainsi $g$ est une solution particulière de $(E)$.
+Les solutions de $(E)$ sont donc
+\[
+y(t)=(t+C)\e^{-0{,}6t}.
+\]
+Comme $v(0)=12$, on obtient $C=12$, donc
+\[
+v(t)=(12+t)\e^{-0{,}6t}.
+\]
+
+\item On dérive :
+\[
+v'(t)=\e^{-0{,}6t}-0{,}6(12+t)\e^{-0{,}6t}=(-6{,}2-0{,}6t)\e^{-0{,}6t}.
+\]
+Puisque $\e^{-0{,}6t}>0$ et $-6{,}2-0{,}6t<0$ pour tout $t\geqslant0$, la fonction $v$ est strictement décroissante sur $[0;+\infty[$.
+De plus
+\[
+\lim_{t\to+\infty}v(t)=0.
+\]
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\def\L{2.1}\def\W{9.4}\def\H{2.55}\def\Yx{1.75}
+\fill[softgray] (0,\Yx) rectangle (\W,\H);
+\fill[softblue] (0,0) rectangle (\L,\Yx);
+\draw[tabouter] (0,0) rectangle (\W,\H);
+\draw[tabline] (0,\Yx) -- (\W,\Yx);
+\draw[tabline] (\L,0) -- (\L,\H);
+\node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$t$};
+\node[labelcell] at ({\L/2},{\Yx/2}) {$v(t)$};
+\node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$0$};
+\node[tabmath] at ({\W-0.6},{(\Yx+\H)/2}) {$+\infty$};
+\node[pointvalue] at ({\L+0.5},1.35) {$12$};
+\node[endvalue] at ({\W-0.65},0.35) {$0$};
+\draw[vararrow] ({\L+0.95},1.25) -- ({\W-1.1},0.5);
+\end{tikzpicture}
+\end{center}
+
+Par continuité et stricte décroissance, comme $v(0)=12>1$ et $\lim v=0<1$, l'équation $v(t)=1$ admet une unique solution $\alpha$. À la calculatrice,
+\[
+\alpha\approx4{,}7
+\]
+au dixième.
+
+\item Le système mécanique se déclenche lorsque $v(t)\leqslant1$. La vitesse étant décroissante, il se déclenche à partir de $t=\alpha$, soit au bout d'environ
+\[
+\boxed{4{,}7\text{ s}}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie C}
+\begin{enumerate}
+\item On calcule
+\[
+d(t)=\int_0^t (12+x)\e^{-0{,}6x}\,dx.
+\]
+Une intégration par parties sur le terme $\int x\e^{-0{,}6x}\,dx$ donne
+\[
+d(t)=\e^{-0{,}6t}\left(-\dfrac53t-\dfrac{205}{9}\right)+\dfrac{205}{9}.
+\]
+
+\item Le dispositif se déclenche pour $t=\alpha\approx4{,}69$. Ainsi
+\[
+d(\alpha)=\e^{-0{,}6\alpha}\left(-\dfrac53\alpha-\dfrac{205}{9}\right)+\dfrac{205}{9}
+\approx20{,}94.
+\]
+Selon ce modèle, le chariot parcourt environ
+\[
+\boxed{20{,}94\text{ m}}
+\]
+avant le déclenchement du dispositif.
+\end{enumerate}
+\end{correctionbox}
+\end{document}

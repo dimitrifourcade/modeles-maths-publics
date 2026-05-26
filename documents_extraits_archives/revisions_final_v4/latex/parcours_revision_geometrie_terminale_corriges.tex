@@ -1,0 +1,512 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdftitle={Parcours de révision -- Géométrie dans l'espace -- Terminale spécialité},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\vu}{\vec u}
+\newcommand{\vv}{\vec v}
+\newcommand{\vw}{\vec w}
+\newcommand{\vn}{\vec n}
+\newcommand{\vd}{\vec d}
+\newcommand{\norme}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ps}{\cdot}
+\newcommand{\e}{\mathrm e}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2.5mm,
+    bottom=1.5mm,
+    toptitle=1.2mm,
+    bottomtitle=1.2mm,
+    lefttitle=2mm,
+    righttitle=2mm,
+    before upper=\vspace{0.7mm},
+    before skip=3.5mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2.5mm,
+    bottom=1.5mm,
+    toptitle=1.2mm,
+    bottomtitle=1.2mm,
+    lefttitle=2mm,
+    righttitle=2mm,
+    before upper=\vspace{0.7mm},
+    before skip=3.5mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+% Styles de la carte mentale de cours
+\setlist[itemize]{
+    leftmargin=1.1em,
+    itemsep=0.10em,
+    topsep=0.15em,
+    parsep=0pt,
+    partopsep=0pt,
+    label=\textcolor{black!65}{\raisebox{0.15ex}{\tiny$\blacktriangleright$}}
+}
+\tcbset{
+    enhanced,
+    arc=2.2mm,
+    outer arc=2.2mm,
+    boxrule=0.45pt,
+    left=1.55mm,
+    right=1.55mm,
+    top=1.65mm,
+    bottom=1.65mm,
+    boxsep=0.8mm,
+    before skip=1.6mm,
+    after skip=1.6mm,
+    fonttitle=\bfseries\small,
+    coltitle=encre,
+    before upper=\raggedright\fontsize{9.05}{10.9}\selectfont,
+}
+\newtcolorbox{fichebox}[3][]{
+    colback=white,
+    colframe=#2!72!black,
+    colbacktitle=#2!15,
+    coltitle=#2!55!black,
+    borderline west={1mm}{0pt}{#2!78!black},
+    title={#3},
+    drop fuzzy shadow=black!4,
+    #1
+}
+\newcommand{\tagcol}[2]{%
+\begin{tcolorbox}[
+    enhanced,
+    colback=#1!11,
+    colframe=#1!45!black,
+    boxrule=0.42pt,
+    arc=2.2mm,
+    left=1mm,right=1mm,top=0.55mm,bottom=0.55mm,
+    before skip=0mm,
+    after skip=1mm,
+    fontupper=\bfseries\small,
+    colupper=#1!55!black
+]
+\centering #2
+\end{tcolorbox}}
+\newcommand{\titrepage}{%
+\begin{tcolorbox}[
+    colback=white,
+    colframe=bleu!70!black,
+    boxrule=0.65pt,
+    arc=3mm,
+    left=2.5mm,right=2.5mm,top=1.2mm,bottom=1.2mm,
+    before skip=0mm,
+    after skip=1.6mm,
+    drop fuzzy shadow=black!8
+]
+{\Large\bfseries Parcours de révision -- Géométrie dans l'espace}\hfill
+{\large\bfseries Terminale spécialité}
+
+\vspace{0.25mm}
+{\small Repérage, droites, plans, produit scalaire, orthogonalité et distances}
+\end{tcolorbox}}
+
+\tikzset{tabouter/.style={draw=tableline, line width=0.85pt},tabline/.style={draw=tableline, line width=0.55pt},forbidden/.style={draw=tableline, line width=0.95pt},vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},tabtext/.style={font=\small},tabmath/.style={font=\small},labelcell/.style={font=\small\bfseries, text=deepblue},pointvalue/.style={font=\small\bfseries},endvalue/.style={font=\small}}
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Géométrie dans l'espace}\\[1mm]
+
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Corrections des questions flashs}
+\addcontentsline{toc}{section}{Partie 1 -- Corrections des questions flashs}
+\setcounter{reponse}{0}\begin{blocreponses}{Réponses -- A. Repères, vecteurs, droites et plans}
+  \item On a $\overrightarrow{AB}=(x_B-x_A\,;\,y_B-y_A\,;\,z_B-z_A)$.
+  \item On fait la moyenne des coordonnées : $I\left(\dfrac{x_A+x_B}{2};\dfrac{y_A+y_B}{2};\dfrac{z_A+z_B}{2}\right)$.
+  \item On peut montrer que les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires.
+  \item Cela signifie que l'un est un multiple de l'autre.
+  \item C'est un vecteur non nul colinéaire à cette droite.
+  \item C'est un système donnant $x$, $y$ et $z$ en fonction d'un paramètre réel.
+  \item Il permet de parcourir les différents points de la droite.
+  \item On cherche s'il existe une valeur du paramètre qui donne ses coordonnées.
+  \item C'est un vecteur perpendiculaire à tous les vecteurs du plan.
+  \item Une équation cartésienne du plan est de la forme $ax+by+cz+d=0$.
+  \item On remplace $x$, $y$ et $z$ par les coordonnées du point et on vérifie si l'égalité est vraie.
+  \item On résout le système formé par les deux équations ; on obtient souvent une représentation paramétrique de l'intersection.
+  \item Deux plans sont parallèles lorsque leurs vecteurs normaux sont colinéaires.
+  \item Une droite est parallèle à un plan lorsque son vecteur directeur est orthogonal à un vecteur normal du plan.
+  \item Cela signifie qu'ils appartiennent à un même plan.
+  \item On peut montrer qu'il n'existe pas de réels $a$ et $b$ tels que $\overrightarrow{AD}=a\overrightarrow{AB}+b\overrightarrow{AC}$.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- B. Distances, produit scalaire et normes}
+  \item $V=\dfrac13\times \text{aire de la base}\times \text{hauteur}$.
+  \item $\vec u\cdot\vec v=xx'+yy'+zz'$.
+  \item $\vec u\cdot\vec u=\|\vec u\|^2$.
+  \item Ils sont orthogonaux lorsque leur produit scalaire est nul.
+  \item $\vec u\cdot\vec v=\|\vec u\|\,\|\vec v\|\cos(\theta)$.
+  \item $\|(x,y,z)\|=\sqrt{x^2+y^2+z^2}$.
+  \item On calcule la norme du vecteur $\overrightarrow{AB}$ : $AB=\|\overrightarrow{AB}\|$.
+  \item Une droite est orthogonale à un plan lorsque son vecteur directeur est colinéaire à un vecteur normal du plan.
+  \item C'est le point du plan le plus proche du point donné.
+  \item La longueur $AH$ représente la distance du point $A$ au plan $(P)$.
+  \item Un vecteur directeur est $(2;-1;5)$.
+  \item Un vecteur normal est $(2;-1;3)$.
+  \item On peut conclure que les deux vecteurs sont orthogonaux.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- C. Définitions et rédaction}
+  \item Ce sont deux droites contenues dans un même plan.
+  \item C'est une équation de la forme $ax+by+cz+d=0$.
+  \item C'est sa longueur.
+  \item Un vecteur n'a pas d'équation. On écrit plutôt : « Le vecteur $\vec u$ a pour coordonnées $(1;2;3)$. »
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- D. Calculs directs}
+  \item $\overrightarrow{AB}=(4-1\,;\,0-2\,;\,5-3)=(3;-2;2)$.
+  \item $(1;0;2)\cdot(3;-1;1)=1\times3+0\times(-1)+2\times1=5$.
+  \item Il suffit de montrer que $\overrightarrow{AB}\cdot\overrightarrow{AC}=0$.
+  \item Dans l'espace, c'est la sphère de diamètre $[AB]$ ; dans un plan, c'est le cercle de diamètre $[AB]$.
+  \item Dans le plan, on écrit $ax+by+c=0$ avec $(a;b)$ vecteur normal, puis on utilise les coordonnées du point pour déterminer $c$. Dans l'espace, un vecteur normal détermine plutôt un plan.
+\end{blocreponses}
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets de bac}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets de bac}
+\titreSujet{Sujet 1 -- Vrai / faux dans l'espace}{Amérique du Nord, 21 mai 2025, jour 1, exercice 3}
+
+\begin{correctionbox}{Affirmation 1}
+Un vecteur directeur de la droite $(d)$ est $\vec u(-2;0;-6)$. L'axe des ordonnées a pour vecteur directeur $\vec j(0;1;0)$ et passe par $O(0;0;0)$.
+Le point $M(3;-1;2)$ appartient à $(d)$, donc $\vect{OM}(3;-1;2)$.
+On calcule le produit mixte :
+\[
+\det(\vec u,\vec j,\vect{OM})=14\neq 0.
+\]
+Les deux droites ne sont donc pas coplanaires. L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 2}
+Un plan orthogonal à la droite $(d)$ admet pour vecteur normal un vecteur directeur de $(d)$, par exemple $\vec n(1;0;3)$.
+Le plan passant par $A(3;-3;-2)$ a donc une équation de la forme
+\[
+(x-3)+3(z+2)=0,
+\]
+c'est-à-dire
+\[
+x+3z+3=0.
+\]
+L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 3}
+Le point $C$ est le point de $(d)$ d'abscisse $2$. On résout $3-2t=2$, donc $t=\frac12$, puis
+\[
+C(2;-1;-1).
+\]
+On a
+\[
+\vect{AB}(2;-1;1),\qquad \vect{AC}(-1;2;1).
+\]
+Ainsi
+\[
+\vect{AB}\cdot\vect{AC}=2\times(-1)+(-1)\times2+1\times1=-3.
+\]
+De plus $AB=AC=\sqrt6$, donc
+\[
+\cos(\widehat{BAC})=\dfrac{-3}{\sqrt6\sqrt6}=-\dfrac12.
+\]
+Donc $\widehat{BAC}=\dfrac{2\pi}{3}$ et non $\dfrac{\pi}{6}$. L'affirmation est \textbf{fausse}.
+\end{correctionbox}
+
+\begin{correctionbox}{Affirmation 4}
+Le point $H$ est le projeté orthogonal de $B$ sur le plan $\mathcal P$, donc $BH$ est la distance du point $B(5;-4;-1)$ au plan $x+3z-7=0$.
+On utilise la formule de distance d'un point à un plan :
+\[
+BH=\dfrac{|5+3(-1)-7|}{\sqrt{1^2+0^2+3^2}}
+=\dfrac{5}{\sqrt{10}}=\dfrac{\sqrt{10}}2.
+\]
+L'affirmation est \textbf{vraie}.
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 2 -- Plan, projeté orthogonal et tétraèdre}{Polynésie, 18 juin 2025, sujet 2, exercice 3}
+
+\begin{correctionbox}{1. Plan déterminé par $A$, $B$ et $C$}
+On calcule
+\[
+\vect{AB}(-2;1;5),\qquad \vect{AC}(-1;-2;0).
+\]
+Ces deux vecteurs ne sont pas colinéaires, par exemple les rapports $\frac{-2}{-1}$ et $\frac{1}{-2}$ ne sont pas égaux. Les points $A$, $B$ et $C$ ne sont donc pas alignés et déterminent un plan.
+\end{correctionbox}
+
+\begin{correctionbox}{2. Triangle rectangle}
+On calcule
+\[
+\vect{AB}\cdot\vect{AC}=(-2)(-1)+1(-2)+5\times0=0.
+\]
+Les vecteurs $\vect{AB}$ et $\vect{AC}$ sont orthogonaux, donc le triangle $ABC$ est rectangle en $A$.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Droite orthogonale et équation du plan}
+\begin{enumerate}
+\item Le vecteur directeur de $\Delta$ est $\vec u(2;-1;1)$. On vérifie :
+\[
+\vec u\cdot\vect{AB}=2(-2)+(-1)\times1+1\times5=0,
+\]
+\[
+\vec u\cdot\vect{AC}=2(-1)+(-1)(-2)+1\times0=0.
+\]
+Le vecteur $\vec u$ est orthogonal à deux vecteurs non colinéaires du plan $(ABC)$, donc $\Delta$ est orthogonale au plan $(ABC)$.
+
+\item Le vecteur $\vec u(2;-1;1)$ est normal au plan. Une équation du plan est donc
+\[
+2x-y+z+d=0.
+\]
+Comme $A(1;3;0)$ appartient au plan :
+\[
+2-3+0+d=0,
+\]
+donc $d=1$. Ainsi
+\[
+(ABC):\quad 2x-y+z+1=0.
+\]
+
+\item La droite $\Delta$ passe par $D(-2;2;1)$ et a pour vecteur directeur $(2;-1;1)$, donc une représentation paramétrique est
+\[
+\begin{cases}
+x=-2+2t,\\
+y=2-t,\\
+z=1+t,
+\end{cases}\qquad t\in\mathbb R.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{4. Projeté orthogonal}
+On vérifie d'abord que $H$ appartient au plan :
+\[
+2\left(-\dfrac23\right)-\dfrac43+\dfrac53+1=0.
+\]
+De plus
+\[
+\vect{DH}\left(\dfrac43;-\dfrac23;\dfrac23\right)=\dfrac23(2;-1;1),
+\]
+donc $\vect{DH}$ est normal au plan $(ABC)$. Ainsi $H$ est bien le projeté orthogonal de $D$ sur le plan $(ABC)$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Volume du tétraèdre}
+\begin{enumerate}
+\item On a
+\[
+DH=\sqrt{\left(\dfrac43\right)^2+\left(-\dfrac23\right)^2+\left(\dfrac23\right)^2}
+=\sqrt{\dfrac{24}{9}}=\dfrac{2\sqrt6}{3}.
+\]
+
+\item Comme $ABC$ est rectangle en $A$,
+\[
+\mathcal A_{ABC}=\dfrac12 AB\times AC.
+\]
+Or
+\[
+AB=\sqrt{30},\qquad AC=\sqrt5,
+\]
+donc
+\[
+\mathcal A_{ABC}=\dfrac12\sqrt{150}=\dfrac{5\sqrt6}{2}.
+\]
+La hauteur relative à la base $ABC$ est $DH$. Donc
+\[
+V=\dfrac13\times \dfrac{5\sqrt6}{2}\times \dfrac{2\sqrt6}{3}=\dfrac{10}{3}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Position relative de $d$ et du plan}
+On remplace les coordonnées paramétriques de $d$ dans l'équation du plan :
+\[
+2(1-2k)-(-3k)+(1+k)+1=4.
+\]
+Cette expression ne dépend pas de $k$ et n'est jamais égale à $0$. La droite $d$ ne coupe donc pas le plan $(ABC)$. Elle est parallèle au plan, et même strictement parallèle.
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 3 -- Drones et plan dans l'espace}{Polynésie, 20 juin 2024, sujet 2, exercice 4}
+
+\begin{correctionbox}{1. Non-alignement de $A$, $B$ et $C$}
+On calcule
+\[
+\vect{AB}(5;-1;-13),\qquad \vect{AC}(2;-2;-10).
+\]
+Ces deux vecteurs ne sont pas colinéaires. Les points $A$, $B$ et $C$ ne sont donc pas alignés.
+\end{correctionbox}
+
+\begin{correctionbox}{2. Plan $\mathcal P$}
+\begin{enumerate}
+\item Avec $\vec n(2;-3;1)$, on a
+\[
+\vec n\cdot\vect{AB}=2\times5+(-3)(-1)+1(-13)=0,
+\]
+\[
+\vec n\cdot\vect{AC}=2\times2+(-3)(-2)+1(-10)=0.
+\]
+Le vecteur $\vec n$ est orthogonal à deux vecteurs non colinéaires du plan, donc il est normal au plan $(ABC)$.
+
+\item Une équation du plan est $2x-3y+z+d=0$. Comme $A(-1;-1;17)$ appartient au plan :
+\[
+-2+3+17+d=0,
+\]
+donc $d=-18$. Ainsi
+\[
+\mathcal P:\quad 2x-3y+z-18=0.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Quatrième drone}
+\begin{enumerate}
+\item Un vecteur directeur de $d$ est
+\[
+\vec u(3;1;4).
+\]
+\item On cherche l'intersection avec $\mathcal P$. On remplace :
+\[
+2(3t+2)-3(t+5)+(4t+1)-18=0.
+\]
+Cela donne
+\[
+7t-28=0,
+\]
+donc $t=4$. Ainsi
+\[
+E(3\times4+2;4+5;4\times4+1)=(14;9;17).
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{4. Distance du point $D$ au plan}
+Le point $F(6;-1;3)$ est l'intersection de la droite perpendiculaire au plan passant par $D$ avec le plan. La distance du point $D$ au plan est donc $DF$.
+On calcule
+\[
+\vect{DF}(4;-6;2),
+\]
+donc
+\[
+DF=\sqrt{4^2+(-6)^2+2^2}=\sqrt{56}=2\sqrt{14}.
+\]
+La distance de $D$ au plan $\mathcal P$ vaut donc $2\sqrt{14}$ centaines de mètres.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Arrivée à temps}
+La distance minimale à parcourir pour aller de $D$ à un point du plan $\mathcal P$ est la distance de $D$ au plan, soit
+\[
+2\sqrt{14}\text{ centaines de mètres}=200\sqrt{14}\text{ mètres}\approx 748{,}3\text{ m}.
+\]
+En $40$ secondes à $18{,}6$ m.s$^{-1}$, le drone parcourt au maximum
+\[
+18{,}6\times40=744\text{ m}.
+\]
+Comme $744<748{,}3$, le nouveau drone ne peut pas arriver à temps.
+\end{correctionbox}
+\end{document}

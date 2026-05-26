@@ -1,0 +1,657 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdftitle={Parcours de révision -- Suites -- Terminale spécialité},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Un}{\ensuremath{(u_n)}}
+\newcommand{\e}{\mathrm e}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\newcommand{\sep}{\vspace{0.55mm}}
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Suites}\end{tcolorbox}}
+\tikzset{tabouter/.style={draw=tableline, line width=0.85pt},tabline/.style={draw=tableline, line width=0.55pt},forbidden/.style={draw=tableline, line width=0.95pt},vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},tabtext/.style={font=\small},tabmath/.style={font=\small},labelcell/.style={font=\small\bfseries, text=deepblue},pointvalue/.style={font=\small\bfseries},endvalue/.style={font=\small}}
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Suites}\\[1mm]
+
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=6.5mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+
+\fontsize{7.85}{8.45}\selectfont
+
+\titrepage
+
+\noindent
+% ============================================================
+% COLONNE 1
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{bleu}{1. DÉFINIR, CALCULER, VARIER}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Suite et notation}
+Une suite \Un{} associe à chaque rang $n$ un nombre $u_n$.
+
+\medskip
+\textbf{À écrire :} $u_n$ est le terme de rang $n$ ; \Un{} désigne la suite entière.
+
+\medskip
+Deux modes de définition fréquents :
+\[
+ u_n=f(n)
+ \qquad\text{ou}\qquad
+ u_{n+1}=f(u_n).
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Premiers termes}
+\textbf{Suite explicite :} on remplace $n$ par $0$, $1$, $2$, etc.
+
+\medskip
+\textbf{Suite par récurrence :} on part du premier terme puis on calcule successivement :
+\[
+ u_1=f(u_0),\qquad u_2=f(u_1),\qquad u_3=f(u_2).
+\]
+
+\medskip
+Chaque remplacement doit apparaître dans la copie.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Sens de variation}
+Pour étudier les variations de \Un, on peut :
+\begin{itemize}
+    \item étudier le signe de $u_{n+1}-u_n$ ;
+    \item si $u_n>0$, comparer $\dfrac{u_{n+1}}{u_n}$ à $1$ ;
+    \item si $u_n=f(n)$, utiliser les variations de $f$.
+\end{itemize}
+
+\[
+\begin{array}{c|c}
+ u_{n+1}-u_n\geq 0 & \Un{} \text{ croissante}\\
+ u_{n+1}-u_n\leq 0 & \Un{} \text{ décroissante}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Pièges}
+\begin{itemize}
+    \item Quelques valeurs ne prouvent pas une variation : elles permettent seulement de conjecturer.
+    \item Une suite peut être ni croissante ni décroissante.
+    \item Pour utiliser le quotient, vérifier d'abord que les termes sont strictement positifs.
+\end{itemize}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 2
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{vert}{2. SUITES ARITHMÉTIQUES ET GÉOMÉTRIQUES}
+\begin{panel}{vert}
+
+\begin{fichebox}{vert}{Suite arithmétique}
+\Un{} est arithmétique de raison $r$ si :
+\[
+ u_{n+1}=u_n+r.
+\]
+Pour $n\geq p$ :
+\[
+ u_n=u_p+(n-p)r.
+\]
+\textbf{Montrer :} calculer $u_{n+1}-u_n$ ; cette différence doit être constante.
+
+\textbf{Variation :} le signe de $r$ donne le sens de variation.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Suite géométrique}
+\Un{} est géométrique de raison $q$ si :
+\[
+ u_{n+1}=q u_n.
+\]
+Pour $n\geq p$ :
+\[
+ u_n=u_p q^{\,n-p}.
+\]
+\textbf{Montrer :} exprimer $u_{n+1}$ en fonction de $u_n$ et obtenir $u_{n+1}=q u_n$.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Sommes utiles}
+\[
+1+2+\cdots+n=\frac{n(n+1)}2.
+\]
+\textbf{Nombre de termes de $p$ à $n$ :} $n-p+1$.
+
+\textbf{Arithmétique :}
+\[
+\sum_{k=p}^{n}u_k=(n-p+1)\frac{u_p+u_n}{2}.
+\]
+
+\textbf{Géométrique, si $q\neq1$ :}
+\[
+\sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}
+\]
+\[
+\sum_{k=p}^{n}u_k=u_p\frac{1-q^{n-p+1}}{1-q}.
+\]
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 3
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{violet}{3. RÉCURRENCE ET CONVERGENCE}
+\begin{panel}{violet}
+
+\begin{fichebox}{violet}{Rédiger une récurrence}
+Pour démontrer une propriété $P_n$ pour tout $n\geq n_0$ :
+
+\medskip
+\textbf{Initialisation :} on vérifie que $P_{n_0}$ est vraie.
+
+\medskip
+\textbf{Hérédité :} on suppose que $P_k$ est vraie pour un entier $k\geq n_0$ fixé, et on montre que $P_{k+1}$ est vraie.
+
+\medskip
+\textbf{Conclusion :} par récurrence, $P_n$ est vraie pour tout $n\geq n_0$.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Suites majorées, minorées, bornées}
+\begin{itemize}
+    \item \Un{} est majorée si $u_n\leq M$ pour tout $n$.
+    \item \Un{} est minorée si $u_n\geq m$ pour tout $n$.
+    \item \Un{} est bornée si elle est majorée et minorée.
+\end{itemize}
+\end{fichebox}
+
+\begin{fichebox}{vert}{Théorèmes de convergence}
+\begin{itemize}
+    \item croissante et majorée $\Longrightarrow$ convergente ;
+    \item décroissante et minorée $\Longrightarrow$ convergente ;
+    \item croissante non majorée $\Longrightarrow +\infty$ ;
+    \item décroissante non minorée $\Longrightarrow -\infty$.
+\end{itemize}
+\end{fichebox}
+
+\begin{fichebox}{orange}{Limite et point fixe}
+Si $u_{n+1}=f(u_n)$, si $f$ est continue et si $u_n\to \ell$, alors :
+\[
+\ell=f(\ell).
+\]
+\end{fichebox}
+
+
+\end{panel}
+\end{minipage}
+\hfill
+% ============================================================
+% COLONNE 4
+% ============================================================
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{orange}{4. LIMITES ET MÉTHODES DE CALCUL}
+\begin{panel}{orange}
+
+\begin{fichebox}{bleu}{Converger, diverger}
+\[
+\lim_{n\to+\infty}u_n=\ell
+\]
+signifie que les termes $u_n$ deviennent aussi proches de $\ell$ que l'on veut à partir d'un certain rang.
+
+\medskip
+\Un{} est convergente si elle admet une limite finie ; sinon elle est divergente.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Suites géométriques $q^n$}
+\[
+\begin{array}{c|c}
+q>1 & q^n\to +\infty\\
+q=1 & q^n\to 1\\
+-1<q<1 & q^n\to 0\\
+q\leq -1 & \text{pas de limite}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Comparaison et gendarmes}
+\textbf{Comparaison :} si $u_n\geq v_n$ et $v_n\to +\infty$, alors $u_n\to +\infty$.
+
+\medskip
+Si $u_n\leq v_n$ et $v_n\to -\infty$, alors $u_n\to -\infty$.
+
+\medskip
+\textbf{Gendarmes :} si $u_n\leq v_n\leq w_n$ et si $u_n,w_n\to \ell$, alors $v_n\to \ell$.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Formes indéterminées}
+À traiter avant de conclure :
+\[
++\infty-\infty,
+\qquad 0\times\infty,
+\qquad \frac{\infty}{\infty},
+\qquad \frac{0}{0}.
+\]
+
+\medskip
+\textbf{Réflexes :} factoriser le terme dominant, développer, mettre au même dénominateur, encadrer.
+\end{fichebox}
+
+
+\end{panel}
+\end{minipage}
+
+
+\end{landscape}
+\clearpage
+\restoregeometry
+\pagecolor{white}\color{black}
+\pagestyle{fancy}
+
+\section*{Partie 2 -- Questions flashs}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flashs}
+\setcounter{question}{0}
+\begin{blocquestions}{A. Vocabulaire et formules de base}
+  \item Qu'est-ce qu'une suite numérique ? \origine{1}
+  \item Comment note-t-on en général le terme de rang \(n\) d'une suite ? \origine{2}
+  \item Quelle est la différence entre une définition explicite et une définition par récurrence ? \origine{3}
+  \item Quand dit-on qu'une suite est arithmétique ? \origine{4}
+  \item Comment s'appelle le réel \(r\) dans une suite arithmétique ? \origine{5}
+  \item Quelle est la formule explicite d'une suite arithmétique de premier terme \(u_0\) et de raison \(r\) ? \origine{6}
+  \item Quand dit-on qu'une suite est géométrique ? \origine{7}
+  \item Comment s'appelle le réel \(q\) dans une suite géométrique ? \origine{8}
+  \item Quelle est la formule explicite d'une suite géométrique de premier terme \(u_0\) et de raison \(q\) ? \origine{9}
+  \item Comment étudie-t-on en général le sens de variation d'une suite ? \origine{10}
+  \item Que montre-t-on pour prouver qu'une suite est croissante ? \origine{11}
+  \item Que montre-t-on pour prouver qu'une suite est décroissante ? \origine{12}
+  \item Dans quel cas peut-on comparer \(\dfrac{u_{n+1}}{u_n}\) ? \origine{13}
+  \item Quelle idée utilise-t-on souvent pour une relation \(u_{n+1}=a u_n+b\) ? \origine{18}
+  \item Qu'est-ce qu'un point fixe pour la relation \(u_{n+1}=a u_n+b\) ? \origine{19}
+  \item Quel type de boucle Python utilise-t-on souvent pour chercher un seuil ? \origine{20}
+\end{blocquestions}
+
+\begin{blocquestions}{B. Limites et convergence}
+  \item Que signifie \(\displaystyle \lim_{n\to +\infty} u_n=\ell\) ? \origine{87}
+  \item Une suite convergente est-elle toujours bornée ? \origine{88}
+  \item Une suite qui tend vers \(+\infty\) est-elle convergente ? \origine{89}
+  \item Que vaut \(\displaystyle \lim_{n\to +\infty} 0{,}8^n\) ? \origine{90}
+  \item Que vaut \(\displaystyle \lim_{n\to +\infty} 1{,}05^n\) ? \origine{91}
+  \item Que vaut \(\displaystyle \lim_{n\to +\infty} \frac{n+1}{n+3}\) ? \origine{92}
+  \item Quel est le théorème des gendarmes pour les suites ? \origine{93}
+  \item Quand une suite croissante converge-t-elle automatiquement ? \origine{94}
+  \item Quand une suite décroissante converge-t-elle automatiquement ? \origine{95}
+\end{blocquestions}
+
+\begin{blocquestions}{C. Calculs flash}
+  \item Que vaut \(u_5\) si \(u_n=2n+1\) ? \origine{203}
+  \item Si \(u_0=7\) et \(u_{n+1}=u_n+2\), que vaut \(u_1\) ? \origine{205}
+  \item Quelle suite auxiliaire pense-t-on souvent à poser pour \(u_{n+1}=0{,}8u_n+6\) ? \origine{207}
+  \item Quel est le point fixe de la relation \(u_{n+1}=0{,}5u_n+4\) ? \origine{208}
+\end{blocquestions}
+
+\begin{blocquestions}{D. Suites bornées, monotones et convergentes}
+  \item Qu'appelle-t-on une suite majorée ? \origine{261}
+  \item Qu'appelle-t-on une suite minorée ? \origine{262}
+  \item Qu'appelle-t-on une suite bornée ? \origine{263}
+  \item Qu'appelle-t-on une suite monotone ? \origine{264}
+  \item Qu'appelle-t-on une suite constante ? \origine{265}
+  \item Qu'appelle-t-on une suite convergente ? \origine{305}
+\end{blocquestions}
+
+\begin{blocquestions}{E. Rédaction de la récurrence}
+  \item Quels sont les points de rédaction importants pour définir la propriété \(P(n)\) au début d'une récurrence ? \origine{388}
+  \item Quels sont les points de rédaction importants pour l'initialisation d'une récurrence ? \origine{389}
+  \item Quels sont les points de rédaction importants pour l'hérédité d'une récurrence ? \origine{390}
+  \item Quels sont les points de rédaction importants pour la conclusion d'une récurrence ? \origine{391}
+\end{blocquestions}
+
+\begin{blocquestions}{F. Un calcul direct pour s'entraîner}
+  \item Calculer le terme \(u_{12}\) de la suite arithmétique définie par \(u_0=3\) et de raison \(r=4\). \origine{545}
+\end{blocquestions}
+
+
+
+\clearpage
+\section*{Partie 3 -- Sujets de bac}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets de bac}
+\titreSujet{Sujet 1 -- Suite auxiliaire et algorithme}{Amérique du Nord, 21 mai 2025, jour 1, exercice 2}
+
+On considère la suite numérique $(u_n)$ définie par son premier terme $u_0=2$ et, pour tout entier naturel $n$, par :
+\[
+u_{n+1}=\dfrac{2u_n+1}{u_n+2}.
+\]
+On admet que la suite $(u_n)$ est bien définie.
+
+\begin{enumerate}
+  \item Calculer le terme $u_1$.
+  \item On définit la suite $(a_n)$ pour tout entier naturel $n$, par :
+  \[
+a_n=\dfrac{u_n}{u_n-1}.
+  \]
+  On admet que la suite $(a_n)$ est bien définie.
+  \begin{enumerate}
+    \item Calculer $a_0$ et $a_1$.
+    \item Démontrer que, pour tout entier naturel $n$, $a_{n+1}=3a_n-1$.
+    \item Démontrer par récurrence que, pour tout entier naturel $n$ supérieur ou égal à $1$,
+    \[
+a_n\geqslant 3n-1.
+    \]
+    \item En déduire la limite de la suite $(a_n)$.
+  \end{enumerate}
+  \item On souhaite étudier la limite de la suite $(u_n)$.
+  \begin{enumerate}
+    \item Démontrer que, pour tout entier naturel $n$,
+    \[
+u_n=\dfrac{a_n}{a_n-1}.
+    \]
+    \item En déduire la limite de la suite $(u_n)$.
+  \end{enumerate}
+  \item On admet que la suite $(u_n)$ est décroissante. On considère le programme suivant écrit en langage Python :
+\begin{Verbatim}[frame=single, fontsize=\small]
+def algo(p):
+    u = 2
+    n = 0
+    while u - 1 > p:
+        u = (2*u + 1)/(u + 2)
+        n = n + 1
+    return (n, u)
+\end{Verbatim}
+  \begin{enumerate}
+    \item Interpréter les valeurs $n$ et $u$ renvoyées par l'appel de la fonction \texttt{algo(p)} dans le contexte de l'exercice.
+    \item Donner, sans justifier, la valeur de $n$ pour $p=0{,}001$.
+  \end{enumerate}
+\end{enumerate}
+
+\newpage
+\titreSujet{Sujet 2 -- Deux modèles d'évolution d'une population}{Centres étrangers, 13 juin 2025, sujet 2, exercice 1}
+
+On se propose de comparer l'évolution d'une population animale dans deux milieux distincts $A$ et $B$.
+Au 1er janvier 2025, on introduit $6\,000$ individus dans chacun des milieux $A$ et $B$.
+
+\textbf{Partie A}
+
+Dans cette partie, on étudie l'évolution de la population dans le milieu $A$.
+
+On suppose que dans ce milieu, l'évolution de la population est modélisée par une suite géométrique $(u_n)$ de premier terme $u_0=6$ et de raison $0{,}93$.
+Pour tout entier naturel $n$, $u_n$ représente la population au 1er janvier de l'année $2025+n$, exprimée en millier d'individus.
+
+\begin{enumerate}
+  \item Donner, selon ce modèle, la population au 1er janvier 2026.
+  \item Pour tout entier naturel $n$, exprimer $u_n$ en fonction de $n$.
+  \item Déterminer la limite de la suite $(u_n)$. Interpréter ce résultat dans le contexte de l'exercice.
+\end{enumerate}
+
+\textbf{Partie B}
+
+Dans cette partie, on étudie l'évolution de la population dans le milieu $B$.
+
+On suppose que dans ce milieu, l'évolution de la population est modélisée par la suite $(v_n)$ définie par
+\[
+v_0=6\qquad\text{et, pour tout entier naturel }n,\qquad v_{n+1}=-0{,}05v_n^2+1{,}1v_n.
+\]
+Pour tout entier naturel $n$, $v_n$ représente la population au 1er janvier de l'année $2025+n$, exprimée en millier d'individus.
+
+\begin{enumerate}
+  \item Donner, selon ce modèle, la population au 1er janvier 2026.
+\end{enumerate}
+Soit $f$ la fonction définie sur l'intervalle $[0;+\infty[$ par
+\[
+f(x)=-0{,}05x^2+1{,}1x.
+\]
+\begin{enumerate}[resume]
+  \item Démontrer que la fonction $f$ est croissante sur l'intervalle $[0;11]$.
+  \item Démontrer par récurrence que, pour tout entier naturel $n$, on a
+  \[
+  2\leqslant v_{n+1}\leqslant v_n\leqslant 6.
+  \]
+  \item En déduire que la suite $(v_n)$ est convergente vers une limite $\ell$.
+  \item
+  \begin{enumerate}
+    \item Justifier que la limite $\ell$ vérifie $f(\ell)=\ell$, puis en déduire la valeur de $\ell$.
+    \item Interpréter ce résultat dans le contexte de l'exercice.
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Partie C}
+
+Cette partie a pour but de comparer l'évolution de la population dans les deux milieux.
+
+\begin{enumerate}
+  \item En résolvant une inéquation, déterminer l'année à partir de laquelle la population du milieu $A$ sera strictement inférieure à $3\,000$ individus.
+  \item À l'aide de la calculatrice, déterminer l'année à partir de laquelle la population du milieu $B$ sera strictement inférieure à $3\,000$ individus.
+  \item Justifier qu'à partir d'une certaine année, la population du milieu $B$ dépassera la population du milieu $A$.
+  \item On considère le programme Python ci-dessous.
+  \begin{enumerate}
+    \item Recopier et compléter ce programme afin qu'après exécution, il affiche l'année à partir de laquelle la population du milieu $B$ est strictement supérieure à la population du milieu $A$.
+    \item Déterminer l'année affichée après exécution du programme.
+  \end{enumerate}
+\end{enumerate}
+\begin{Verbatim}[frame=single, fontsize=\small]
+n = 0
+u = 6
+v = 6
+while ... :
+    u = ...
+    v = ...
+    n = n + 1
+print(2025 + n)
+\end{Verbatim}
+
+\newpage
+\titreSujet{Sujet 3 -- Convergence de deux suites vers une même limite}{Métropole, 9 septembre 2025, sujet 1, exercice 3}
+
+Le but de cet exercice est d'étudier les convergences de deux suites vers une même limite.
+
+\textbf{Partie A}
+
+On considère la fonction $f$ définie sur $[2;+\infty[$ par
+\[
+f(x)=\sqrt{3x-2}.
+\]
+
+\begin{enumerate}
+  \item Justifier les éléments du tableau de variations ci-dessous :
+  \begin{center}
+  \begin{tikzpicture}[x=1cm,y=1cm]
+    \def\L{2.25}
+    \def\W{8.60}
+    \def\H{2.70}
+    \def\Yx{1.90}
+
+    % Fonds
+    \fill[softgray] (0,\Yx) rectangle (\W,\H);
+    \fill[softblue] (0,0) rectangle (\L,\Yx);
+
+    % Cadre et séparations
+    \draw[tabouter] (0,0) rectangle (\W,\H);
+    \draw[tabline] (0,\Yx) -- (\W,\Yx);
+    \draw[tabline] (\L,0) -- (\L,\H);
+
+    % Libellés
+    \node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$x$};
+    \node[labelcell] at ({\L/2},{\Yx/2}) {$f(x)$};
+
+    % Ligne x
+    \node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$2$};
+    \node[tabmath] at ({\W-0.45},{(\Yx+\H)/2}) {$+\infty$};
+
+    % Valeurs et flèche
+    \node[pointvalue] at ({\L+0.45},0.35) {$2$};
+    \node[endvalue] at ({\W-0.65},1.45) {$+\infty$};
+    \draw[vararrow] ({\L+0.90},0.50) -- ({\W-1.10},1.35);
+  \end{tikzpicture}
+  \end{center}
+\end{enumerate}
+
+On admet que la suite $(u_n)$ vérifiant $u_0=6$ et, pour tout entier naturel $n$,
+\[
+u_{n+1}=f(u_n)
+\]
+est bien définie.
+
+\begin{enumerate}[resume]
+  \item
+  \begin{enumerate}
+    \item Démontrer par récurrence que, pour tout entier naturel $n$,
+    \[
+    2\leqslant u_{n+1}\leqslant u_n\leqslant 6.
+    \]
+    \item En déduire que la suite $(u_n)$ converge.
+  \end{enumerate}
+  \item On appelle $\ell$ la limite de $(u_n)$. On admet qu'elle est solution de l'équation $f(x)=x$. Déterminer la valeur de $\ell$.
+  \item On considère la fonction \texttt{rang} écrite ci-dessous en langage Python. On rappelle que \texttt{sqrt(x)} renvoie la racine carrée du nombre $x$.
+\begin{Verbatim}[frame=single, fontsize=\small]
+from math import *
+
+def rang(a):
+    u = 6
+    n = 0
+    while u >= a:
+        u = sqrt(3*u - 2)
+        n = n + 1
+    return n
+\end{Verbatim}
+  \begin{enumerate}
+    \item Pourquoi peut-on affirmer que \texttt{rang(2.000001)} renvoie une valeur ?
+    \item Pour quelles valeurs du paramètre $a$ l'instruction \texttt{rang(a)} renvoie-t-elle un résultat ?
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Partie B}
+
+On admet que la suite $(v_n)$ vérifiant $v_0=6$ et, pour tout entier naturel $n$,
+\[
+v_{n+1}=3-\dfrac{2}{v_n}
+\]
+est bien définie.
+
+\begin{enumerate}
+  \item Calculer $v_1$.
+  \item Pour tout entier naturel $n$, on admet que $v_n\neq 2$ et on pose :
+  \[
+w_n=\dfrac{v_n-1}{v_n-2}.
+  \]
+  \begin{enumerate}
+    \item Démontrer que la suite $(w_n)$ est géométrique de raison $2$ et préciser son premier terme $w_0$.
+    \item On admet que, pour tout entier naturel $n$,
+    \[
+w_n-1=\dfrac{1}{v_n-2}.
+    \]
+    En déduire que, pour tout entier naturel $n$,
+    \[
+v_n=2+\dfrac{1}{1{,}25\times 2^n-1}.
+    \]
+    \item Calculer la limite de $(v_n)$.
+  \end{enumerate}
+  \item Déterminer le plus petit entier naturel $n$ pour lequel $v_n<2{,}01$ en résolvant l'inéquation.
+\end{enumerate}
+
+\textbf{Partie C}
+
+À l'aide des parties précédentes, déterminer le plus petit entier $N$ tel que, pour tout $n\geqslant N$, les termes $v_n$ et $u_n$ appartiennent à l'intervalle $]1{,}99;2{,}01[$.
+
+
+\end{document}

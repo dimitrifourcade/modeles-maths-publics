@@ -1,0 +1,412 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.7cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{246,246,246}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdfauthor={},pdftitle={Parcours de révision -- Trigonométrie et LGN -- Corrigés}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.28em}
+\renewcommand{\arraystretch}{1.12}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.25em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\Bin}{\mathcal B}
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.4em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=grisclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{
+  enhanced,
+  breakable,
+  colback=grisclair,
+  colframe=black!55,
+  boxrule=0.55pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+  title=\textbf{#1},
+  coltitle=black,
+  colbacktitle=black!12,
+  before skip=2mm,
+  after skip=2mm
+}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+\sloppy
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Trigonométrie et loi des grands nombres}\\[1mm]
+
+\end{center}
+\vspace{1mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Corrections des questions flashs}
+\addcontentsline{toc}{section}{Partie 1 -- Corrections des questions flashs}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Réponses -- A. Trigonométrie : cercle et propriétés}
+  \item \origine{479} C'est le cercle de centre $O$ et de rayon $1$, orienté dans le sens direct.
+  \item \origine{480} Cela signifie que, pour tout réel $x$, $\cos(x+2\pi)=\cos(x)$ et $\sin(x+2\pi)=\sin(x)$.
+  \item \origine{481} La fonction cosinus est paire : pour tout réel $x$, $\cos(-x)=\cos(x)$.
+  \item \origine{482} La fonction sinus est impaire : pour tout réel $x$, $\sin(-x)=-\sin(x)$.
+  \item \origine{528} C'est le point de coordonnées $(\cos x\,;\,\sin x)$.
+  \item \origine{529} Un tour complet correspond à une longueur $2\pi$.
+  \item \origine{530} On a toujours $\cos^2 x+\sin^2 x=1$.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- B. Trigonométrie : valeurs remarquables}
+  \item \origine{531} On a $\cos(0)=1$ et $\sin(0)=0$.
+  \item \origine{533} On a $\cos\left(\dfrac{\pi}{2}\right)=0$ et $\sin\left(\dfrac{\pi}{2}\right)=1$.
+  \item \origine{484} On a $\cos\left(\dfrac{\pi}{4}\right)=\dfrac{\sqrt2}{2}$ et $\sin\left(\dfrac{\pi}{4}\right)=\dfrac{\sqrt2}{2}$.
+  \item \origine{691} On a $\cos\left(\dfrac{\pi}{6}\right)=\dfrac{\sqrt3}{2}$ et $\sin\left(\dfrac{\pi}{6}\right)=\dfrac12$.
+\end{blocreponses}
+\begin{blocreponses}{C. Liens avec l'analyse}
+  \item \origine{158} Une primitive est $\sin(x)$.
+  \item \origine{159} Une primitive est $-\cos(x)$.
+  \item \origine{247} Une primitive est $\cos x$.
+  \item \origine{798} Valeur classique : la limite vaut $\dfrac12$.
+\end{blocreponses}
+\begin{blocreponses}{Réponses -- D. Variables aléatoires et loi des grands nombres}
+  \item Si $X$ prend les valeurs $x_1,\ldots,x_n$, alors $E(X)=\displaystyle\sum_{i=1}^n x_iP(X=x_i)$.
+  \item $V(X)=E\bigl((X-E(X))^2\bigr)$, ou $V(X)=\displaystyle\sum_i (x_i-E(X))^2P(X=x_i)$.
+  \item $\sigma(X)=\sqrt{V(X)}$.
+  \item $E(X)=np$.
+  \item $V(X)=np(1-p)$.
+  \item Elle représente une valeur moyenne attendue sur un grand nombre de répétitions.
+  \item Elle représente la moyenne observée sur l'échantillon.
+  \item Lorsque le nombre de répétitions devient grand, la moyenne observée se rapproche de l'espérance.
+  \item Il diminue.
+  \item Par linéarité de l'espérance, $E(M_n)=\mu$.
+\end{blocreponses}
+
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets de bac}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets de bac}
+\titreSujet{Sujet 1 -- Loi des grands nombres et moyenne d'échantillons}{Métropole, juin 2025, sujet 1, exercice 1}
+
+\begin{correctionbox}{1. Arbre pondéré}
+On complète d'abord les probabilités des quatre groupes sanguins :
+\[
+p(O)=1-p(A)-p(B)-p(AB)=1-0{,}45-0{,}10-0{,}03=0{,}42.
+\]
+Les probabilités conditionnelles contraires valent :
+\[
+p_A(\overline R)=0{,}15,\qquad p_B(\overline R)=0{,}16,\qquad p_{AB}(\overline R)=0{,}18.
+\]
+
+\begin{center}
+\begin{tikzpicture}[grow=right, level distance=2.8cm, sibling distance=18mm,
+  every node/.style={font=\small}, edge from parent/.style={draw},
+  edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+\node {}
+  child {node {$O$}
+    child {node {$\overline R$}}
+    child {node {$R$}}
+    edge from parent node[below] {$0{,}42$}}
+  child {node {$AB$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}18$}}
+    child {node {$R$} edge from parent node[above] {$0{,}82$}}
+    edge from parent node[below] {$0{,}03$}}
+  child {node {$B$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}16$}}
+    child {node {$R$} edge from parent node[above] {$0{,}84$}}
+    edge from parent node[above] {$0{,}10$}}
+  child {node {$A$}
+    child {node {$\overline R$} edge from parent node[below] {$0{,}15$}}
+    child {node {$R$} edge from parent node[above] {$0{,}85$}}
+    edge from parent node[above] {$0{,}45$}};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{2. Calcul de $p(B\cap R)$}
+On utilise la formule d'une probabilité d'intersection avec une probabilité conditionnelle :
+\[
+p(B\cap R)=p(B)\times p_B(R)=0{,}10\times 0{,}84=0{,}084.
+\]
+Ainsi, la probabilité qu'une personne choisie au hasard soit de groupe sanguin B et de rhésus positif est égale à $0{,}084$, soit $8{,}4\,\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul de $p_O(R)$}
+Les événements $A$, $B$, $AB$ et $O$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+p(R)=p(A\cap R)+p(B\cap R)+p(AB\cap R)+p(O\cap R).
+\]
+Donc
+\[
+0{,}8397=0{,}45\times0{,}85+0{,}10\times0{,}84+0{,}03\times0{,}82+0{,}42\times p_O(R).
+\]
+Or
+\[
+0{,}45\times0{,}85+0{,}10\times0{,}84+0{,}03\times0{,}82=0{,}4911.
+\]
+Ainsi,
+\[
+0{,}42\times p_O(R)=0{,}8397-0{,}4911=0{,}3486,
+\]
+puis
+\[
+p_O(R)=\dfrac{0{,}3486}{0{,}42}=0{,}83.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Probabilité d'être donneur universel}
+Un donneur universel est une personne de groupe O et de rhésus négatif. On cherche donc $p(O\cap \overline R)$.
+
+D'après la question précédente, $p_O(R)=0{,}83$, donc $p_O(\overline R)=0{,}17$.
+
+Ainsi,
+\[
+p(O\cap \overline R)=p(O)\times p_O(\overline R)=0{,}42\times0{,}17=0{,}0714.
+\]
+La probabilité qu'un individu choisi au hasard dans la population française soit donneur universel est donc $0{,}0714$, soit $7{,}14\,\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Loi binomiale}
+\begin{enumerate}
+  \item On répète $100$ expériences de Bernoulli indépendantes et identiques, car le choix de l'échantillon est assimilé à un tirage avec remise. Le succès est : « la personne choisie est donneur universel », de probabilité $p=0{,}0714$. La variable aléatoire $X$ compte le nombre de succès parmi les 100 personnes. Donc
+  \[
+  X\sim \mathcal B(100;0{,}0714).
+  \]
+
+  \item On cherche $P(X\leqslant 7)$. À la calculatrice, avec $X\sim\mathcal B(100;0{,}0714)$,
+  \[
+  P(X\leqslant 7)\approx 0{,}577.
+  \]
+  La probabilité qu'il y ait au plus 7 donneurs universels dans cet échantillon est donc environ $0{,}577$.
+
+  \item Pour une loi binomiale $\mathcal B(n;p)$, on a $E(X)=np$ et $V(X)=np(1-p)$. Donc
+  \[
+  E(X)=100\times0{,}0714=7{,}14,
+  \]
+  et
+  \[
+  V(X)=100\times0{,}0714\times(1-0{,}0714)=6{,}630204\approx 6{,}63.
+  \]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Moyenne sur $N$ villes et Bienaymé-Tchebychev}
+\begin{enumerate}
+  \item La variable aléatoire $M_N$ représente le nombre moyen de donneurs universels dans les échantillons de 100 personnes prélevés dans les $N$ villes.
+
+  \item Par linéarité de l'espérance,
+  \[
+  E(M_N)=E\left(\dfrac{X_1+X_2+\cdots+X_N}{N}\right)
+  =\dfrac{E(X_1)+E(X_2)+\cdots+E(X_N)}{N}.
+  \]
+  Comme chaque variable $X_i$ a pour espérance $7{,}14$, on obtient
+  \[
+  E(M_N)=\dfrac{N\times7{,}14}{N}=7{,}14.
+  \]
+
+  \item Comme les variables $X_1,\ldots,X_N$ sont indépendantes,
+  \[
+  V(X_1+\cdots+X_N)=V(X_1)+\cdots+V(X_N)=N\times6{,}63.
+  \]
+  Donc
+  \[
+  V(M_N)=V\left(\dfrac{X_1+\cdots+X_N}{N}\right)=\dfrac{1}{N^2}V(X_1+\cdots+X_N)
+  =\dfrac{N\times6{,}63}{N^2}=\dfrac{6{,}63}{N}.
+  \]
+
+  \item On remarque que
+  \[
+  7<M_N<7{,}28 \quad \Longleftrightarrow \quad |M_N-7{,}14|<0{,}14.
+  \]
+  D'après l'inégalité de Bienaymé-Tchebychev,
+  \[
+  P\left(|M_N-E(M_N)|\geqslant 0{,}14\right)\leqslant \dfrac{V(M_N)}{0{,}14^2}.
+  \]
+  Donc
+  \[
+  P\left(|M_N-7{,}14|\geqslant 0{,}14\right)\leqslant \dfrac{6{,}63}{N\times0{,}0196}.
+  \]
+  Ainsi,
+  \[
+  P(7<M_N<7{,}28)\geqslant 1-\dfrac{6{,}63}{N\times0{,}0196}.
+  \]
+  On veut que ce minorant soit strictement supérieur à $0{,}95$ :
+  \[
+  1-\dfrac{6{,}63}{N\times0{,}0196}>0{,}95.
+  \]
+  Cela équivaut à
+  \[
+  \dfrac{6{,}63}{N\times0{,}0196}<0{,}05,
+  \]
+  donc
+  \[
+  N>\dfrac{6{,}63}{0{,}05\times0{,}0196}\approx6765{,}31.
+  \]
+  La plus petite valeur entière possible est donc
+  \[
+  \boxed{N=6766}.
+  \]
+\end{enumerate}
+\end{correctionbox}
+\clearpage
+\titreSujet{Sujet 2 -- Trigonométrie, convexité et intégration}{Amérique du Nord, 22 mai 2025, sujet 2, exercice 4}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item On dérive :
+\[
+f'(x)=\e^x\sin x+\e^x\cos x=\e^x(\sin x+\cos x).
+\]
+Sur $\left[0;\frac\pi2\right]$, $\sin x\geqslant0$ et $\cos x\geqslant0$, et leur somme est strictement positive. Donc $f'(x)>0$ et $f$ est strictement croissante sur cet intervalle.
+
+\item On a $f(0)=0$ et $f'(0)=1$. La tangente en $0$ a donc pour équation
+\[
+y=x.
+\]
+Ensuite
+\[
+f''(x)=\e^x(\sin x+\cos x)+\e^x(\cos x-\sin x)=2\e^x\cos x.
+\]
+Sur $\left[0;\frac\pi2\right]$, $f''(x)\geqslant0$, donc $f$ est convexe.
+Une fonction convexe est au-dessus de ses tangentes ; en particulier, au-dessus de la tangente en $0$. Donc
+\[
+\e^x\sin x\geqslant x
+\]
+pour tout $x\in\left[0;\frac\pi2\right]$.
+
+\item Le signe de $f''(x)=2\e^x\cos x$ change lorsque $x$ traverse $\frac\pi2$ : positif avant, négatif après. Le point d'abscisse $\frac\pi2$ est donc un point d'inflexion.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item Première intégration par parties, avec $u=\sin x$ et $v'=\e^x$ :
+\[
+I=\left[\e^x\sin x\right]_0^{\pi/2}-\int_0^{\pi/2}\e^x\cos x\,dx
+=\e^{\pi/2}-J.
+\]
+Deuxième intégration par parties, avec $u=\e^x$ et $v'=\sin x$ :
+\[
+I=\left[-\e^x\cos x\right]_0^{\pi/2}+\int_0^{\pi/2}\e^x\cos x\,dx
+=1+J.
+\]
+
+\item En additionnant les deux expressions,
+\[
+2I=1+\e^{\pi/2},
+\]
+donc
+\[
+I=\dfrac{1+\e^{\pi/2}}2.
+\]
+
+\item Sur $\left[0;\frac\pi2\right]$, on a $f(x)\geqslant x$. L'aire vaut donc
+\[
+\int_0^{\pi/2}\left(\e^x\sin x-x\right)\,dx
+=I-\left[\dfrac{x^2}{2}\right]_0^{\pi/2}.
+\]
+Ainsi
+\[
+\mathcal A=\dfrac{1+\e^{\pi/2}}2-\dfrac{\pi^2}{8}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\end{document}

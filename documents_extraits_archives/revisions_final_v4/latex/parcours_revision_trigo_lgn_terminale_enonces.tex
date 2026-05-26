@@ -1,0 +1,347 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.7cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc,patterns}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{246,246,246}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdfauthor={},pdftitle={Parcours de révision -- Trigonométrie et LGN -- Énoncés}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.28em}
+\renewcommand{\arraystretch}{1.12}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.25em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\e}{\mathrm e}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\Bin}{\mathcal B}
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=bleuclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.4em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=grisclair,
+    colframe=bleufonce,
+    coltitle=white,
+    colbacktitle=bleufonce,
+    title={\bfseries #1},
+    fonttitle=\bfseries,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=1.5mm,
+    before skip=3mm,
+    after skip=3mm, fontupper=\large
+  ]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{
+  enhanced,
+  breakable,
+  colback=grisclair,
+  colframe=black!55,
+  boxrule=0.55pt,
+  arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+  title=\textbf{#1},
+  coltitle=black,
+  colbacktitle=black!12,
+  before skip=2mm,
+  after skip=2mm
+}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+\sloppy
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Trigonométrie et loi des grands nombres}\\[1mm]
+
+\end{center}
+\vspace{1mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\includepdf[pages=-,pagecommand={},fitpaper=true]{parcours_revision_trigo_lgn_carte_mentale_illustre_v3.pdf}
+
+\clearpage
+\section*{Partie 2 -- Questions flashs}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flashs}
+\setcounter{question}{0}
+\begin{blocquestions}{A. Trigonométrie : cercle et propriétés}
+  \item \origine{479} Qu'est-ce que le cercle trigonométrique ?
+  \item \origine{480} Que signifie que les fonctions cosinus et sinus sont $2\pi$-périodiques ?
+  \item \origine{481} Quelle propriété de parité vérifie la fonction cosinus ?
+  \item \origine{482} Quelle propriété de parité vérifie la fonction sinus ?
+  \item \origine{528} Quel est le point du cercle trigonométrique associé à un réel $x$ ?
+  \item \origine{529} Quelle longueur d'arc correspond à un tour complet sur le cercle trigonométrique ?
+  \item \origine{530} Que vaut $\cos^2 x+\sin^2 x$ ?
+\end{blocquestions}
+\begin{blocquestions}{B. Trigonométrie : valeurs remarquables}
+  \item \origine{531} Que valent $\cos(0)$ et $\sin(0)$ ?
+  \item \origine{533} Que valent $\cos\left(\dfrac{\pi}{2}\right)$ et $\sin\left(\dfrac{\pi}{2}\right)$ ?
+  \item \origine{484} Que valent $\cos\left(\dfrac{\pi}{4}\right)$ et $\sin\left(\dfrac{\pi}{4}\right)$ ?
+  \item \origine{691} Donner $\cos\left(\dfrac{\pi}{6}\right)$ et $\sin\left(\dfrac{\pi}{6}\right)$.
+\end{blocquestions}
+\begin{blocquestions}{C. Liens avec l'analyse}
+  \item \origine{158} Donner une primitive de $\cos(x)$.
+  \item \origine{159} Donner une primitive de $\sin(x)$.
+  \item \origine{247} Quelle est une primitive de $-\sin x$ ?
+  \item \origine{798} Déterminer $\displaystyle\lim_{x\to 0}\dfrac{1-\cos x}{x^2}$.
+\end{blocquestions}
+\begin{blocquestions}{D. Variables aléatoires et loi des grands nombres}
+  \item Donner la formule de l'espérance d'une variable aléatoire finie $X$. \origine{489}
+  \item Donner la formule de la variance d'une variable aléatoire finie $X$. \origine{490}
+  \item Comment définit-on l'écart-type d'une variable aléatoire $X$ ? \origine{491}
+  \item Quelle est l'espérance d'une loi binomiale $\mathcal B(n,p)$ ? \origine{63}
+  \item Quelle est la variance d'une loi binomiale $\mathcal B(n,p)$ ? \origine{65}
+  \item Dans un contexte concret, que représente l'espérance ? \origine{64}
+  \item Que représente une moyenne empirique sur un échantillon ?
+  \item Que dit, de manière simple, la loi faible des grands nombres ?
+  \item Quand $n$ augmente, que devient généralement le risque d'un écart important entre une moyenne empirique et l'espérance ?
+  \item Si $X_1,\ldots,X_n$ sont indépendantes et de même espérance $\mu$, que vaut l'espérance de $M_n=\dfrac{X_1+\cdots+X_n}{n}$ ?
+\end{blocquestions}
+
+\clearpage
+\section*{Partie 3 -- Sujets de bac}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets de bac}
+\titreSujet{Sujet 1 -- Loi des grands nombres et moyenne d'échantillons}{Métropole, 17 juin 2025, sujet 1, exercice 1}
+
+On compte quatre groupes sanguins dans l'espèce humaine : A, B, AB et O. Chaque groupe sanguin peut présenter un facteur rhésus. Lorsqu'il est présent, on dit que le rhésus est positif, sinon on dit qu'il est négatif.
+
+Au sein de la population française, on sait que :
+\begin{itemize}
+  \item 45 \% des individus appartiennent au groupe A, et parmi eux 85 \% sont de rhésus positif ;
+  \item 10 \% des individus appartiennent au groupe B, et parmi eux 84 \% sont de rhésus positif ;
+  \item 3 \% des individus appartiennent au groupe AB, et parmi eux 82 \% sont de rhésus positif.
+\end{itemize}
+
+On choisit au hasard une personne dans la population française.
+
+On désigne par :
+\begin{itemize}
+  \item $A$ l'événement : « la personne choisie est de groupe sanguin A » ;
+  \item $B$ l'événement : « la personne choisie est de groupe sanguin B » ;
+  \item $AB$ l'événement : « la personne choisie est de groupe sanguin AB » ;
+  \item $O$ l'événement : « la personne choisie est de groupe sanguin O » ;
+  \item $R$ l'événement : « la personne choisie a un facteur rhésus positif ».
+\end{itemize}
+
+Pour un événement quelconque $E$, on note $\overline E$ l'événement contraire de $E$ et $p(E)$ la probabilité de $E$.
+
+\begin{center}
+\begin{tikzpicture}[grow=right, level distance=2.8cm, sibling distance=18mm,
+  every node/.style={font=\small}, edge from parent/.style={draw},
+  edge from parent path={(\tikzparentnode.east) -- (\tikzchildnode.west)}]
+\node {}
+  child {node {$O$}
+    child {node {$\overline R$}}
+    child {node {$R$}}
+    edge from parent node[below] {$\dots$}}
+  child {node {$AB$}
+    child {node {$\overline R$} edge from parent node[below] {$\dots$}}
+    child {node {$R$} edge from parent node[above] {$\dots$}}
+    edge from parent node[below] {$\dots$}}
+  child {node {$B$}
+    child {node {$\overline R$} edge from parent node[below] {$\dots$}}
+    child {node {$R$} edge from parent node[above] {$\dots$}}
+    edge from parent node[above] {$\dots$}}
+  child {node {$A$}
+    child {node {$\overline R$} edge from parent node[below] {$\dots$}}
+    child {node {$R$} edge from parent node[above] {$\dots$}}
+    edge from parent node[above] {$\dots$}};
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+  \item Recopier l'arbre ci-dessus en complétant les dix pointillés.
+\item Montrer que $p(B\cap R)=0{,}084$. Interpréter ce résultat dans le contexte de l'exercice.
+\item On précise que $p(R)=0{,}8397$. Montrer que $p_O(R)=0{,}83$.
+\item On dit qu'un individu est « donneur universel » lorsque son sang peut être transfusé à toute personne sans risque d'incompatibilité. Le groupe O de rhésus négatif est le seul vérifiant cette caractéristique. Montrer que la probabilité qu'un individu choisi au hasard dans la population française soit donneur universel est de $0{,}0714$.
+\item Lors d'une collecte de sang, on choisit un échantillon de 100 personnes dans la population d'une ville française. Cette population est suffisamment grande pour assimiler ce choix à un tirage avec remise. On note $X$ la variable aléatoire qui à chaque échantillon de 100 personnes associe le nombre de donneurs universels dans cet échantillon.
+  \begin{enumerate}
+    \item Justifier que $X$ suit une loi binomiale dont on précisera les paramètres.
+    \item Déterminer à $10^{-3}$ près la probabilité qu'il y ait au plus 7 donneurs universels dans cet échantillon.
+    \item Montrer que l'espérance $E(X)$ de la variable aléatoire $X$ est égale à $7{,}14$ et que sa variance $V(X)$ est égale à $6{,}63$ à $10^{-2}$ près.
+  \end{enumerate}
+\item Lors de la semaine nationale du don du sang, une collecte de sang est organisée dans $N$ villes françaises choisies au hasard numérotées $1,2,3,\ldots,N$, où $N$ est un entier naturel non nul.
+
+  On considère la variable aléatoire $X_1$ qui à chaque échantillon de 100 personnes de la ville 1 associe le nombre de donneurs universels dans cet échantillon. On définit de la même manière les variables aléatoires $X_2$ pour la ville 2, ..., $X_N$ pour la ville $N$.
+
+  On suppose que ces variables aléatoires sont indépendantes et qu'elles admettent la même espérance égale à $7{,}14$ et la même variance égale à $6{,}63$.
+
+  On considère la variable aléatoire
+  \[
+  M_N=\dfrac{X_1+X_2+\cdots+X_N}{N}.
+  \]
+  \begin{enumerate}
+    \item Que représente la variable aléatoire $M_N$ dans le contexte de l'exercice ?
+    \item Calculer l'espérance $E(M_N)$.
+    \item On désigne par $V(M_N)$ la variance de la variable aléatoire $M_N$. Montrer que
+    \[
+    V(M_N)=\dfrac{6{,}63}{N}.
+    \]
+    \item Déterminer la plus petite valeur de $N$ pour laquelle l'inégalité de Bienaymé-Tchebychev permet d'affirmer que
+    \[
+    P(7<M_N<7{,}28)>0{,}95.
+    \]
+  \end{enumerate}
+\end{enumerate}
+\clearpage
+\titreSujet{Sujet 2 -- Trigonométrie, convexité et intégration}{Amérique du Nord, 22 mai 2025, sujet 2, exercice 4}
+
+On désigne par $f$ la fonction définie sur l'intervalle $[0;\pi]$ par
+\[
+f(x)=e^x\sin(x).
+\]
+On note $\mathcal C_f$ la courbe représentative de $f$ dans un repère.
+
+\textbf{Partie A}
+
+\begin{enumerate}
+  \item
+  \begin{enumerate}
+    \item Démontrer que, pour tout réel $x$ de l'intervalle $[0;\pi]$,
+    \[
+f'(x)=e^x[\sin(x)+\cos(x)].
+    \]
+    \item Justifier que la fonction $f$ est strictement croissante sur l'intervalle $\left[0;\dfrac{\pi}{2}\right]$.
+  \end{enumerate}
+  \item
+  \begin{enumerate}
+    \item Déterminer une équation de la tangente $T$ à la courbe $\mathcal C_f$ au point d'abscisse $0$.
+    \item Démontrer que la fonction $f$ est convexe sur l'intervalle $\left[0;\dfrac{\pi}{2}\right]$.
+    \item En déduire que, pour tout réel $x$ de l'intervalle $\left[0;\dfrac{\pi}{2}\right]$,
+    \[
+e^x\sin(x)\geqslant x.
+    \]
+  \end{enumerate}
+  \item Justifier que le point d'abscisse $\dfrac{\pi}{2}$ de la courbe représentative de la fonction $f$ est un point d'inflexion.
+\end{enumerate}
+
+\textbf{Partie B}
+
+On note
+\[
+I=\int_0^{\frac{\pi}{2}}e^x\sin(x)\,dx\qquad\text{et}\qquad J=\int_0^{\frac{\pi}{2}}e^x\cos(x)\,dx.
+\]
+
+\begin{enumerate}
+  \item En intégrant par parties l'intégrale $I$ de deux manières différentes, établir les deux relations suivantes :
+  \[
+  I=1+J\qquad\text{et}\qquad I=e^{\frac{\pi}{2}}-J.
+  \]
+  \item En déduire que
+  \[
+  I=\dfrac{1+e^{\frac{\pi}{2}}}{2}.
+  \]
+  \item On note $g$ la fonction définie sur $\mathbb R$ par $g(x)=x$.
+
+  Les courbes représentatives des fonctions $f$ et $g$ sont tracées dans le repère orthogonal ci-dessous sur l'intervalle $[0;\pi]$.
+  Calculer la valeur exacte de l'aire du domaine hachuré situé entre les courbes $\mathcal C_f$ et $\mathcal C_g$ et les droites d'équation $x=0$ et $x=\dfrac{\pi}{2}$.
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+width=11cm,height=6cm,
+axis lines=middle,
+xmin=0,xmax=3.25,
+ymin=0,ymax=9,
+xtick={0,1,2,3},
+ytick={0,2,4,6,8},
+grid=both,
+samples=200,
+]
+\addplot[domain=0:3.14159, thick] {exp(x)*sin(deg(x))} node[pos=0.80, above] {$\mathcal C_f$};
+\addplot[domain=0:3.14159, thick] {x} node[pos=0.90, below] {$\mathcal C_g$};
+\addplot[domain=0:1.5708, fill=gray!25, draw=none] {exp(x)*sin(deg(x))} \closedcycle;
+\addplot[domain=0:1.5708, fill=white, draw=none] {x} \closedcycle;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\end{document}

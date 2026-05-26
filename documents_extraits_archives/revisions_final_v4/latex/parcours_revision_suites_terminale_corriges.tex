@@ -1,0 +1,533 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{softblue}{RGB}{235,241,250}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,pdftitle={Parcours de révision -- Suites -- Terminale spécialité},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.3em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.2em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Un}{\ensuremath{(u_n)}}
+\newcommand{\e}{\mathrm e}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\origine}[1]{ {\scriptsize\textcolor{bleufonce}{(site #1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence : #2}\par\medskip\hrule\medskip
+}
+
+\newcommand{\sep}{\vspace{0.55mm}}
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Suites}\end{tcolorbox}}
+\tikzset{tabouter/.style={draw=tableline, line width=0.85pt},tabline/.style={draw=tableline, line width=0.55pt},forbidden/.style={draw=tableline, line width=0.95pt},vararrow/.style={-{Latex[length=2.7mm,width=2.0mm]}, line width=0.85pt, draw=accent},tabtext/.style={font=\small},tabmath/.style={font=\small},labelcell/.style={font=\small\bfseries, text=deepblue},pointvalue/.style={font=\small\bfseries},endvalue/.style={font=\small}}
+\lstset{language=Python,basicstyle=\ttfamily\small,numbers=left,numberstyle=\tiny,frame=single,showstringspaces=false,columns=fullflexible,keepspaces=true}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Suites}\\[1mm]
+
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Corrections des questions flashs}
+\addcontentsline{toc}{section}{Partie 1 -- Corrections des questions flashs}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Réponses -- A. Vocabulaire et formules de base}
+  \item C'est une fonction définie sur \(\mathbb{N}\) ou sur une partie de \(\mathbb{N}\).
+  \item On le note en général \(u_n\).
+  \item Une définition explicite donne \(u_n\) directement en fonction de \(n\). Une définition par récurrence donne un terme initial et une relation reliant deux termes.
+  \item Lorsqu'il existe un réel \(r\) tel que, pour tout \(n\), \(u_{n+1}=u_n+r\).
+  \item On l'appelle la raison.
+  \item \(u_n=u_0+nr\).
+  \item Lorsqu'il existe un réel \(q\) tel que, pour tout \(n\), \(u_{n+1}=q u_n\).
+  \item On l'appelle la raison.
+  \item \(u_n=u_0q^n\).
+  \item On compare en général \(u_{n+1}\) et \(u_n\), souvent en étudiant le signe de \(u_{n+1}-u_n\).
+  \item On montre que \(u_{n+1}-u_n\geqslant 0\) pour tout \(n\).
+  \item On montre que \(u_{n+1}-u_n\leqslant 0\) pour tout \(n\).
+  \item Quand tous les termes de la suite sont strictement positifs.
+  \item On pose souvent une suite auxiliaire \(v_n=u_n-\ell\), où \(\ell\) est un point fixe.
+  \item C'est un réel \(\ell\) tel que \(\ell=a\ell+b\).
+  \item Une boucle \texttt{while}.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- B. Limites et convergence}
+  \item Cela signifie que les termes de la suite se rapprochent de \(\ell\) quand \(n\) devient très grand.
+  \item Oui.
+  \item Non, elle diverge vers \(+\infty\).
+  \item \(0\).
+  \item \(+\infty\).
+  \item \(1\).
+  \item Si \(u_n\leqslant v_n\leqslant w_n\) et si \((u_n)\) et \((w_n)\) ont la même limite \(\ell\), alors \((v_n)\) a aussi pour limite \(\ell\).
+  \item Quand elle est majorée.
+  \item Quand elle est minorée.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- C. Calculs flash}
+  \item \(u_5=2\times 5+1=11\).
+  \item \(u_1=7+2=9\).
+  \item On pense à poser \(v_n=u_n-30\).
+  \item Le point fixe vaut \(8\), car \(\ell=0{,}5\ell+4\).
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- D. Suites bornées, monotones et convergentes}
+  \item Une suite dont tous les termes sont inférieurs ou égaux à un même réel.
+  \item Une suite dont tous les termes sont supérieurs ou égaux à un même réel.
+  \item Une suite à la fois majorée et minorée.
+  \item Une suite qui est toujours croissante ou toujours décroissante.
+  \item Une suite dont tous les termes sont égaux.
+  \item Une suite qui admet une limite finie.
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- E. Rédaction de la récurrence}
+  \item Il faut nommer clairement la propriété et préciser l'ensemble des entiers concernés : « Pour tout entier naturel \(n\), on note \(P(n)\) la propriété ... ».
+  \item On vérifie la propriété au premier rang concerné, puis on le rédige explicitement : « Pour \(n=0\), ... donc \(P(0)\) est vraie. »
+  \item On fixe un entier \(n\), on suppose \(P(n)\) vraie, puis on montre que \(P(n+1)\) est vraie.
+  \item On rappelle que l'initialisation et l'hérédité ont été établies, puis on conclut : « Par récurrence, \(P(n)\) est vraie pour tout entier naturel \(n\) concerné. »
+\end{blocreponses}
+
+\begin{blocreponses}{Réponses -- F. Un calcul direct pour s'entraîner}
+  \item \(u_{12}=u_0+12r=3+12\times 4=51\).
+\end{blocreponses}
+
+
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets de bac}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets de bac}
+\titreSujet{Sujet 1 -- Suite auxiliaire et algorithme}{Amérique du Nord, 21 mai 2025, jour 1, exercice 2}
+
+\begin{correctionbox}{1. Calcul de $u_1$}
+\[
+u_1=\dfrac{2u_0+1}{u_0+2}=\dfrac{2\times2+1}{2+2}=\dfrac54.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Suite auxiliaire $(a_n)$}
+\begin{enumerate}
+\item On a
+\[
+a_0=\dfrac{u_0}{u_0-1}=2,
+\qquad
+a_1=\dfrac{\frac54}{\frac54-1}=5.
+\]
+
+\item Pour tout entier naturel $n$,
+\[
+a_{n+1}=\dfrac{u_{n+1}}{u_{n+1}-1}
+=\dfrac{\frac{2u_n+1}{u_n+2}}{\frac{2u_n+1}{u_n+2}-1}
+=\dfrac{2u_n+1}{u_n-1}.
+\]
+Or
+\[
+3a_n-1=3\dfrac{u_n}{u_n-1}-1=\dfrac{2u_n+1}{u_n-1}.
+\]
+Donc
+\[
+a_{n+1}=3a_n-1.
+\]
+
+\item Montrons par récurrence que, pour tout $n\geqslant1$, $a_n\geqslant3n-1$.
+Pour $n=1$, $a_1=5$ et $3\times1-1=2$, donc la propriété est vraie.
+Supposons $a_n\geqslant3n-1$ pour un entier $n\geqslant1$. Alors
+\[
+a_{n+1}=3a_n-1\geqslant3(3n-1)-1=9n-4.
+\]
+Or $9n-4\geqslant3n+2=3(n+1)-1$ pour $n\geqslant1$. La propriété est donc héréditaire.
+Ainsi, pour tout $n\geqslant1$,
+\[
+a_n\geqslant3n-1.
+\]
+
+\item Comme $3n-1\to+\infty$ et $a_n\geqslant3n-1$, on obtient par comparaison
+\[
+\lim_{n\to+\infty}a_n=+\infty.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Limite de $(u_n)$}
+\begin{enumerate}
+\item À partir de $a_n=\dfrac{u_n}{u_n-1}$, on obtient
+\[
+a_n(u_n-1)=u_n,
+\]
+donc
+\[
+u_n(a_n-1)=a_n.
+\]
+Ainsi
+\[
+u_n=\dfrac{a_n}{a_n-1}.
+\]
+
+\item On écrit
+\[
+u_n=\dfrac{a_n}{a_n-1}=\dfrac{1}{1-\frac1{a_n}}.
+\]
+Comme $a_n\to+\infty$, on a $\frac1{a_n}\to0$, donc
+\[
+\lim_{n\to+\infty}u_n=1.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{4. Algorithme}
+\begin{enumerate}
+\item Comme $(u_n)$ est décroissante et converge vers $1$, la fonction \texttt{algo(p)} renvoie le premier rang $n$ pour lequel
+\[
+u_n-1\leqslant p,
+\]
+et la valeur correspondante de $u_n$.
+
+\item Pour $p=0{,}001$, la valeur renvoyée pour $n$ est
+\[
+\boxed{6}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 2 -- Deux modèles d'évolution d'une population}{Centres étrangers, 13 juin 2025, sujet 2, exercice 1}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item Au 1er janvier 2026, on a
+\[
+u_1=6\times0{,}93=5{,}58.
+\]
+La population est donc de $5\,580$ individus.
+
+\item La suite $(u_n)$ est géométrique de premier terme $6$ et de raison $0{,}93$, donc
+\[
+u_n=6\times0{,}93^n.
+\]
+
+\item Comme $0<0{,}93<1$,
+\[
+\lim_{n\to+\infty}0{,}93^n=0,
+\]
+donc
+\[
+\lim_{n\to+\infty}u_n=0.
+\]
+Selon ce modèle, la population du milieu $A$ tend vers $0$ millier d'individus.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item On a
+\[
+v_1=-0{,}05\times6^2+1{,}1\times6=-1{,}8+6{,}6=4{,}8.
+\]
+La population est donc de $4\,800$ individus au 1er janvier 2026.
+
+\item Pour $x\geqslant0$,
+\[
+f'(x)=-0{,}1x+1{,}1.
+\]
+Ainsi $f'(x)\geqslant0$ sur $[0;11]$. La fonction $f$ est donc croissante sur $[0;11]$.
+
+\item Montrons par récurrence que $2\leqslant v_{n+1}\leqslant v_n\leqslant6$.
+Pour $n=0$, $v_0=6$ et $v_1=4{,}8$, donc $2\leqslant v_1\leqslant v_0\leqslant6$.
+Supposons $2\leqslant v_{n+1}\leqslant v_n\leqslant6$. Comme $f$ est croissante sur $[0;11]$,
+\[
+f(2)\leqslant f(v_{n+1})\leqslant f(v_n).
+\]
+Or $f(2)=2$ et $f(v_{n+1})=v_{n+2}$, $f(v_n)=v_{n+1}$. Donc
+\[
+2\leqslant v_{n+2}\leqslant v_{n+1}\leqslant6.
+\]
+La propriété est héréditaire.
+
+\item La suite $(v_n)$ est décroissante et minorée par $2$, donc elle converge vers une limite $\ell$.
+
+\item La fonction $f$ est continue, donc en passant à la limite dans $v_{n+1}=f(v_n)$, on obtient $\ell=f(\ell)$.
+Ainsi
+\[
+\ell=-0{,}05\ell^2+1{,}1\ell.
+\]
+Donc
+\[
+-0{,}05\ell^2+0{,}1\ell=0,
+\]
+soit
+\[
+\ell(-0{,}05\ell+0{,}1)=0.
+\]
+Les solutions sont $0$ et $2$. Comme $v_n\geqslant2$, on a
+\[
+\ell=2.
+\]
+Selon ce modèle, la population du milieu $B$ tend vers $2\,000$ individus.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie C}
+\begin{enumerate}
+\item On résout
+\[
+6\times0{,}93^n<3.
+\]
+Cela équivaut à
+\[
+0{,}93^n<\dfrac12.
+\]
+Avec les logarithmes :
+\[
+n\ln(0{,}93)<\ln\left(\dfrac12\right).
+\]
+Comme $\ln(0{,}93)<0$, on obtient
+\[
+n>\dfrac{\ln(1/2)}{\ln(0{,}93)}\approx9{,}55.
+\]
+Le plus petit entier convenable est $n=10$, donc l'année est
+\[
+2025+10=\boxed{2035}.
+\]
+
+\item À la calculatrice, on obtient $v_6\approx2{,}965<3$ alors que $v_5\approx3{,}145>3$. L'année cherchée est donc
+\[
+2025+6=\boxed{2031}.
+\]
+
+\item On a $u_n\to0$ et $v_n\to2$. Donc, à partir d'un certain rang, $u_n$ est proche de $0$ et $v_n$ est proche de $2$. La population du milieu $B$ dépassera donc celle du milieu $A$ à partir d'une certaine année.
+
+\item Un programme possible est :
+\begin{Verbatim}[frame=single, fontsize=\small]
+n = 0
+u = 6
+v = 6
+while v <= u:
+    u = 0.93*u
+    v = -0.05*v**2 + 1.1*v
+    n = n + 1
+print(2025 + n)
+\end{Verbatim}
+À l'exécution, l'année affichée est
+\[
+\boxed{2038}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\newpage
+\titreSujet{Sujet 3 -- Convergence de deux suites vers une même limite}{Métropole, 9 septembre 2025, sujet 1, exercice 3}
+
+\begin{correctionbox}{Partie A}
+\begin{enumerate}
+\item La fonction $f$ est définie sur $[2;+\infty[$ par $f(x)=\sqrt{3x-2}$. Elle est dérivable sur $]2;+\infty[$ et
+\[
+f'(x)=\dfrac{3}{2\sqrt{3x-2}}>0.
+\]
+Elle est donc croissante. De plus $f(2)=2$ et $\lim_{x\to+\infty}f(x)=+\infty$.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\def\L{2.2}\def\W{8.6}\def\H{2.55}\def\Yx{1.75}
+\fill[softgray] (0,\Yx) rectangle (\W,\H);
+\fill[softblue] (0,0) rectangle (\L,\Yx);
+\draw[tabouter] (0,0) rectangle (\W,\H);
+\draw[tabline] (0,\Yx) -- (\W,\Yx);
+\draw[tabline] (\L,0) -- (\L,\H);
+\node[labelcell] at ({\L/2},{(\Yx+\H)/2}) {$x$};
+\node[labelcell] at ({\L/2},{\Yx/2}) {$f(x)$};
+\node[pointvalue] at ({\L+0.35},{(\Yx+\H)/2}) {$2$};
+\node[tabmath] at ({\W-0.55},{(\Yx+\H)/2}) {$+\infty$};
+\node[pointvalue] at ({\L+0.45},0.35) {$2$};
+\node[endvalue] at ({\W-0.75},1.30) {$+\infty$};
+\draw[vararrow] ({\L+0.9},0.5) -- ({\W-1.2},1.25);
+\end{tikzpicture}
+\end{center}
+
+\item On utilise le fait que, pour $x\geqslant2$,
+\[
+f(x)\leqslant x
+\]
+car $\sqrt{3x-2}\leqslant x \Longleftrightarrow 3x-2\leqslant x^2 \Longleftrightarrow (x-1)(x-2)\geqslant0$.
+On montre alors par récurrence que $2\leqslant u_{n+1}\leqslant u_n\leqslant6$. La propriété est vraie au rang $0$ car $u_0=6$ et $u_1=4$.
+Si elle est vraie au rang $n$, alors $u_{n+1}\geqslant2$, donc
+\[
+2\leqslant f(u_{n+1})\leqslant u_{n+1}.
+\]
+Or $f(u_{n+1})=u_{n+2}$, d'où
+\[
+2\leqslant u_{n+2}\leqslant u_{n+1}\leqslant6.
+\]
+La suite $(u_n)$ est donc décroissante et minorée par $2$ ; elle converge.
+
+\item Si $\ell$ est la limite de $(u_n)$, on admet que $f(\ell)=\ell$. Ainsi
+\[
+\sqrt{3\ell-2}=\ell.
+\]
+Comme $\ell\geqslant2$, on peut élever au carré :
+\[
+3\ell-2=\ell^2,
+\]
+donc
+\[
+(\ell-1)(\ell-2)=0.
+\]
+Puisque $\ell\geqslant2$, on obtient
+\[
+\ell=2.
+\]
+
+\item Comme $(u_n)$ converge vers $2$ en restant au-dessus de $2$, l'appel \texttt{rang(2.000001)} renvoie une valeur. Plus généralement, \texttt{rang(a)} renvoie un résultat exactement lorsque
+\[
+a>2.
+\]
+Si $a\leqslant2$, la condition $u\geqslant a$ reste toujours vraie.
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie B}
+\begin{enumerate}
+\item On calcule
+\[
+v_1=3-\dfrac2{6}=\dfrac83.
+\]
+
+\item On a
+\[
+w_{n+1}=\dfrac{v_{n+1}-1}{v_{n+1}-2}
+=\dfrac{2-\frac2{v_n}}{1-\frac2{v_n}}
+=\dfrac{2v_n-2}{v_n-2}
+=2\dfrac{v_n-1}{v_n-2}=2w_n.
+\]
+La suite $(w_n)$ est donc géométrique de raison $2$ et
+\[
+w_0=\dfrac{6-1}{6-2}=\dfrac54=1{,}25.
+\]
+Donc
+\[
+w_n=1{,}25\times2^n.
+\]
+Comme $w_n-1=\dfrac1{v_n-2}$, on obtient
+\[
+v_n=2+\dfrac1{w_n-1}=2+\dfrac{1}{1{,}25\times2^n-1}.
+\]
+Ainsi
+\[
+\lim_{n\to+\infty}v_n=2.
+\]
+
+\item On résout
+\[
+2+\dfrac{1}{1{,}25\times2^n-1}<2{,}01.
+\]
+Cela équivaut à
+\[
+\dfrac{1}{1{,}25\times2^n-1}<0{,}01,
+\]
+donc
+\[
+1{,}25\times2^n-1>100.
+\]
+Ainsi
+\[
+2^n>80{,}8.
+\]
+Or $\log_2(80{,}8)\approx6{,}34$. Le plus petit entier convenable est donc
+\[
+\boxed{n=7}.
+\]
+\end{enumerate}
+\end{correctionbox}
+
+\begin{correctionbox}{Partie C}
+D'après la partie B, $v_n<2{,}01$ à partir du rang $7$ et $v_n>2$ pour tout $n$, donc $v_n\in]1{,}99;2{,}01[$ pour tout $n\geqslant7$.
+Pour la suite $(u_n)$, la calculatrice ou la fonction \texttt{rang} donne
+\[
+u_{17}\approx2{,}0087<2{,}01
+\]
+et $u_n\geqslant2$ pour tout $n$. Ainsi $u_n\in]1{,}99;2{,}01[$ pour tout $n\geqslant17$.
+Le plus petit entier convenable est donc
+\[
+\boxed{N=17}.
+\]
+\end{correctionbox}
+
+
+\end{document}
