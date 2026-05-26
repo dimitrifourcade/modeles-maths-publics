@@ -1,7 +1,3 @@
-# premiere_specifique_maths_1h30
+# Première spécifique — maths 1 h 30
 
-Ce fichier sert à rendre le dossier visible dans GitHub et à indiquer son usage.
-
-Dossier : `documents_a_classer/01_lycee/premiere_specifique_maths_1h30`
-
-Tu peux ajouter ici les PDF, fichiers LaTeX, images ou autres documents qui servent de modèles ou de références exploitables.
+Modèles importés pour le niveau : Première spécifique — maths 1 h 30.
