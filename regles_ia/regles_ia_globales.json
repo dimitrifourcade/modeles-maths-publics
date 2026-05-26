@@ -1,14 +1,15 @@
 {
-  "schema": "maths_espace_prof.regles_ia_globales.v1",
-  "version": "v2.89",
+  "schema": "maths_espace_prof.regles_ia_globales.v2",
+  "version": "v2.90",
   "date_mise_a_jour": "2026-05-26",
-  "description": "Règles pédagogiques, stylistiques et rédactionnelles globales à insérer dans les blocs IA de génération de documents.",
+  "description": "Règles pédagogiques, stylistiques, rédactionnelles et de conformité aux programmes officiels à insérer dans les blocs IA de génération de documents.",
   "regles_globales_obligatoires": [
     "Produire des documents sobres, professionnels, lisibles et exploitables directement par un professeur de mathématiques.",
     "Ne pas surcharger en couleurs : privilégier noir, gris, fonds légers et encadrés discrets.",
     "Aérer les documents : marges internes généreuses, espacements visibles entre blocs, formules séparées du texte, listes non tassées.",
     "Mieux vaut passer à deux pages ou alléger le contenu que tasser une fiche ou un corrigé.",
     "Respecter strictement le niveau demandé et ne pas introduire une notion hors progression sans l’annoncer ou l’écarter.",
+    "Vérifier explicitement la conformité au programme officiel du niveau demandé avant de produire le document.",
     "Séparer l’énoncé et le corrigé quand le type de document le demande.",
     "Ne pas ajouter de place élève inutile si le document est un modèle, une feuille-méthode ou une fiche de révision.",
     "Quand un modèle est fourni, reprendre son style, sa structure et sa logique de rédaction, sans copier mécaniquement un contenu hors sujet.",
@@ -76,13 +77,15 @@
       "Style contrôle sobre, proche de sujets type bac quand c’est possible.",
       "Énoncé et corrigé séparés ; corrigé détaillé et rédigé.",
       "Les exercices doivent respecter strictement les notions déjà vues dans la progression.",
-      "Si un dispositif anti-IA ROT13 est utilisé, placer la question de déchiffrage dans chaque exercice, sans référence à la calculatrice."
+      "Si un dispositif anti-IA ROT13 est utilisé, placer la question de déchiffrage dans chaque exercice, sans référence à la calculatrice.",
+      "Vérification obligatoire du programme officiel et de la progression : aucune question ne doit dépendre d’une notion hors programme ou non encore vue, sauf mention explicite d’un fait admis."
     ],
     "dm": [
       "DM plutôt long et approfondi, peu guidé, vrai travail maison.",
       "Correction toujours séparée, détaillée et rédigée.",
       "Pas de rappel de cours ni de barème par défaut.",
-      "Calculatrice déterminée automatiquement selon niveau/chapitre avec interdiction systématique en Première spécifique et Première spécialité."
+      "Calculatrice déterminée automatiquement selon niveau/chapitre avec interdiction systématique en Première spécifique et Première spécialité.",
+      "Vérification obligatoire du programme officiel et de la progression : aucune question ne doit dépendre d’une notion hors programme ou non encore vue, sauf mention explicite d’un fait admis."
     ],
     "fiche_revision": [
       "Fiche très synthétique de type récapitulatif sobre : définitions, propriétés, méthodes, vigilances.",
@@ -134,11 +137,20 @@
   },
   "checklist_finale": [
     "Le document respecte-t-il le type demandé et le niveau ?",
+    "Le document évite-t-il toute notion hors programme ou non disponible dans la progression, sauf fait clairement admis ?",
+    "La conformité au programme officiel du niveau demandé a-t-elle été vérifiée explicitement ?",
     "Les règles globales et les règles du type de document ont-elles été appliquées ?",
     "Les modèles sélectionnés ont-ils bien été consultés et utilisés comme références ?",
     "La mise en page est-elle sobre, aérée et professionnelle ?",
     "Les tableaux, arbres, figures et formules sont-ils lisibles et mathématiquement corrects ?",
     "L’énoncé et le corrigé sont-ils séparés quand c’est attendu ?",
     "Le PDF final a-t-il été vérifié visuellement si un PDF est produit ?"
+  ],
+  "verification_programme_officiel": [
+    "Avant de produire un document, vérifier explicitement que les notions, méthodes, notations et attendus utilisés appartiennent au programme officiel du niveau demandé.",
+    "Si une notion est hors programme, appartient à un niveau ultérieur ou dépasse la progression précisée, l’écarter, la remplacer ou l’indiquer explicitement comme admise seulement si elle est indispensable.",
+    "Pour un document d’évaluation, un DM ou un sujet type épreuve, ne pas faire reposer une question sur une notion hors programme ou non encore disponible dans la progression indiquée.",
+    "En cas de doute sur le programme officiel en vigueur, le signaler clairement et demander confirmation ou s’appuyer sur les références officielles fournies par l’utilisateur.",
+    "Lorsque le document s’appuie sur un modèle, vérifier que l’adaptation respecte bien le programme du niveau demandé et ne transpose pas une exigence d’un autre niveau."
   ]
 }
