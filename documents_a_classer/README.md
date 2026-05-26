@@ -1,25 +1,22 @@
-# Documents à classer
+# Documents modèles importés
 
-Dépose ici les documents bruts que tu veux retrouver automatiquement dans le site, sans modifier immédiatement `index.json`.
+Ce dossier est le sas d'entrée des documents mis en ligne sur GitHub.
 
-Exemples :
+Il peut contenir :
+- PDF modèles ;
+- sources LaTeX associées ;
+- images utiles ;
+- DOCX éventuels ;
+- fichiers JSON produits par le site.
 
-- PDF qui sert d’inspiration ;
-- fichier `.tex` intéressant ;
-- correction Beamer ;
-- image ou capture utile ;
-- fiche à analyser avant validation.
+## Workflow conseillé
 
-Le site v2.74 scanne ce dossier depuis la page :
+1. Déposer le document rapidement dans `00_inbox_a_trier/`, ou directement dans le bon dossier si le classement est évident.
+2. Le tester sur le site via `/import-rapide`.
+3. Le déplacer ensuite dans un dossier logique si besoin.
+4. Générer une entrée `index.json` lorsqu'il doit apparaître officiellement dans `/modeles`.
 
-```text
-/import-rapide
-```
+## À retenir
 
-## Règle importante
-
-Les fichiers de ce dossier ne sont pas des modèles validés. Ce sont des documents bruts à analyser et à classer. Les meilleurs documents devront ensuite être ajoutés proprement à `index.json`.
-
-## Confidentialité
-
-Ne jamais déposer ici de documents contenant des données nominatives d’élèves ou des éléments confidentiels : le dépôt est public.
+Les documents déposés ici sont déjà considérés comme des modèles ou références exploitables.  
+Ils deviennent visibles dans `/modeles` lorsqu'ils sont référencés dans `index.json`.

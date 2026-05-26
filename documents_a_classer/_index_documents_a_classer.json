@@ -1,0 +1,6 @@
+{
+  "schema": "documents_modeles_importes_index_v2",
+  "version": "2026-05-23",
+  "description": "Index manuel facultatif des documents modèles importés dans GitHub. L'index officiel utilisé par /modeles reste index.json à la racine du dépôt.",
+  "documents": []
+}
