@@ -1,11 +1,7 @@
-# Modèles à référencer dans index.json
+# 90_modeles_a_referencer_index_json
 
-Placer ici les documents qui sont déjà considérés comme des modèles utiles, mais qui ne sont pas encore déclarés dans `index.json`.
+Ce fichier sert à rendre le dossier visible dans GitHub et à indiquer son usage.
 
-Règle de travail :
+Dossier : `documents_a_classer/90_modeles_a_referencer_index_json`
 
-1. Le document est déjà jugé exploitable comme modèle ou référence de style.
-2. Le site `/import-rapide` peut générer une entrée JSON.
-3. Cette entrée est ensuite collée dans `index.json` pour faire apparaître le modèle dans `/modeles`.
-
-Ce dossier ne sert donc pas à décider si un document deviendra modèle : il sert seulement de zone d'attente avant référencement dans l'index.
+Tu peux ajouter ici les PDF, fichiers LaTeX, images ou autres documents qui servent de modèles ou de références exploitables.

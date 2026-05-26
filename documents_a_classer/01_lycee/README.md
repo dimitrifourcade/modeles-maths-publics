@@ -1,10 +1,7 @@
-# Lycée
+# 01_lycee
 
-Documents rangés par niveau puis par type.
+Ce fichier sert à rendre le dossier visible dans GitHub et à indiquer son usage.
 
-Niveaux retenus :
-- Seconde GT
-- Première spécifique — maths 1 h 30
-- Première spécialité
-- Terminale spécialité
-- Terminale STMG
+Dossier : `documents_a_classer/01_lycee`
+
+Tu peux ajouter ici les PDF, fichiers LaTeX, images ou autres documents qui servent de modèles ou de références exploitables.
