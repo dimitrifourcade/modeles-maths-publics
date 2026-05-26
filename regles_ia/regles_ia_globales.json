@@ -1,0 +1,144 @@
+{
+  "schema": "maths_espace_prof.regles_ia_globales.v1",
+  "version": "v2.89",
+  "date_mise_a_jour": "2026-05-26",
+  "description": "Règles pédagogiques, stylistiques et rédactionnelles globales à insérer dans les blocs IA de génération de documents.",
+  "regles_globales_obligatoires": [
+    "Produire des documents sobres, professionnels, lisibles et exploitables directement par un professeur de mathématiques.",
+    "Ne pas surcharger en couleurs : privilégier noir, gris, fonds légers et encadrés discrets.",
+    "Aérer les documents : marges internes généreuses, espacements visibles entre blocs, formules séparées du texte, listes non tassées.",
+    "Mieux vaut passer à deux pages ou alléger le contenu que tasser une fiche ou un corrigé.",
+    "Respecter strictement le niveau demandé et ne pas introduire une notion hors progression sans l’annoncer ou l’écarter.",
+    "Séparer l’énoncé et le corrigé quand le type de document le demande.",
+    "Ne pas ajouter de place élève inutile si le document est un modèle, une feuille-méthode ou une fiche de révision.",
+    "Quand un modèle est fourni, reprendre son style, sa structure et sa logique de rédaction, sans copier mécaniquement un contenu hors sujet.",
+    "Vérifier visuellement le PDF final quand un PDF est produit : coupures, encadrés, alignements, figures, tableaux, titres et espacements."
+  ],
+  "redaction_mathematique": [
+    "Rédiger les démonstrations avec des phrases courtes, explicites et mathématiquement correctes.",
+    "Éviter les longues chaînes de calculs ou d’inégalités sur une seule ligne ; privilégier des étapes séparées et justifiées.",
+    "Ne pas confondre une fonction et son expression ; quantifier les variables quand c’est nécessaire.",
+    "Pour les probabilités totales, écrire explicitement : « A et son complémentaire forment une partition de l’univers. D’après la formule des probabilités totales, ... ». Adapter la lettre de l’événement au contexte.",
+    "Pour une loi binomiale, justifier par une répétition d’épreuves de Bernoulli identiques et indépendantes, définir le succès et sa probabilité, puis préciser que la variable compte le nombre de succès.",
+    "Pour une tangente en Première, rappeler que f'(a) est le coefficient directeur de la tangente. Si on demande l’équation sans formule directe, poser y = mx + p puis écrire p = y - mx avant de remplacer par les coordonnées d’un point.",
+    "Pour un argument de type TVI, vérifier continuité, image des bornes, puis strictement monotone si l’unicité est demandée.",
+    "Ne pas utiliser de notations hors programme ou trop avancées, comme les petits o, sauf si le niveau CPGE est explicitement demandé."
+  ],
+  "mise_en_page": [
+    "Utiliser une mise en page LaTeX propre, stable et sobre, avec encadrés clairs et titres de blocs non agressifs.",
+    "Éviter les encadrés coupés entre deux pages ; si nécessaire, réorganiser ou alléger le contenu.",
+    "Les graphiques, tableaux, arbres de probabilités et figures doivent être construits proprement en TikZ/LaTeX quand c’est possible.",
+    "Contrôler les marges, les alignements, la taille des polices et les espaces entre blocs avant livraison.",
+    "Les titres doivent être informatifs mais courts, sans sous-titre parasite ou mention technique inutile."
+  ],
+  "tableaux_signes_variations": [
+    "Les tableaux de signes et de variations doivent être réalisés en TikZ/LaTeX, pas sous forme d’image.",
+    "Utiliser le style professionnel validé : fond gris léger pour la ligne des abscisses, colonne de gauche soignée, traits propres, espacements équilibrés.",
+    "Les valeurs interdites doivent être représentées clairement par une double barre ou un marquage équivalent, et ne doivent pas être traitées comme des zéros ordinaires.",
+    "Aucune flèche de variation ne doit traverser une rupture du domaine ou une valeur interdite.",
+    "Les signes +, − et 0 doivent être centrés, cohérents et lisibles ; les abscisses remarquables doivent être alignées avec les lignes de signes ou variations.",
+    "Pour une fonction rationnelle, vérifier d’abord le domaine de définition avant de construire le tableau."
+  ],
+  "probabilites": [
+    "Pour une formule des probabilités totales, faire apparaître explicitement la partition avant le calcul.",
+    "Les arbres de probabilités doivent être propres, sans événements entourés dans les arbres, avec labels simples et lisibles.",
+    "Pour les probabilités conditionnelles, bien distinguer P(A ∩ B), P_A(B) et P(B).",
+    "Pour une loi binomiale en TSTMG, éviter dans l’énoncé élève la notation compacte X~B(n;p) ; écrire en toutes lettres que la variable suit une loi binomiale de paramètres n et p.",
+    "Pour les exercices TSTMG avec triangle de Pascal, présenter le triangle sous forme de tableau à double entrée classique, avec n en lignes et k en colonnes."
+  ],
+  "suites_recurrences": [
+    "Pour les récurrences, écrire clairement initialisation, hérédité et conclusion.",
+    "Pour une hérédité avec encadrement double et suite définie par une fonction affine, poser la fonction affine f, appliquer sa croissance à l’encadrement, puis remplacer les images par leurs expressions ou valeurs.",
+    "Éviter les grandes chaînes d’inégalités ; rédiger par encadrements successifs avec des phrases intermédiaires.",
+    "Dans les suites arithmético-géométriques, si une suite auxiliaire est utilisée, la valeur du paramètre est souvent donnée : ne pas demander aux élèves de la trouver dans les exemples d’entraînement si ce n’est pas l’objectif.",
+    "Pour un premier chapitre C1 Terminale spécialité sur les suites, ne pas utiliser les limites générales, le théorème du point fixe ou la convergence monotone bornée avant leur apparition dans la progression, sauf comme fait explicitement admis."
+  ],
+  "calculatrice_niveaux": [
+    "Pour Première spécifique — maths 1 h 30 et Première spécialité, la calculatrice est toujours interdite dans les documents d’évaluation, conformément à la règle de projet.",
+    "Pour les autres niveaux, la calculatrice est déterminée selon le niveau, le chapitre et le type de document.",
+    "Les consignes anti-IA de type ROT13 ne doivent jamais parler de calculatrice afin de ne pas contredire les règles propres au niveau ou au contrôle."
+  ],
+  "corrections_beamer": [
+    "Une correction Beamer doit être très progressive : une seule nouvelle ligne, réponse ou étape par diapositive.",
+    "Chaque diapositive doit rappeler en haut la question ou les données utiles de l’énoncé pour éviter les retours au sujet.",
+    "Ne pas faire de diapositive de synthèse qui ajoute plusieurs réponses nouvelles d’un coup.",
+    "Les étapes précédentes peuvent rester visibles ; chaque nouvelle diapositive ajoute seulement l’idée suivante.",
+    "Pour une activité avec zones à compléter, afficher d’abord la zone vide du PDF, puis sur la diapositive suivante la même zone complétée si une vraie explication est attendue."
+  ],
+  "types_documents": {
+    "feuille_methode": [
+      "Format court, sobre et très aéré ; deux pages maximum si nécessaire, l’aération prime sur la contrainte d’une page.",
+      "Structure attendue : méthode en étapes, rédaction modèle, exemple corrigé complet, exemple guidé si pertinent, pièges fréquents, correction séparée.",
+      "L’exemple corrigé doit suivre exactement la rédaction de l’encadré modèle.",
+      "Pas de place élève inutile."
+    ],
+    "controle": [
+      "Style contrôle sobre, proche de sujets type bac quand c’est possible.",
+      "Énoncé et corrigé séparés ; corrigé détaillé et rédigé.",
+      "Les exercices doivent respecter strictement les notions déjà vues dans la progression.",
+      "Si un dispositif anti-IA ROT13 est utilisé, placer la question de déchiffrage dans chaque exercice, sans référence à la calculatrice."
+    ],
+    "dm": [
+      "DM plutôt long et approfondi, peu guidé, vrai travail maison.",
+      "Correction toujours séparée, détaillée et rédigée.",
+      "Pas de rappel de cours ni de barème par défaut.",
+      "Calculatrice déterminée automatiquement selon niveau/chapitre avec interdiction systématique en Première spécifique et Première spécialité."
+    ],
+    "fiche_revision": [
+      "Fiche très synthétique de type récapitulatif sobre : définitions, propriétés, méthodes, vigilances.",
+      "Pas d’exemples sauf demande explicite.",
+      "Orientation paysage par défaut si le format récapitulatif s’y prête ; viser 1 page si possible, 2 pages maximum.",
+      "Style presque noir/gris, compact mais aéré."
+    ],
+    "exercices_guides": [
+      "Style feuille d’exercices plutôt que feuille-méthode.",
+      "Aides directement sur la feuille par défaut.",
+      "Prévoir un exercice de transfert.",
+      "Placer les erreurs fréquentes dans le corrigé plutôt que dans l’énoncé."
+    ],
+    "automatismes": [
+      "Feuille courte d’entraînement rapide, questions mélangées, format QCM si adapté.",
+      "Pas de difficulté affichée, pas de champ chronométrage, seulement un espace de brouillon si nécessaire.",
+      "Correction Beamer progressive si demandée : une nouvelle réponse par diapositive."
+    ],
+    "correction_beamer": [
+      "Correction pas à pas, une idée par diapositive, rappel de l’énoncé en haut.",
+      "Une slide réelle = une seule étape nouvelle.",
+      "Les justifications doivent être courtes, lisibles et progressives."
+    ],
+    "rapport_grand_oral": [
+      "Rapport bienveillant destiné à l’élève, sans note.",
+      "Analyser pertinence mathématique, niveau réel, faisabilité en 10 minutes, problématique, plan, risques et erreurs éventuelles.",
+      "Vérifier explicitement que les mathématiques sont bien de spécialité et relèvent des programmes officiels.",
+      "Style réponse de mail commençant par Bonjour et terminant par bonne fin de journée, M. Fourcade si demandé."
+    ]
+  },
+  "niveaux": {
+    "Première spécialité": [
+      "Calculatrice interdite dans les évaluations et documents de type épreuve.",
+      "Respecter le programme de Première spécialité, notamment pour la dérivation, les suites, probabilités, second degré, exponentielle comme dérivée de référence si explicitement demandé."
+    ],
+    "Première spécifique — maths 1 h 30": [
+      "Calculatrice interdite dans les évaluations et documents de type épreuve.",
+      "Adapter le niveau à l’enseignement spécifique de 1 h 30, distinct de Première spécialité."
+    ],
+    "Terminale spécialité": [
+      "Pour les sujets type bac adaptés à un chapitre, supprimer ou admettre explicitement les questions utilisant des notions vues plus tard dans la progression.",
+      "Préserver une rédaction rigoureuse et compatible avec le programme de Terminale spécialité."
+    ],
+    "Terminale STMG": [
+      "Rédaction accessible, étapes très explicites et calculs limités quand le but est la méthode.",
+      "Pour les logarithmes et exponentielles/puissances, respecter la règle : une égalité = une ligne dans les exemples corrigés et corrections.",
+      "Pour les boîtes à moustaches, ne jamais donner les données initiales déjà rangées dans l’ordre croissant dans l’énoncé."
+    ]
+  },
+  "checklist_finale": [
+    "Le document respecte-t-il le type demandé et le niveau ?",
+    "Les règles globales et les règles du type de document ont-elles été appliquées ?",
+    "Les modèles sélectionnés ont-ils bien été consultés et utilisés comme références ?",
+    "La mise en page est-elle sobre, aérée et professionnelle ?",
+    "Les tableaux, arbres, figures et formules sont-ils lisibles et mathématiquement corrects ?",
+    "L’énoncé et le corrigé sont-ils séparés quand c’est attendu ?",
+    "Le PDF final a-t-il été vérifié visuellement si un PDF est produit ?"
+  ]
+}
