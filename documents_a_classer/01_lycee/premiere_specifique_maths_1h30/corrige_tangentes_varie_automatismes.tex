@@ -1,0 +1,281 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage[many]{tcolorbox}
+
+\pgfplotsset{compat=1.18}
+\geometry{top=1.75cm,bottom=1.15cm,left=1.25cm,right=1.25cm,headheight=14pt,headsep=0.35cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+
+\definecolor{courberouge}{RGB}{200,55,55}
+\definecolor{tangentebleue}{RGB}{45,105,180}
+\definecolor{tangenteverte}{RGB}{55,125,60}
+\definecolor{violetpoint}{RGB}{90,55,170}
+\definecolor{orangepoint}{RGB}{220,120,35}
+\definecolor{corrigecolor}{RGB}{30,110,70}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Corrigé}
+\chead{Tangentes et automatismes}
+\rhead{Première spécialité}
+\cfoot{\thepage}
+
+\newcommand{\reponse}[1]{\textcolor{corrigecolor}{\textbf{#1}}}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{Corrigé - Tangentes et automatismes}}
+\end{center}
+
+\section*{Exercice 1 - Tangentes et nombre dérivé}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=15.8cm,
+    height=8.9cm,
+    xmin=-2.2, xmax=2.2,
+    ymin=-0.3, ymax=3.35,
+    axis lines=middle,
+    axis line style={black,very thick},
+    xlabel={$x$}, ylabel={$y$},
+    xlabel style={at={(axis description cs:1,0.09)},anchor=west},
+    ylabel style={at={(axis description cs:0.505,1)},anchor=south},
+    xtick={-2,-1.5,-1,-0.5,0,0.5,1,1.5,2},
+    ytick={0,0.5,1,1.5,2,2.5,3},
+    minor x tick num=1,
+    minor y tick num=1,
+    grid=both,
+    major grid style={line width=0.45pt,draw=black!35},
+    minor grid style={line width=0.25pt,draw=black!14},
+    tick label style={font=\small},
+    clip=false
+]
+
+% Courbe de f
+\draw[courberouge, very thick]
+    (axis cs:-2,2.6)
+    .. controls (axis cs:-1.7667,2.0867) and (axis cs:-1.5333,0.5) .. (axis cs:-1.3,0.5)
+    .. controls (axis cs:-1.2,0.5) and (axis cs:-1.1,0.8) .. (axis cs:-1,1)
+    .. controls (axis cs:-0.7333,1.5333) and (axis cs:-0.4667,2.5) .. (axis cs:-0.2,2.5)
+    .. controls (axis cs:0.0333,2.5) and (axis cs:0.2667,1.7333) .. (axis cs:0.5,1.5)
+    .. controls (axis cs:0.7667,1.2333) and (axis cs:1.0333,0.8) .. (axis cs:1.3,0.8)
+    .. controls (axis cs:1.5333,0.8) and (axis cs:1.7667,1.9333) .. (axis cs:2,2.4);
+
+% Tangente en x=-1 : y=2x+3
+\addplot[domain=-1.65:0.15, samples=2, very thick, tangentebleue]
+    {2*x+3};
+
+% Tangente en x=0,5 : y=-x+2
+\addplot[domain=-0.85:2.1, samples=2, very thick, tangenteverte]
+    {-x+2};
+
+% Points repères visibles sur les tangentes
+\draw[violetpoint, line width=3pt] (axis cs:-1.06,1) -- (axis cs:-0.94,1) (axis cs:-1,0.94) -- (axis cs:-1,1.06);
+\draw[black, line width=3pt] (axis cs:-0.06,3) -- (axis cs:0.06,3) (axis cs:0,2.94) -- (axis cs:0,3.06);
+\draw[orangepoint, line width=3pt] (axis cs:0.44,1.5) -- (axis cs:0.56,1.5) (axis cs:0.5,1.44) -- (axis cs:0.5,1.56);
+\draw[black, line width=3pt] (axis cs:0.94,1) -- (axis cs:1.06,1) (axis cs:1,0.94) -- (axis cs:1,1.06);
+
+\node[courberouge, font=\bfseries] at (axis cs:-1.85,2.95) {$\mathcal C_f$};
+\node[tangentebleue, font=\bfseries] at (axis cs:-1.55,0.25) {$\mathcal T_{-1}$};
+\node[tangenteverte, font=\bfseries] at (axis cs:1.65,0.55) {$\mathcal T_{0{,}5}$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[label=\textbf{\arabic*)}, leftmargin=0.75cm, itemsep=0.35cm]
+    \item On repère : la courbe rouge est $\mathcal C_f$, la droite bleue est $\mathcal T_{-1}$, et la droite verte est $\mathcal T_{0{,}5}$.
+
+    \item Pour calculer le coefficient directeur de $\mathcal T_{-1}$, on peut choisir deux points lisibles sur la droite bleue :
+    \[
+    A(-1;1) \qquad \text{et} \qquad B(0;3).
+    \]
+    Le coefficient directeur de la droite $(AB)$ est :
+    \[
+    m=\frac{\operatorname{ord}_B-\operatorname{ord}_A}{\operatorname{abs}_B-\operatorname{abs}_A}.
+    \]
+    Donc :
+    \[
+    m=\frac{3-1}{0-(-1)}=\frac{2}{1}=2.
+    \]
+    Ainsi, le coefficient directeur de $\mathcal T_{-1}$ est $2$.
+
+    \item $f'(-1)$ est le coefficient directeur de la tangente à $\mathcal C_f$ au point d'abscisse $-1$.
+    D'après la question précédente :
+    \[
+    \boxed{f'(-1)=2}.
+    \]
+    De plus, le point de $\mathcal C_f$ d'abscisse $-1$ a pour ordonnée $1$, donc :
+    \[
+    \boxed{f(-1)=1}.
+    \]
+
+    \item La tangente $\mathcal T_{-1}$ passe par le point $A(-1;1)$ et a pour coefficient directeur $2$.
+    Son équation est donc :
+    \[
+    y=2(x+1)+1.
+    \]
+    On développe :
+    \[
+    y=2x+2+1.
+    \]
+    Ainsi :
+    \[
+    \boxed{\mathcal T_{-1}:\ y=2x+3}.
+    \]
+
+    \item $f'(0{,}5)$ est le coefficient directeur de la tangente à $\mathcal C_f$ au point d'abscisse $0{,}5$.
+
+    Pour calculer ce coefficient directeur, on peut choisir deux points lisibles sur la droite verte :
+    \[
+    C(0{,}5;1{,}5) \qquad \text{et} \qquad D(1;1).
+    \]
+    On obtient :
+    \[
+    m=\frac{1-1{,}5}{1-0{,}5}=\frac{-0{,}5}{0{,}5}=-1.
+    \]
+    Donc :
+    \[
+    \boxed{f'(0{,}5)=-1}.
+    \]
+
+    \item On lit aussi sur le graphique :
+    \[
+    f(0{,}5)=1{,}5.
+    \]
+    La tangente $\mathcal T_{0{,}5}$ passe donc par le point $C(0{,}5;1{,}5)$ et a pour coefficient directeur $-1$.
+    Son équation est :
+    \[
+    y=-1(x-0{,}5)+1{,}5.
+    \]
+    Donc :
+    \[
+    y=-x+0{,}5+1{,}5.
+    \]
+    Ainsi :
+    \[
+    \boxed{\mathcal T_{0{,}5}:\ y=-x+2}.
+    \]
+\end{enumerate}
+
+\newpage
+
+\section*{Exercice 2 - Automatismes}
+
+\begin{enumerate}[label=\textbf{\arabic*)}, leftmargin=0.75cm, itemsep=0.55cm]
+
+\item Une durée de $2{,}2$ heures correspond à :
+\[
+2{,}2\times 60=132.
+\]
+\[
+\boxed{132\text{ minutes}} \qquad \text{Réponse A.}
+\]
+
+\item Le prix a baissé de $28\,\%$, donc il a été multiplié par :
+\[
+1-0{,}28=0{,}72.
+\]
+Si l'ancien prix est $P$, alors :
+\[
+0{,}72P=192.
+\]
+Donc :
+\[
+P=\frac{192}{0{,}72}=\frac{192}{1-0{,}28}.
+\]
+\[
+\boxed{\dfrac{192}{1-0{,}28}} \qquad \text{Réponse C.}
+\]
+
+\item On utilise l'identité remarquable $a^2-b^2=(a-b)(a+b)$ :
+\[
+38^2-37^2=(38-37)(38+37)=1\times75=75.
+\]
+\[
+\boxed{75} \qquad \text{Réponse A.}
+\]
+
+\item On utilise la règle $(a^n)^m=a^{nm}$ :
+\[
+(4^n)^2=4^{2n}=(4^2)^n=16^n.
+\]
+\[
+\boxed{16^n} \qquad \text{Réponse C.}
+\]
+
+\item Une augmentation de $90\,\%$ correspond à un coefficient multiplicateur de $1{,}9$.
+Une augmentation de $50\,\%$ correspond à un coefficient multiplicateur de $1{,}5$.
+
+Le coefficient multiplicateur global est donc :
+\[
+1{,}9\times1{,}5=2{,}85.
+\]
+Cela correspond à une augmentation de :
+\[
+2{,}85-1=1{,}85,
+\]
+soit :
+\[
+\boxed{185\,\%} \qquad \text{Réponse A.}
+\]
+
+\item On simplifie $f_1$ :
+\[
+f_1(x)=x^2-(x+5)(x-3).
+\]
+Or :
+\[
+(x+5)(x-3)=x^2+2x-15.
+\]
+Donc :
+\[
+f_1(x)=x^2-(x^2+2x-15)=-2x+15.
+\]
+Ainsi $f_1$ est affine.
+
+En revanche, $f_2:x\mapsto4\sqrt{x}+4$ et $f_3:x\mapsto\dfrac4x-3$ ne sont pas affines.
+
+\[
+\boxed{\text{Uniquement la fonction }f_1\text{ est affine.}} \qquad \text{Réponse B.}
+\]
+
+\item Si un prix double, il est multiplié par $2$.
+Le taux d'évolution correspondant est :
+\[
+2-1=1,
+\]
+soit :
+\[
+\boxed{100\,\%} \qquad \text{Réponse A.}
+\]
+
+\item On écrit $4^{40}$ avec des puissances de $2$ :
+\[
+4^{40}=(2^2)^{40}=2^{80}.
+\]
+Donc :
+\[
+2\times4^{40}=2\times2^{80}=2^{81}.
+\]
+\[
+\boxed{2^{81}} \qquad \text{Réponse C.}
+\]
+
+\end{enumerate}
+
+\end{document}
