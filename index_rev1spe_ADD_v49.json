@@ -1,0 +1,308 @@
+{
+  "modeles": [
+    {
+      "id": "parcours_revision_1spe_v1",
+      "titre": "Parcours de révision — Première spécialité",
+      "type_document": "fiche_revision",
+      "niveau": "Première spécialité",
+      "chapitre": "Parcours multi-thèmes",
+      "statut": "modele_valide",
+      "priorite": "haute",
+      "tags": [
+        "premiere spe",
+        "revision",
+        "questions flash",
+        "type bac",
+        "sans calculatrice",
+        "corrige separe",
+        "latex"
+      ],
+      "fichiers": [
+        {
+          "nom": "README_MODELE.md",
+          "type": "md",
+          "role": "document",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/README_MODELE.md"
+        },
+        {
+          "nom": "audit_complet_enonces_corriges_v43.md",
+          "type": "md",
+          "role": "audit",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/audit/audit_complet_enonces_corriges_v43.md"
+        },
+        {
+          "nom": "audit_sans_calculatrice_algorithmes_v42.md",
+          "type": "md",
+          "role": "audit",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/audit/audit_sans_calculatrice_algorithmes_v42.md"
+        },
+        {
+          "nom": "manifest.json",
+          "type": "json",
+          "role": "metadata",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/meta/manifest.json"
+        },
+        {
+          "nom": "manifest_revisions_1spe_v44.json",
+          "type": "json",
+          "role": "metadata",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/meta/manifest_revisions_1spe_v44.json"
+        },
+        {
+          "nom": "versions.md",
+          "type": "md",
+          "role": "metadata",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/meta/versions.md"
+        },
+        {
+          "nom": "versions_valides_v44.md",
+          "type": "md",
+          "role": "metadata",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/meta/versions_valides_v44.md"
+        },
+        {
+          "nom": "01_2d_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/01_2d_C.pdf"
+        },
+        {
+          "nom": "02_pc_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/02_pc_C.pdf"
+        },
+        {
+          "nom": "03_suites_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/03_suites_C.pdf"
+        },
+        {
+          "nom": "04_deriv_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/04_deriv_C.pdf"
+        },
+        {
+          "nom": "05_trigo_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/05_trigo_C.pdf"
+        },
+        {
+          "nom": "06_ps_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/06_ps_C.pdf"
+        },
+        {
+          "nom": "07_va_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/07_va_C.pdf"
+        },
+        {
+          "nom": "08_exp_C.pdf",
+          "type": "pdf",
+          "role": "pdf_corrige",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/c/08_exp_C.pdf"
+        },
+        {
+          "nom": "01_2d_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/01_2d_E.pdf"
+        },
+        {
+          "nom": "02_pc_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/02_pc_E.pdf"
+        },
+        {
+          "nom": "03_suites_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/03_suites_E.pdf"
+        },
+        {
+          "nom": "04_deriv_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/04_deriv_E.pdf"
+        },
+        {
+          "nom": "05_trigo_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/05_trigo_E.pdf"
+        },
+        {
+          "nom": "06_ps_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/06_ps_E.pdf"
+        },
+        {
+          "nom": "07_va_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/07_va_E.pdf"
+        },
+        {
+          "nom": "08_exp_E.pdf",
+          "type": "pdf",
+          "role": "pdf_enonce",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/pdf/e/08_exp_E.pdf"
+        },
+        {
+          "nom": "reprise.md",
+          "type": "md",
+          "role": "prompt",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/prompt/reprise.md"
+        },
+        {
+          "nom": "fiches_premiere_reference.pdf",
+          "type": "pdf",
+          "role": "reference",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/ref/fiches_premiere_reference.pdf"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/01_2d/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/01_2d/E.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/02_pc/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/02_pc/E.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/03_suites/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/03_suites/E.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/04_deriv/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/04_deriv/E.tex"
+        },
+        {
+          "nom": "bac.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/04_deriv/bac.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/05_trigo/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/05_trigo/E.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/06_ps/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/06_ps/E.tex"
+        },
+        {
+          "nom": "bac.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/06_ps/bac.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/07_va/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/07_va/E.tex"
+        },
+        {
+          "nom": "bac.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/07_va/bac.tex"
+        },
+        {
+          "nom": "C.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/08_exp/C.tex"
+        },
+        {
+          "nom": "E.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/08_exp/E.tex"
+        },
+        {
+          "nom": "bac.tex",
+          "type": "tex",
+          "role": "source_latex",
+          "url": "https://raw.githubusercontent.com/dimitrifourcade/modeles-maths-publics/main/modeles/fiches_revision/1spe/rev/tex/08_exp/bac.tex"
+        }
+      ],
+      "notes_style": "Fiches de révision paysage sobres, questions flash, QCM, sujets type bac et corrigés séparés. Modèle validé sur 8 thèmes.",
+      "regles_ia": [
+        "Respecter la contrainte sans calculatrice.",
+        "Conserver les corrigés séparés.",
+        "Ne pas afficher les numéros de version dans les titres.",
+        "Algorithmes : éviter les longues simulations manuelles.",
+        "Sommes géométriques : utiliser u_0(1-q^{n+1})/(1-q).",
+        "Variables aléatoires : pas de formule de Huygens."
+      ],
+      "vigilances": [
+        "Pas de logarithme dans les exercices Première sur exponentielle.",
+        "Pas d’angles approchés en produit scalaire."
+      ],
+      "date_ajout": "2026-05-31"
+    }
+  ]
+}

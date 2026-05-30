@@ -1,0 +1,383 @@
+
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pagecolor}
+\usepackage{needspace}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Fonction exponentielle -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Premiere q#1)}}}
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.82em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.42em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+\newtcolorbox{exoBox}[2]{enhanced,breakable,colback=white,colframe=#1!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#2},coltitle=white,colbacktitle=#1!70!black,before skip=3mm,after skip=3mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+\newcommand{\qcm}[4]{%
+\begin{center}\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.15}{7.65}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Fonction exponentielle}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+\newcommand{\courbeExp}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.52]
+\draw[->,gray] (-2.1,0)--(2.8,0) node[right]{$x$};
+\draw[->,gray] (0,-0.2)--(0,4.4) node[above]{$y$};
+\foreach \x in {-2,-1,0,1,2}{\draw[gray] (\x,0.06)--(\x,-0.06) node[below] {\scriptsize $\x$};}
+\foreach \y/\lab in {1/1,2/2,3/3}{\draw[gray] (0.06,\y)--(-0.06,\y) node[left] {\scriptsize $\lab$};}
+\draw[very thick,bleu,domain=-2:1.45,samples=90] plot (\x,{exp(\x)});
+\node[bleu] at (1.65,3.5) {$y=e^x$};
+\draw[dashed,gray] (1,0)--(1,2.718);
+\fill (1,2.718) circle (1.5pt) node[right] {\scriptsize $e$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\tableVarSimple}[5]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.7cm]
+\draw[fill=grisclair] (0,2) rectangle (8,3);
+\draw (0,0) rectangle (8,3);
+\draw (1.45,0)--(1.45,3);
+\draw (0,1)--(8,1); \draw (0,2)--(8,2);
+\node at (0.72,2.5) {$x$};
+\node at (0.72,1.5) {$f'(x)$};
+\node at (0.72,0.5) {$f$};
+\node at (1.85,2.5) {$#1$};
+\node at (4.65,2.5) {$#2$};
+\node at (7.45,2.5) {$#3$};
+\node at (2.9,1.5) {$#4$};
+\node at (4.65,1.5) {$0$};
+\node at (6.4,1.5) {$#5$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\ficheRecap}{%
+\begin{landscape}
+\pagecolor{fondpage}
+\thispagestyle{empty}
+\titrepage
+\begin{tabularx}{\linewidth}{@{}X@{\hspace{1.8mm}}X@{\hspace{1.8mm}}X@{\hspace{1.8mm}}X@{}}
+\begin{panel}{}
+\tagcol{bleu}{Définition et courbe}
+\begin{fichebox}{bleu}{Définition}
+La fonction exponentielle est l'unique fonction $\exp$ dérivable sur $\mathbb R$ telle que :
+\[
+\exp(0)=1 \quad\text{et}\quad \exp'=\exp.
+\]
+On note :
+\[
+\exp(x)=e^x.
+\]
+\end{fichebox}
+\begin{fichebox}{bleu}{Valeurs de référence}
+\[
+e^0=1,\qquad e^1=e.
+\]
+Le nombre $e$ est environ égal à $2{,}718$.
+\end{fichebox}
+\begin{fichebox}{bleu}{Courbe et signe}
+\courbeExp
+Pour tout réel $x$ :
+\[
+e^x>0.
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{vert}{Propriétés algébriques}
+\begin{fichebox}{vert}{Formules}
+Pour tous réels $a$ et $b$ :
+\[
+e^{a+b}=e^a e^b,
+\qquad
+ e^{a-b}=\frac{e^a}{e^b}.
+\]
+\[
+(e^a)^n=e^{na},
+\qquad
+ e^{-a}=\frac1{e^a}.
+\]
+\end{fichebox}
+\begin{fichebox}{vert}{Attention}
+On ne développe pas $e^{a+b}$ :
+\[
+e^{a+b}\neq e^a+e^b.
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{orange}{Dériver et varier}
+\begin{fichebox}{orange}{Dérivées de référence}
+\[
+(e^x)'=e^x.
+\]
+Pour tous réels $a$ et $b$ :
+\[
+\bigl(e^{ax+b}\bigr)'=a e^{ax+b}.
+\]
+\end{fichebox}
+\begin{fichebox}{orange}{Produit avec exponentielle}
+Pour dériver un produit, on utilise :
+\[
+(uv)'=u'v+uv'.
+\]
+Exemple :
+\[
+\bigl(xe^x\bigr)'=e^x+xe^x=(x+1)e^x.
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{violet}{Équations et inéquations}
+\begin{fichebox}{violet}{Croissance}
+La fonction exponentielle est strictement croissante sur $\mathbb R$.\\[0.3em]
+Donc :
+\[
+e^a=e^b \Longleftrightarrow a=b.
+\]
+\[
+e^a<e^b \Longleftrightarrow a<b.
+\]
+\end{fichebox}
+\begin{fichebox}{violet}{Méthode}
+Pour résoudre une équation du type :
+\[
+e^{2x-1}=e^{x+3},
+\]
+on compare les exposants :
+\[
+2x-1=x+3.
+\]
+\end{fichebox}
+\end{panel}
+\end{tabularx}
+\clearpage
+\nopagecolor
+\end{landscape}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Fonction exponentielle}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\tableofcontents\newpage
+\phantomsection\addcontentsline{toc}{section}{Fiche récapitulative}
+\ficheRecap
+
+\section{Questions flash}
+\setcounter{question}{0}
+\begin{blocquestions}{Questions flash 1 à 12}
+\item Calculer $e^0$.
+\item Calculer $e^1$.
+\item Simplifier $e^{x+2}e^{3}$.
+\item Simplifier $\dfrac{e^{x+4}}{e^x}$.
+\item Simplifier $e^{2x}e^{1-x}$.
+\item Simplifier $\dfrac{e^{3x}}{e^x}$.
+\item Simplifier $(e^x)^4$.
+\item Simplifier $e^{-x}e^{2x}$.
+\item Dériver $f(x)=e^x$.
+\item Dériver $f(x)=3e^x$.
+\item Dériver $f(x)=e^{2x}$.
+\item Dériver $f(x)=e^{-x}$.
+\end{blocquestions}
+
+\begin{blocquestions}{Questions flash 13 à 24}
+\item Dériver $f(x)=e^{3x-1}$.
+\item Dériver $f(x)=2e^{x}-x$.
+\item Dériver $f(x)=xe^x$.
+\item Dériver $f(x)=(x-2)e^x$.
+\item Résoudre $e^x=1$.
+\item Résoudre $e^{x+2}=e^5$.
+\item Résoudre $e^{2x}=e^{x+4}$.
+\item Résoudre $e^{3x-1}=e^{x+5}$.
+\item Résoudre $e^{x}<e^4$.
+\item Résoudre $e^{2x-1}\ge e^3$.
+\item Donner le signe de $e^x$.
+\item Donner le sens de variation de $e^x$.
+\end{blocquestions}
+
+\begin{blocquestions}{Questions flash 25 à 36}
+\item Donner le signe de $(x-3)e^x$.
+\item Donner le signe de $-(x+1)e^x$.
+\item Factoriser $e^{2x}-e^x$.
+\item Résoudre $e^x(e^x-1)=0$.
+\item Dériver $f(x)=x+e^{1-x}$.
+\item Dériver $f(x)=(2x+1)e^x$.
+\item Si $f'(x)=(x-1)e^x$, donner le signe de $f'(x)$.
+\item Si $f'(x)=-2e^{x}$, donner le sens de variation de $f$.
+\item Calculer $e^2/e^{-1}$.
+\item Simplifier $e^{x-2}\times e^{2-x}$.
+\item Résoudre $e^{4-x}=e^{1+x}$.
+\item Résoudre $e^{x+1}\le e^{2x-3}$.
+\end{blocquestions}
+
+
+\section{QCM d'automatismes}
+Pour chaque question, une seule réponse est correcte.
+\begin{enumerate}
+\item $e^{a+b}=$\par\vspace{0.8mm}\qcm{$e^a+e^b$}{$e^ae^b$}{$e^{ab}$}{$a e^b$}
+\item $e^{-a}=$\par\vspace{0.8mm}\qcm{$-e^a$}{$\frac1{e^a}$}{$e^a$}{$0$}
+\item La dérivée de $e^{3x}$ est\par\vspace{0.8mm}\qcm{$e^{3x}$}{$3e^{3x}$}{$3e^x$}{$e^{x+3}$}
+\item L'équation $e^{x-1}=e^4$ a pour solution\par\vspace{0.8mm}\qcm{$3$}{$4$}{$5$}{$e^5$}
+\item Pour tout réel $x$, $e^x$ est\par\vspace{0.8mm}\qcm{négatif}{nul}{positif}{parfois nul}
+\item Le signe de $(x+2)e^x$ est le signe de\par\vspace{0.8mm}\qcm{$x+2$}{$e^x$}{$x$}{$x-2$}
+\item $e^{2x}/e^{x-1}=$\par\vspace{0.8mm}\qcm{$e^{x+1}$}{$e^{x-1}$}{$e^{3x-1}$}{$e^{x}$}
+\item La fonction exponentielle est\par\vspace{0.8mm}\qcm{décroissante}{constante}{croissante}{paire}
+\end{enumerate}
+
+\section{Sujets type bac}
+
+
+\titreSujet{Sujet 1 -- Comparaison de deux fonctions exponentielles}{inspiré d’exercices E3C sur équations, inéquations et position relative de courbes}
+On considère les fonctions $f$ et $g$ définies sur $\R$ par :
+\[
+f(x)=e^{2x}+e^2
+\qquad\text{et}\qquad
+g(x)=(1+e^2)e^x.
+\]
+On note $\mathcal C_f$ et $\mathcal C_g$ leurs courbes représentatives.
+\begin{enumerate}
+\item Montrer que, pour tout réel $x$ :
+\[
+f(x)-g(x)=e^{2x}-(1+e^2)e^x+e^2.
+\]
+\item Factoriser le trinôme :
+\[
+X^2-(1+e^2)X+e^2.
+\]
+\item En posant $X=e^x$, en déduire que, pour tout réel $x$ :
+\[
+f(x)-g(x)=(e^x-1)(e^x-e^2).
+\]
+\item Déterminer les abscisses des points d'intersection de $\mathcal C_f$ et $\mathcal C_g$.
+\item Donner les coordonnées exactes de ces points d'intersection.
+\item Étudier le signe de $f(x)-g(x)$ selon les valeurs de $x$.
+\item En déduire la position relative de $\mathcal C_f$ et $\mathcal C_g$.
+\item Résoudre l'inéquation $f(x)\le g(x)$.
+\item Sans calculer de valeurs décimales, comparer $2e^2$ et $e+e^3$.
+\end{enumerate}
+
+\titreSujet{Sujet 2 -- Étude d'une fonction avec exponentielle}{inspiré d’exercices E3C sur dérivation, variations et tangente avec exponentielle}
+On considère la fonction $f$ définie sur $[-2;4]$ par :
+\[
+f(x)=(x-2)e^x.
+\]
+\begin{enumerate}
+\item Calculer $f(0)$.
+\item Montrer que, pour tout réel $x$ :
+\[
+f'(x)=(x-1)e^x.
+\]
+\item Étudier le signe de $f'(x)$ sur $[-2;4]$.
+\item Dresser le tableau de variations de $f$ sur $[-2;4]$.
+\item Déterminer la valeur exacte du minimum de $f$ sur $[-2;4]$.
+\item Étudier le signe de $f(x)$ sur $[-2;4]$.
+\item Déterminer l'équation de la tangente à la courbe de $f$ au point d'abscisse $0$.
+\end{enumerate}
+
+
+\titreSujet{Sujet 3 -- Modèle en contexte}{inspiré d’exercices E3C de modélisation par une fonction exponentielle}
+La concentration d'un produit dans le sang, en unité arbitraire, est modélisée pendant les cinq premières heures par la fonction $C$ définie sur $[0;5]$ par :
+\[
+C(t)=t e^{1-t}.
+\]
+\begin{enumerate}
+\item Calculer $C(0)$ et $C(1)$.
+\item Montrer que, pour tout $t\in[0;5]$ :
+\[
+C'(t)=(1-t)e^{1-t}.
+\]
+\item Étudier le signe de $C'(t)$ sur $[0;5]$.
+\item Dresser le tableau de variations de $C$ sur $[0;5]$.
+\item À quel instant la concentration est-elle maximale ? Quelle est cette concentration maximale ?
+\item Calculer $C(2)$.
+\item On admet que $e<3$. Montrer que $C(2)>\dfrac23$.
+\item Interpréter ce résultat dans le contexte.
+\end{enumerate}
+
+
+\end{document}

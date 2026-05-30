@@ -1,0 +1,640 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+\usepackage{pagecolor}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Suites -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Première q#1)}}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.82em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.42em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+
+\newcommand{\qcm}[4]{%
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}
+\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Suites}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+
+\newcommand{\miniAlgoNiemeTerme}{%
+\begin{tcolorbox}[colback=white,colframe=gris!60!black,boxrule=0.35pt,arc=1mm,left=1.2mm,right=1mm,top=0.8mm,bottom=0.8mm,before skip=0.4mm,after skip=0.4mm]
+\scriptsize
+\begin{tabular}{@{}l@{}}
+\code{u = u0}\\
+\code{for k in range(n):}\\
+\quad\code{u = f(u)}\\
+\code{return u}
+\end{tabular}
+\end{tcolorbox}}
+
+\newcommand{\miniAlgoSeuil}{%
+\begin{tcolorbox}[colback=white,colframe=gris!60!black,boxrule=0.35pt,arc=1mm,left=1.2mm,right=1mm,top=0.8mm,bottom=0.8mm,before skip=0.4mm,after skip=0.4mm]
+\scriptsize
+\begin{tabular}{@{}l@{}}
+\code{u = terme initial}\\
+\code{n = 0}\\
+\code{while condition:}\\
+\quad\code{u = terme suivant}\\
+\quad\code{n = n + 1}
+\end{tabular}
+\end{tcolorbox}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Corrigé -- Parcours de révision -- Suites}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=6.5mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+
+\fontsize{7.85}{8.45}\selectfont
+
+\titrepage
+
+\noindent
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{bleu}{1. DÉFINIR UNE SUITE}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Vocabulaire}
+Une suite numérique est une fonction définie sur $\N$ ou sur une partie de $\N$.
+
+Le terme de rang $n$ se note $u_n$.
+
+Attention au premier rang : selon l'énoncé, la suite peut commencer à $u_0$ ou à $u_1$.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Deux modes de définition}
+\textbf{Forme explicite} : on donne $u_n$ en fonction de $n$.
+\[
+u_n=f(n).
+\]
+\textbf{Récurrence} : on donne un premier terme et une relation.
+\[
+u_0\text{ donné},\qquad u_{n+1}=f(u_n).
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Calculer des termes}
+Si $u_{n+1}$ dépend de $u_n$, on calcule les termes dans l'ordre.
+\[
+ u_0\longrightarrow u_1\longrightarrow u_2\longrightarrow \cdots
+\]
+Pour une formule explicite, on remplace directement $n$.
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Algorithme : calculer $u_n$}
+Si une suite commence à $u_0$ et vérifie $u_{n+1}=f(u_n)$, on répète $n$ fois le calcul du terme suivant.
+\miniAlgoNiemeTerme
+À la fin, la variable \code{u} contient le terme cherché.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{vert}{2. SUITES ARITHMÉTIQUES}
+\begin{panel}{vert}
+
+\begin{fichebox}{vert}{Définition}
+Une suite est arithmétique lorsqu'on ajoute toujours le même nombre.
+\[
+ u_{n+1}=u_n+r.
+\]
+Le réel $r$ est la \textbf{raison}.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Formule explicite}
+Si le premier terme est $u_0$, alors :
+\[
+ u_n=u_0+nr.
+\]
+Si le premier terme est $u_p$, alors :
+\[
+ u_n=u_p+(n-p)r.
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Variations}
+Pour une suite arithmétique :
+\[
+\begin{array}{c|c}
+r>0 & \text{croissante}\\
+r=0 & \text{constante}\\
+r<0 & \text{décroissante}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Somme}
+Somme de termes consécutifs :
+\[
+\text{nombre de termes}\times\frac{\text{premier}+\text{dernier}}{2}.
+\]
+En particulier :
+\[
+1+2+\cdots+n=\frac{n(n+1)}2.
+\]
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{orange}{3. SUITES GÉOMÉTRIQUES}
+\begin{panel}{orange}
+
+\begin{fichebox}{orange}{Définition}
+Une suite est géométrique lorsqu'on multiplie toujours par le même nombre.
+\[
+ u_{n+1}=q u_n.
+\]
+Le réel $q$ est la \textbf{raison}.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Formule explicite}
+Si le premier terme est $u_0$, alors :
+\[
+ u_n=u_0q^n.
+\]
+Si le premier terme est $u_p$, alors :
+\[
+ u_n=u_pq^{n-p}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Variations}
+Pour une suite géométrique à termes strictement positifs :
+\[
+\begin{array}{c|c}
+q>1 & \text{croissante}\\
+q=1 & \text{constante}\\
+0<q<1 & \text{décroissante}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Somme}
+Si $q\neq1$ :
+\[
+ u_0+u_1+\cdots+u_n
+ =u_0\frac{1-q^{n+1}}{1-q}.
+\]
+Cas utile :
+\[
+1+q+\cdots+q^n=\frac{1-q^{n+1}}{1-q}.
+\]
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{violet}{4. MÉTHODES ET MODÈLES}
+\begin{panel}{violet}
+
+\begin{fichebox}{violet}{Étudier les variations}
+Méthode classique :
+\[
+ u_{n+1}-u_n.
+\]
+Si $u_{n+1}-u_n\geq0$ pour tout $n$, la suite est croissante.
+
+Si $u_{n+1}-u_n\leq0$ pour tout $n$, elle est décroissante.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Taux d'évolution}
+Une hausse de $t\%$ correspond au coefficient :
+\[
+1+\frac{t}{100}.
+\]
+Une baisse de $t\%$ correspond au coefficient :
+\[
+1-\frac{t}{100}.
+\]
+Taux constant $\Rightarrow$ suite géométrique.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Algorithme de seuil}
+Pour chercher le premier rang où un seuil est atteint, on utilise souvent une boucle \code{while}.
+\miniAlgoSeuil
+La variable $n$ compte le nombre de passages dans la boucle.
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Choisir le bon modèle}
+Accroissement constant $\Rightarrow$ suite arithmétique.
+
+Taux constant $\Rightarrow$ suite géométrique.
+
+Relation $u_{n+1}=a u_n+b$ avec $b\neq0$ : ce n'est en général ni arithmétique ni géométrique.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+
+\end{landscape}
+\nopagecolor
+\restoregeometry
+\pagestyle{fancy}
+\clearpage
+\section*{Partie 1 -- Corrigé des questions flash}\addcontentsline{toc}{section}{Partie 1 -- Corrigé des questions flash}
+\begin{blocreponses}{Réponses -- Questions flash}
+  \item C'est une fonction définie sur $\mathbb N$ ou sur une partie de $\mathbb N$.
+  \item On le note $u_n$.
+  \item En explicite, on donne $u_n$ en fonction de $n$. En récurrence, on donne un terme initial et une relation entre deux termes successifs.
+  \item Lorsqu'il existe un réel $r$ tel que, pour tout entier $n$, $u_{n+1}=u_n+r$.
+  \item La raison.
+  \item $u_n=u_0+nr$.
+  \item Lorsqu'il existe un réel $q$ tel que, pour tout entier $n$, $u_{n+1}=q u_n$.
+  \item La raison.
+  \item $u_n=u_0q^n$.
+  \item On compare $u_{n+1}$ et $u_n$, souvent en étudiant le signe de $u_{n+1}-u_n$.
+  \item On montre que $u_{n+1}-u_n\geq0$ pour tout $n$.
+  \item On montre que $u_{n+1}-u_n\leq0$ pour tout $n$.
+  \item À $1$, seulement lorsque les termes sont strictement positifs.
+  \item Une boucle \code{while}.
+  \item $-3$.
+  \item $1{,}2$.
+  \item $u_5=11$.
+  \item $u_3=40$.
+  \item $u_1=9$.
+  \item $u_1=12$.
+  \item La suite est croissante.
+  \item La suite est décroissante.
+  \item Elle renvoie la valeur de la variable \code{u}.
+  \item À répéter le calcul jusqu'à ce qu'une condition soit vérifiée.
+  \item Une suite toujours croissante ou toujours décroissante.
+  \item Une suite dont tous les termes sont égaux.
+  \item $u_2=18$.
+  \item $u_3=11$.
+  \item La suite est décroissante.
+  \item $u_4=8$.
+  \item Elle est croissante.
+  \item Elle est décroissante.
+  \item $u_0+u_1+\cdots+u_n=\dfrac{(n+1)(u_0+u_n)}2$.
+  \item $u_0+u_1+\cdots+u_n=u_0\dfrac{1-q^{n+1}}{1-q}$.
+  \item Une suite arithmétique.
+  \item Une suite géométrique.
+\end{blocreponses}
+\clearpage
+\section*{Partie 2 -- Corrigé du QCM}\addcontentsline{toc}{section}{Partie 2 -- Corrigé du QCM}
+\begin{correctionbox}{Réponses du QCM}
+\begin{center}\begin{tabular}{c|cccccccc} Question & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ \hline Réponse & b & c & a & c & c & a & b & b\end{tabular}\end{center}
+\end{correctionbox}
+\clearpage
+
+\section*{Partie 3 -- Corrigés des sujets type bac / E3C}
+\addcontentsline{toc}{section}{Partie 3 -- Corrigés des sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Grains de riz et somme géométrique}{inspiré du sujet zéro / specimen Première spécialité -- sans calculatrice}
+\begin{correctionbox}{1. Premiers termes}
+On place $3$ grains sur la première case, puis on double à chaque fois.
+\[
+ u_1=3,
+ \qquad
+ u_2=6,
+ \qquad
+ u_3=12.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Relation de récurrence}
+Comme on double le nombre de grains à chaque nouvelle case, on a, pour $1\leq n\leq9$ :
+\[
+ u_{n+1}=2u_n.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{3. Nature de la suite}
+La suite $(u_n)$ est géométrique de raison $2$.
+\end{correctionbox}
+
+\begin{correctionbox}{4. Terme général}
+La suite commence à $u_1=3$. Donc, pour $1\leq n\leq10$ :
+\[
+ u_n=3\times2^{n-1}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{5. Dixième case}
+\[
+ u_{10}=3\times2^9=3\times512=1536.
+\]
+Il y a donc $1536$ grains sur la dixième case.
+\end{correctionbox}
+
+\begin{correctionbox}{6. Somme totale}
+On cherche :
+\[
+ u_1+u_2+\cdots+u_{10}
+ =3(1+2+2^2+\cdots+2^9).
+\]
+Or :
+\[
+1+2+2^2+\cdots+2^9=2^{10}-1=1023.
+\]
+Donc :
+\[
+ u_1+\cdots+u_{10}=3\times1023=3069.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{7. Type de croissance}
+La quantité n'augmente pas d'un même nombre de grains à chaque étape : elle est multipliée par $2$. Le modèle est donc géométrique, et non arithmétique.
+\end{correctionbox}
+
+\titreSujet{Sujet 2 -- Prix d'un manteau en liquidation}{inspiré de sujets E3C Première sur pourcentages répétés -- sans calculatrice}
+\begin{correctionbox}{1. Premiers prix}
+Une baisse de $10\%$ correspond au coefficient multiplicateur $0{,}9$.
+\[
+ u_1=200\times0{,}9=180.
+\]
+Puis :
+\[
+ u_2=180\times0{,}9=162.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Nature de la suite}
+Pour tout entier naturel $n$ :
+\[
+ u_{n+1}=0{,}9u_n.
+\]
+La suite $(u_n)$ est donc géométrique de raison $0{,}9$.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Terme général}
+Comme $u_0=200$ et $q=0{,}9$, on a :
+\[
+ u_n=200\times0{,}9^n.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Prix au bout de quatre semaines}
+\[
+ u_4=200\times0{,}9^4.
+\]
+Or :
+\[
+0{,}9^2=0{,}81,
+\qquad
+0{,}9^4=0{,}81^2=0{,}6561.
+\]
+Donc :
+\[
+ u_4=200\times0{,}6561=131{,}22.
+\]
+Au bout de quatre semaines, le manteau coûte $131{,}22$ euros.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Sens de variation}
+La suite est géométrique, de premier terme positif et de raison $0{,}9$ avec $0<0{,}9<1$.
+
+La suite $(u_n)$ est donc décroissante.
+\end{correctionbox}
+
+\begin{correctionbox}{6. Erreur sur les pourcentages}
+Dire que quatre baisses de $10\%$ correspondent à une baisse de $40\%$ est faux, car les baisses successives ne s'appliquent pas au même prix de départ.
+
+Après quatre semaines, le coefficient global est :
+\[
+0{,}9^4=0{,}6561.
+\]
+Le prix représente donc $65{,}61\%$ du prix initial, ce qui correspond à une baisse de $34{,}39\%$.
+\end{correctionbox}
+
+\begin{correctionbox}{7. Somme des cinq premiers prix}
+On additionne les termes $u_0$, $u_1$, $u_2$, $u_3$ et $u_4$ d'une suite géométrique.
+\[
+ u_0+u_1+u_2+u_3+u_4
+ =200\left(1+0{,}9+0{,}9^2+0{,}9^3+0{,}9^4\right).
+\]
+On peut aussi écrire :
+\[
+ u_0+\cdots+u_4
+ =200\times\frac{1-0{,}9^5}{1-0{,}9}.
+\]
+\end{correctionbox}
+
+\titreSujet{Sujet 3 -- Suite récurrente et seuil algorithmique}{inspiré de sujets E3C Première sur suites et Python -- sans calculatrice}
+\begin{correctionbox}{1. Premiers termes}
+\[
+ u_1=0{,}8\times15+1=12+1=13.
+\]
+Puis :
+\[
+ u_2=0{,}8\times13+1=10{,}4+1=11{,}4.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Encadrement par 5}
+Soit $n$ un entier naturel. On suppose que $u_n>5$.
+
+Alors :
+\[
+0{,}8u_n>0{,}8\times5.
+\]
+Donc :
+\[
+0{,}8u_n+1>4+1.
+\]
+Ainsi :
+\[
+ u_{n+1}>5.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{3. Variation tant que $u_n>5$}
+On calcule :
+\[
+ u_{n+1}-u_n=0{,}8u_n+1-u_n.
+\]
+Donc :
+\[
+ u_{n+1}-u_n=1-0{,}2u_n.
+\]
+Si $u_n>5$, alors :
+\[
+0{,}2u_n>1.
+\]
+Donc :
+\[
+1-0{,}2u_n<0.
+\]
+Ainsi, tant que $u_n>5$, on a $u_{n+1}<u_n$.
+\end{correctionbox}
+
+\begin{correctionbox}{4. Tableau de valeurs}
+On calcule successivement :
+\[
+ u_0=15,
+ \qquad
+ u_1=13,
+ \qquad
+ u_2=11{,}4.
+\]
+Puis :
+\[
+ u_3=0{,}8\times11{,}4+1=9{,}12+1=10{,}12.
+\]
+Enfin :
+\[
+ u_4=0{,}8\times10{,}12+1=8{,}096+1=9{,}096.
+\]
+Donc :
+\[
+\begin{array}{c|ccccc}
+n & 0 & 1 & 2 & 3 & 4\\ \hline
+u_n & 15 & 13 & 11{,}4 & 10{,}12 & 9{,}096
+\end{array}
+\]
+\end{correctionbox}
+
+
+\begin{correctionbox}{5. Algorithme de seuil}
+L'algorithme part de $u_0=15$ et calcule les termes successifs tant que $u>6$.
+
+Il renvoie donc le plus petit entier $n$ tel que :
+\[
+ u_n\leq6.
+\]
+On utilise le tableau fourni dans l'énoncé :
+\[
+\begin{array}{c|ccc}
+n&9&10&11\\ \hline
+u_n&6{,}34217728&6{,}073741824&5{,}8589934592
+\end{array}
+\]
+On lit que :
+\[
+ u_{10}>6
+ \qquad\text{et}\qquad
+ u_{11}\leq6.
+\]
+Le premier rang tel que $u_n\leq6$ est donc $n=11$.
+
+L'algorithme renvoie $11$.
+\end{correctionbox}
+
+\begin{correctionbox}{6. Modification de la condition}
+Pour obtenir le premier rang $n$ tel que $u_n\leq7$, il faut continuer tant que $u>7$.
+
+On remplace donc :
+\[
+\code{while u > 6:}
+\]
+par :
+\[
+\code{while u > 7:}
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{7. Nature de la suite}
+La relation de récurrence est :
+\[
+ u_{n+1}=0{,}8u_n+1.
+\]
+Ce n'est pas une relation de la forme $u_{n+1}=u_n+r$, donc la suite n'est pas arithmétique.
+
+Ce n'est pas non plus une relation de la forme $u_{n+1}=q u_n$, à cause du terme ajouté $+1$. Donc la suite n'est pas géométrique.
+\end{correctionbox}
+
+\end{document}

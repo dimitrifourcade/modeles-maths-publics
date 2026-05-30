@@ -1,0 +1,416 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+\usepackage{pagecolor}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Fonctions trigonométriques -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Premiere q#1)}}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.82em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.42em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+\newcommand{\qcm}[4]{%
+\begin{center}\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Fonctions trigonométriques}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+% Tableaux TikZ sobres pour les corrections
+\newcommand{\TabVarTrigF}{%
+\begin{center}\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.9}\def\W{13.8}\def\H{3.65}
+\fill[black!8] (0,2.82) rectangle (\W,\H);\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline,line width=0.45pt] (0,0) rectangle (\W,\H);\draw[tableline,line width=0.45pt] (\L,0)--(\L,\H);\draw[tableline,line width=0.45pt] (0,2.82)--(\W,2.82);\draw[tableline,line width=0.45pt] (0,1.82)--(\W,1.82);
+\draw[tableline,line width=0.35pt] (5.2,0)--(5.2,\H);\draw[tableline,line width=0.35pt] (9.6,0)--(9.6,\H);
+\node at (0.95,3.22) {$x$};\node at (0.95,2.32) {$f'(x)$};\node at (0.95,0.9) {$f$};
+\node at (2.25,3.22) {$0$};\node at (5.2,3.22) {$\frac{\pi}{3}$};\node at (9.6,3.22) {$\frac{5\pi}{3}$};\node at (13.25,3.22) {$2\pi$};
+\node at (3.6,2.32) {$+$};\node at (5.2,2.32) {$0$};\node at (7.4,2.32) {$-$};\node at (9.6,2.32) {$0$};\node at (11.45,2.32) {$+$};
+\node at (2.25,0.35) {$0$};\node at (5.2,1.45) {$\sqrt3-\frac{\pi}{3}$};\node at (9.6,0.35) {$-\sqrt3-\frac{5\pi}{3}$};\node at (13.25,1.05) {$-2\pi$};
+\draw[->,line width=0.65pt] (2.55,0.45)--(4.75,1.35);\draw[->,line width=0.65pt] (5.75,1.35)--(9.0,0.45);\draw[->,line width=0.65pt] (10.15,0.45)--(12.75,0.95);
+\end{tikzpicture}\end{center}}
+
+\newcommand{\TabVarH}{%
+\begin{center}\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.9}\def\W{12.2}\def\H{3.65}
+\fill[black!8] (0,2.82) rectangle (\W,\H);\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline,line width=0.45pt] (0,0) rectangle (\W,\H);\draw[tableline,line width=0.45pt] (\L,0)--(\L,\H);\draw[tableline,line width=0.45pt] (0,2.82)--(\W,2.82);\draw[tableline,line width=0.45pt] (0,1.82)--(\W,1.82);
+\draw[tableline,line width=0.35pt] (7.0,0)--(7.0,\H);
+\node at (0.95,3.22) {$t$};\node at (0.95,2.32) {$h'(t)$};\node at (0.95,0.9) {$h$};
+\node at (2.35,3.22) {$0$};\node at (7.0,3.22) {$6$};\node at (11.65,3.22) {$12$};
+\node at (4.6,2.32) {$-$};\node at (7.0,2.32) {$0$};\node at (9.25,2.32) {$+$};
+\node at (2.35,1.45) {$5$};\node at (7.0,0.35) {$1$};\node at (11.65,1.45) {$5$};
+\draw[->,line width=0.65pt] (2.75,1.35)--(6.5,0.45);\draw[->,line width=0.65pt] (7.5,0.45)--(11.2,1.35);
+\end{tikzpicture}\end{center}}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Fonctions trigonométriques}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\tableofcontents\newpage
+
+\newcommand{\ficheRecap}{%
+\begin{landscape}
+\pagecolor{fondpage}
+\thispagestyle{empty}
+\titrepage
+\begin{tabularx}{\linewidth}{@{}X@{\hspace{1.8mm}}X@{\hspace{1.8mm}}X@{\hspace{1.8mm}}X@{}}
+\begin{panel}{}
+\tagcol{bleu}{Cercle et radian}
+\begin{fichebox}{bleu}{Cercle trigonométrique}
+Cercle de centre $O$, de rayon $1$, orienté dans le sens direct.
+
+Un réel $x$ correspond au point $M(x)$ de coordonnées :
+\[
+M(x)=(\cos x;\sin x).
+\]
+Un tour complet correspond à $2\pi$ radians.
+\end{fichebox}
+\begin{fichebox}{bleu}{Schéma repère}
+\begin{center}
+\begin{tikzpicture}[scale=1.05,>=Latex]
+\draw[->] (-1.35,0)--(1.45,0) node[right] {$x$};
+\draw[->] (0,-1.35)--(0,1.45) node[above] {$y$};
+\draw[thick] (0,0) circle (1);
+\draw[->,bleu!70!black,thick] (0.55,0) arc (0:42:0.55);
+\draw[thick,rouge!80!black] (0,0)--(40:1) node[pos=0.6,above] {$1$};
+\fill (40:1) circle (1.2pt) node[above right] {$M(x)$};
+\draw[dashed] (40:1)--({cos(40)},0) node[below] {$\cos x$};
+\draw[dashed] (40:1)--(0,{sin(40)}) node[left] {$\sin x$};
+\node at (0.26,0.13) {$x$};
+\node[below left] at (0,0) {$O$};
+\end{tikzpicture}
+\end{center}
+\end{fichebox}
+\begin{fichebox}{bleu}{Repères}
+\[
+\pi\ \text{rad}=180^\circ,\quad \frac{\pi}{2}=90^\circ,\quad \frac{\pi}{3}=60^\circ.
+\]
+\[
+\frac{\pi}{4}=45^\circ,\quad \frac{\pi}{6}=30^\circ.
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{vert}{Valeurs exactes}
+\begin{fichebox}{vert}{Valeurs remarquables}
+\centering
+\begin{tabular}{c|ccccc}
+$x$ & $0$ & $\frac{\pi}{6}$ & $\frac{\pi}{4}$ & $\frac{\pi}{3}$ & $\frac{\pi}{2}$ \\ \hline
+$\cos x$ & $1$ & $\frac{\sqrt3}{2}$ & $\frac{\sqrt2}{2}$ & $\frac12$ & $0$ \\
+$\sin x$ & $0$ & $\frac12$ & $\frac{\sqrt2}{2}$ & $\frac{\sqrt3}{2}$ & $1$
+\end{tabular}
+\end{fichebox}
+\begin{fichebox}{vert}{Symétries utiles}
+\[
+\cos(-x)=\cos x,\qquad \sin(-x)=-\sin x.
+\]
+\[
+\cos(\pi-x)=-\cos x,\qquad \sin(\pi-x)=\sin x.
+\]
+\[
+\cos(\pi+x)=-\cos x,\qquad \sin(\pi+x)=-\sin x.
+\]
+\end{fichebox}
+\begin{fichebox}{vert}{Identité fondamentale}
+Pour tout réel $x$ :
+\[
+\cos^2 x+\sin^2 x=1.
+\]
+Elle permet de retrouver un sinus à partir d’un cosinus, ou inversement, avec le signe donné par le quadrant.
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{orange}{Fonctions sinus et cosinus}
+\begin{fichebox}{orange}{Périodicité}
+Pour tout réel $x$ :
+\[
+\cos(x+2\pi)=\cos x,
+\qquad
+\sin(x+2\pi)=\sin x.
+\]
+Les fonctions sinus et cosinus sont $2\pi$-périodiques.
+\end{fichebox}
+\begin{fichebox}{orange}{Parité}
+\[
+\cos(-x)=\cos x \quad \Rightarrow \quad \cos \text{ est paire.}
+\]
+\[
+\sin(-x)=-\sin x \quad \Rightarrow \quad \sin \text{ est impaire.}
+\]
+\end{fichebox}
+\begin{fichebox}{orange}{Dérivées de référence}
+\[
+(\sin x)'=\cos x,
+\qquad
+(\cos x)'=-\sin x.
+\]
+Avec une composée affine :
+\[
+(\sin(ax+b))'=a\cos(ax+b),
+\]
+\[
+(\cos(ax+b))'=-a\sin(ax+b).
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{violet}{Méthodes}
+\begin{fichebox}{violet}{Résoudre une équation simple}
+Pour résoudre $\cos x=a$ ou $\sin x=a$ sur un intervalle :
+\begin{itemize}
+\item placer la valeur sur le cercle ;
+\item repérer les angles associés ;
+\item respecter l’intervalle demandé ;
+\item ajouter $2k\pi$ si on résout dans $\R$.
+\end{itemize}
+\end{fichebox}
+\begin{fichebox}{violet}{Étudier une fonction trigonométrique}
+\begin{enumerate}[leftmargin=*,itemsep=0.15em,topsep=0.15em]
+\item Calculer la dérivée.
+\item Résoudre $f'(x)=0$.
+\item Étudier le signe de $f'(x)$ sur l’intervalle.
+\item Dresser le tableau de variations.
+\end{enumerate}
+\end{fichebox}
+\begin{fichebox}{violet}{Attention}
+Ne pas confondre :
+\[
+\cos x=\frac12 \quad \text{et}\quad x=\frac12.
+\]
+Le cosinus et le sinus sont des coordonnées sur le cercle trigonométrique.
+\end{fichebox}
+\end{panel}
+\end{tabularx}
+\clearpage
+\nopagecolor
+\end{landscape}}
+
+\ficheRecap
+\section*{Questions flash}
+\addcontentsline{toc}{section}{Questions flash}
+\setcounter{question}{0}
+\begin{blocquestions}{Questions flash 1 à 12}
+\item Qu’est-ce que le cercle trigonométrique ?
+\item Quel est le point du cercle trigonométrique associé à un réel $x$ ?
+\item Quelle longueur d’arc correspond à un tour complet ?
+\item Que vaut $\cos(0)$ ?
+\item Que vaut $\sin(0)$ ?
+\item Que valent $\cos(\pi)$ et $\sin(\pi)$ ?
+\item Que valent $\cos\left(\dfrac{\pi}{2}\right)$ et $\sin\left(\dfrac{\pi}{2}\right)$ ?
+\item Que valent $\cos\left(\dfrac{\pi}{3}\right)$ et $\sin\left(\dfrac{\pi}{3}\right)$ ?
+\item Que valent $\cos\left(\dfrac{\pi}{4}\right)$ et $\sin\left(\dfrac{\pi}{4}\right)$ ?
+\item Que valent $\cos\left(\dfrac{\pi}{6}\right)$ et $\sin\left(\dfrac{\pi}{6}\right)$ ?
+\item Que signifie que la fonction cosinus est paire ?
+\item Que signifie que la fonction sinus est impaire ?
+\end{blocquestions}
+\begin{blocquestions}{Questions flash 13 à 24}
+\item Que signifie que sinus et cosinus sont $2\pi$-périodiques ?
+\item Que vaut $\cos^2 x+\sin^2 x$ ?
+\item Résoudre $\cos x=\dfrac12$ dans $[0;2\pi[$.
+\item Résoudre $\cos x=-\dfrac12$ dans $[0;2\pi[$.
+\item Résoudre $\sin x=\dfrac{\sqrt3}{2}$ dans $[0;2\pi[$.
+\item Résoudre $\sin x=-\dfrac12$ dans $[0;2\pi[$.
+\item Résoudre $2\cos x+1=0$ dans $[0;2\pi]$.
+\item Résoudre $2\sin x-1=0$ dans $[0;2\pi]$.
+\item Quelle est la dérivée de $\sin x$ ?
+\item Quelle est la dérivée de $\cos x$ ?
+\item Dériver $f(x)=3\sin x-2x$.
+\item Dériver $g(x)=2\cos x+x^2$.
+\end{blocquestions}
+\begin{blocquestions}{Questions flash 25 à 36}
+\item Dériver $h(x)=\sin(2x)$.
+\item Dériver $k(x)=\cos(3x-1)$.
+\item La fonction $f(x)=\sin x-x$ est-elle paire, impaire ou ni l’un ni l’autre ?
+\item La fonction $f(x)=\sin x-x$ est-elle $2\pi$-périodique ?
+\item Simplifier $\cos(x+2\pi)$.
+\item Simplifier $\sin(-x)+\sin x$.
+\item À quel angle de $]-\pi;\pi]$ le réel $\dfrac{13\pi}{4}$ est-il associé ?
+\item Résoudre $\sin x=1$ dans $\R$.
+\item Résoudre $\cos x=0$ dans $[0;2\pi]$.
+\item Si $\cos t=\dfrac23$, que vaut $\cos(t+4\pi)+\cos(-t)$ ?
+\item Calculer $\sin\left(\dfrac{5\pi}{6}\right)$.
+\item Calculer $\cos\left(\dfrac{7\pi}{6}\right)$.
+\end{blocquestions}
+\section*{QCM d’automatismes}
+\addcontentsline{toc}{section}{QCM d’automatismes}
+Pour chaque question, une seule réponse est correcte.
+\begin{correctionbox}{Question 1}
+La valeur de $\cos\left(\dfrac{\pi}{3}\right)$ est :
+\qcm{$\dfrac12$}{$\dfrac{\sqrt2}{2}$}{$\dfrac{\sqrt3}{2}$}{$1$}
+\end{correctionbox}
+\begin{correctionbox}{Question 2}
+La valeur de $\sin\left(\dfrac{\pi}{6}\right)$ est :
+\qcm{$\dfrac12$}{$\dfrac{\sqrt2}{2}$}{$\dfrac{\sqrt3}{2}$}{$0$}
+\end{correctionbox}
+\begin{correctionbox}{Question 3}
+La fonction cosinus est :
+\qcm{impaire}{paire}{ni paire ni impaire}{toujours positive}
+\end{correctionbox}
+\begin{correctionbox}{Question 4}
+La fonction sinus est :
+\qcm{paire}{impaire}{constante}{toujours positive}
+\end{correctionbox}
+\begin{correctionbox}{Question 5}
+La dérivée de $\cos x$ est :
+\qcm{$\sin x$}{$-\sin x$}{$\cos x$}{$-\cos x$}
+\end{correctionbox}
+\begin{correctionbox}{Question 6}
+Les solutions de $\cos x=-\dfrac12$ dans $[0;2\pi[$ sont :
+\qcm{$\dfrac{\pi}{3}$ et $\dfrac{5\pi}{3}$}{$\dfrac{2\pi}{3}$ et $\dfrac{4\pi}{3}$}{$\dfrac{\pi}{6}$ et $\dfrac{5\pi}{6}$}{$\dfrac{\pi}{2}$ et $\dfrac{3\pi}{2}$}
+\end{correctionbox}
+\begin{correctionbox}{Question 7}
+La dérivée de $\sin(2x)$ est :
+\qcm{$\cos(2x)$}{$2\cos(2x)$}{$-2\sin(2x)$}{$2\sin(2x)$}
+\end{correctionbox}
+\begin{correctionbox}{Question 8}
+La période commune de sinus et cosinus est :
+\qcm{$\pi$}{$2\pi$}{$\dfrac{\pi}{2}$}{$1$}
+\end{correctionbox}
+
+\section*{Sujets type bac / E3C}
+\addcontentsline{toc}{section}{Sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Cercle trigonométrique et valeurs remarquables}{Sujet zéro / E3C -- cercle, valeurs exactes, équations simples}
+On considère le cercle trigonométrique dans un repère orthonormé direct. À tout réel $x$, on associe le point $M$ du cercle obtenu par enroulement de la droite réelle.
+\begin{enumerate}
+\item Placer sur un cercle trigonométrique les réels suivants :
+\[
+0,\quad \frac{\pi}{6},\quad \frac{\pi}{4},\quad \frac{\pi}{3},\quad \frac{\pi}{2},\quad \pi.
+\]
+\item Donner les valeurs exactes de :
+\[
+\cos\left(\frac{\pi}{3}\right),\quad \sin\left(\frac{\pi}{3}\right),\quad
+\cos\left(\frac{5\pi}{6}\right),\quad \sin\left(\frac{5\pi}{6}\right).
+\]
+\item En utilisant les symétries du cercle, donner les valeurs exactes de :
+\[
+\cos\left(-\frac{\pi}{4}\right),\quad \sin\left(-\frac{\pi}{4}\right),\quad
+\cos\left(\frac{7\pi}{6}\right),\quad \sin\left(\frac{7\pi}{6}\right).
+\]
+\item Résoudre dans l’intervalle $[0;2\pi[$ l’équation $\cos x=\dfrac12$.
+\item Résoudre dans l’intervalle $[0;2\pi[$ l’équation $\sin x=-\dfrac{\sqrt3}{2}$.
+\item Expliquer pourquoi les solutions de $\cos x=\dfrac12$ sont périodiques de période $2\pi$.
+\end{enumerate}
+
+\titreSujet{Sujet 2 -- Étude d’une fonction trigonométrique}{Sujet type E3C -- dérivée, signe et variations}
+On considère la fonction $f$ définie sur $[0;2\pi]$ par :
+\[
+f(x)=2\sin x-x.
+\]
+\begin{enumerate}
+\item Calculer $f'(x)$.
+\item Résoudre dans $[0;2\pi]$ l’équation $2\cos x-1=0$.
+\item Étudier le signe de $f'(x)$ sur $[0;2\pi]$.
+\item Dresser le tableau de variations de $f$ sur $[0;2\pi]$.
+\item Calculer les valeurs exactes de $f(0)$, $f\left(\dfrac{\pi}{3}\right)$, $f\left(\dfrac{5\pi}{3}\right)$ et $f(2\pi)$.
+\item En déduire le maximum local et le minimum local de $f$ sur l’intervalle.
+\end{enumerate}
+
+\titreSujet{Sujet 3 -- Fonction trigonométrique en contexte périodique}{Sujet type E3C -- modèle périodique et variations}
+La hauteur d’un point mobile est modélisée, en fonction du temps $t$ exprimé en secondes, par :
+\[
+h(t)=3+2\cos\left(\frac{\pi}{6}t\right)
+\]
+pour $t\in[0;12]$.
+\begin{enumerate}
+\item Calculer $h(0)$, $h(3)$, $h(6)$, $h(9)$ et $h(12)$.
+\item Déterminer la valeur maximale et la valeur minimale possibles de $h(t)$.
+\item Interpréter ces deux valeurs dans le contexte.
+\item Déterminer la période de la fonction $h$.
+\item Calculer $h'(t)$.
+\item Étudier le signe de $h'(t)$ sur $[0;12]$.
+\item Dresser le tableau de variations de $h$ sur $[0;12]$.
+\end{enumerate}
+
+\end{document}

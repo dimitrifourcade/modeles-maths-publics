@@ -1,0 +1,579 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Probabilités conditionnelles -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Première q#1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+
+\newcommand{\qcm}[4]{%
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}
+\end{center}}
+
+\newcommand{\arbreDeuxNiveaux}[6]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (A) at (2,1.25);
+\coordinate (Ab) at (2,-1.25);
+\coordinate (AB) at (4.3,1.85);
+\coordinate (ABb) at (4.3,0.65);
+\coordinate (AbB) at (4.3,-0.65);
+\coordinate (AbBb) at (4.3,-1.85);
+\draw[->,line width=.55pt] (O)--(A) node[midway,above left,scale=.86] {#1};
+\draw[->,line width=.55pt] (O)--(Ab) node[midway,below left,scale=.86] {#2};
+\draw[->,line width=.55pt] (A)--(AB) node[midway,above,scale=.86] {#3};
+\draw[->,line width=.55pt] (A)--(ABb) node[midway,below,scale=.86] {#4};
+\draw[->,line width=.55pt] (Ab)--(AbB) node[midway,above,scale=.86] {#5};
+\draw[->,line width=.55pt] (Ab)--(AbBb) node[midway,below,scale=.86] {#6};
+\node[font=\small\bfseries] at (A) [right=1mm] {$A$};
+\node[font=\small\bfseries] at (Ab) [right=1mm] {$\overline A$};
+\node[font=\small\bfseries] at (AB) [right=1mm] {$B$};
+\node[font=\small\bfseries] at (ABb) [right=1mm] {$\overline B$};
+\node[font=\small\bfseries] at (AbB) [right=1mm] {$B$};
+\node[font=\small\bfseries] at (AbBb) [right=1mm] {$\overline B$};
+\end{tikzpicture}
+\end{center}}
+
+
+
+\newcommand{\arbreSC}[6]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (S) at (2,1.25);
+\coordinate (Sb) at (2,-1.25);
+\coordinate (SC) at (4.3,1.85);
+\coordinate (SCb) at (4.3,0.65);
+\coordinate (SbC) at (4.3,-0.65);
+\coordinate (SbCb) at (4.3,-1.85);
+\draw[->,line width=.55pt] (O)--(S) node[midway,above left,scale=.86] {#1};
+\draw[->,line width=.55pt] (O)--(Sb) node[midway,below left,scale=.86] {#2};
+\draw[->,line width=.55pt] (S)--(SC) node[midway,above,scale=.86] {#3};
+\draw[->,line width=.55pt] (S)--(SCb) node[midway,below,scale=.86] {#4};
+\draw[->,line width=.55pt] (Sb)--(SbC) node[midway,above,scale=.86] {#5};
+\draw[->,line width=.55pt] (Sb)--(SbCb) node[midway,below,scale=.86] {#6};
+\node[font=\small\bfseries] at (S) [right=1mm] {$S$};
+\node[font=\small\bfseries] at (Sb) [right=1mm] {$\overline S$};
+\node[font=\small\bfseries] at (SC) [right=1mm] {$C$};
+\node[font=\small\bfseries] at (SCb) [right=1mm] {$\overline C$};
+\node[font=\small\bfseries] at (SbC) [right=1mm] {$C$};
+\node[font=\small\bfseries] at (SbCb) [right=1mm] {$\overline C$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\arbreDT}[6]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (D) at (2,1.25);
+\coordinate (Db) at (2,-1.25);
+\coordinate (DT) at (4.3,1.85);
+\coordinate (DTb) at (4.3,0.65);
+\coordinate (DbT) at (4.3,-0.65);
+\coordinate (DbTb) at (4.3,-1.85);
+\draw[->,line width=.55pt] (O)--(D) node[midway,above left,scale=.86] {#1};
+\draw[->,line width=.55pt] (O)--(Db) node[midway,below left,scale=.86] {#2};
+\draw[->,line width=.55pt] (D)--(DT) node[midway,above,scale=.86] {#3};
+\draw[->,line width=.55pt] (D)--(DTb) node[midway,below,scale=.86] {#4};
+\draw[->,line width=.55pt] (Db)--(DbT) node[midway,above,scale=.86] {#5};
+\draw[->,line width=.55pt] (Db)--(DbTb) node[midway,below,scale=.86] {#6};
+\node[font=\small\bfseries] at (D) [right=1mm] {$D$};
+\node[font=\small\bfseries] at (Db) [right=1mm] {$\overline D$};
+\node[font=\small\bfseries] at (DT) [right=1mm] {$T$};
+\node[font=\small\bfseries] at (DTb) [right=1mm] {$\overline T$};
+\node[font=\small\bfseries] at (DbT) [right=1mm] {$T$};
+\node[font=\small\bfseries] at (DbTb) [right=1mm] {$\overline T$};
+\end{tikzpicture}
+\end{center}}
+
+
+
+\newcommand{\arbreFicheProbas}{%
+\begin{center}
+\begin{tikzpicture}[x=0.65cm,y=0.48cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (A) at (2,1.45);
+\coordinate (Ab) at (2,-1.45);
+\coordinate (AB) at (4.1,2.15);
+\coordinate (ABb) at (4.1,0.75);
+\coordinate (AbB) at (4.1,-0.75);
+\coordinate (AbBb) at (4.1,-2.15);
+\draw[->,line width=.45pt] (O)--(A) node[midway,above left,font=\tiny] {$P(A)$};
+\draw[->,line width=.45pt] (O)--(Ab) node[midway,below left,font=\tiny] {$P(\overline A)$};
+\draw[->,line width=.45pt] (A)--(AB) node[midway,above,font=\tiny] {$P_A(B)$};
+\draw[->,line width=.45pt] (A)--(ABb) node[midway,below,font=\tiny] {$P_A(\overline B)$};
+\draw[->,line width=.45pt] (Ab)--(AbB) node[midway,above,font=\tiny] {$P_{\overline A}(B)$};
+\draw[->,line width=.45pt] (Ab)--(AbBb) node[midway,below,font=\tiny] {$P_{\overline A}(\overline B)$};
+\node[font=\tiny\bfseries,fill=fondpage,inner sep=0.7pt,anchor=south] at ($(A)+(0,0.18)$) {$A$};
+\node[font=\tiny\bfseries,fill=fondpage,inner sep=0.7pt,anchor=north] at ($(Ab)+(0,-0.18)$) {$\overline A$};
+\node[font=\tiny\bfseries] at (AB) [right=.4mm] {$B$};
+\node[font=\tiny\bfseries] at (ABb) [right=.4mm] {$\overline B$};
+\node[font=\tiny\bfseries] at (AbB) [right=.4mm] {$B$};
+\node[font=\tiny\bfseries] at (AbBb) [right=.4mm] {$\overline B$};
+\node[font=\tiny,anchor=west,text=gris] at (4.7,2.15) {$P(A\cap B)$};
+\node[font=\tiny,anchor=west,text=gris] at (4.7,0.75) {$P(A\cap\overline B)$};
+\node[font=\tiny,anchor=west,text=gris] at (4.7,-0.75) {$P(\overline A\cap B)$};
+\node[font=\tiny,anchor=west,text=gris] at (4.7,-2.15) {$P(\overline A\cap\overline B)$};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tableauProbas}{%
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{c|c|c|c}
+ & $B$ & $\overline B$ & Total\\ \hline
+$A$ & $P(A\cap B)$ & $P(A\cap\overline B)$ & $P(A)$\\ \hline
+$\overline A$ & $P(\overline A\cap B)$ & $P(\overline A\cap\overline B)$ & $P(\overline A)$\\ \hline
+Total & $P(B)$ & $P(\overline B)$ & $1$
+\end{tabular}
+\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Probabilités conditionnelles}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries Corrigé -- Parcours de révision -- Probabilités conditionnelles}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Réponses aux questions flash}
+\addcontentsline{toc}{section}{Partie 1 -- Réponses aux questions flash}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Réponses -- Questions flash}
+  \item Deux évènements incompatibles sont deux évènements qui ne peuvent pas se produire en même temps. Leur intersection est vide.
+  \item $P_B(A)$ désigne la probabilité de $A$ sachant $B$.
+  \item Si $P(B)\neq0$, alors $P_B(A)=\dfrac{P(A\cap B)}{P(B)}$.
+  \item On utilise $P(A\cap B)=P(B)\times P_B(A)$.
+  \item $A\cap B$ signifie « $A$ et $B$ ».
+  \item $A\cup B$ signifie « $A$ ou $B$ ».
+  \item L'évènement contraire de $A$ se note souvent $\overline A$.
+  \item $P(\overline A)=1-P(A)$.
+  \item On multiplie les probabilités des branches du chemin.
+  \item On additionne les probabilités des chemins qui réalisent cet évènement.
+  \item Cela signifie qu'ils sont incompatibles et que leur réunion est l'univers.
+  \item Si $(B_i)$ est une partition, alors $P(A)=P(A\cap B_1)+\cdots+P(A\cap B_n)$.
+  \item Ils sont indépendants lorsque $P(A\cap B)=P(A)P(B)$, ou encore lorsque $P_A(B)=P(B)$ si $P(A)\neq0$.
+  \item Non. Deux évènements incompatibles ne sont pas forcément indépendants.
+  \item Un évènement certain a pour probabilité $1$.
+  \item L'évènement impossible a pour probabilité $0$.
+  \item On peut conclure que les évènements $A$ et $B$ sont indépendants.
+  \item On a $P(A\cap B)=0$.
+  \item L'univers est l'ensemble de toutes les issues possibles.
+  \item Deux évènements indépendants vérifient $P(A\cap B)=P(A)P(B)$.
+  \item Une partition est une famille d'évènements incompatibles dont la réunion est l'univers.
+  \item On écrit : « $A$ et $\overline A$ forment une partition de l'univers. D'après la formule des probabilités totales, on a : ... »
+  \item L'indépendance ne donne pas une formule sur l'union. Si $A$ et $B$ sont indépendants, alors $P(A\cap B)=P(A)P(B)$.
+  \item Il faut préciser que cette formule est vraie seulement si $A$ et $B$ sont indépendants.
+  \item $P(\overline A)=1-0{,}35=0{,}65$.
+  \item Comme $A$ et $B$ forment une partition de l'univers, $P(A)+P(B)=1$.
+  \item Il faut annoncer la partition, citer la formule des probabilités totales, puis écrire la somme des probabilités des intersections.
+  \item Il faut vérifier une égalité de probabilités, par exemple $P(A\cap B)=P(A)P(B)$.
+  \item On conclut : « Comme $P_B(A)=P(A)$ et $P(B)\neq0$, les évènements $A$ et $B$ sont indépendants. »
+  \item En général, $P(A\cap B)$ ne se calcule pas par une somme. La somme intervient pour une union, pas pour une intersection.
+  \item $P(A\cap B)=P(A)P_A(B)=\dfrac35\times\dfrac23=\dfrac25$.
+  \item $A$ et $\overline A$ forment une partition de l'univers. D'après la formule des probabilités totales :
+  \[
+  P(B)=0{,}4\times0{,}25+0{,}6\times0{,}5=0{,}1+0{,}3=0{,}4.
+  \]
+  \item $P(A)P(B)=0{,}2\times0{,}5=0{,}1=P(A\cap B)$. Les évènements sont indépendants.
+  \item $P_B(A)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{0{,}12}{0{,}4}=0{,}3$.
+  \item Les probabilités issues d'un même noeud ont pour somme $1$, donc $p=0{,}3$.
+\end{blocreponses}
+\clearpage
+
+\section*{Partie 2 -- Corrigé du QCM}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigé du QCM}
+\begin{blocreponses}{Réponses -- QCM}
+  \item Réponse \textbf{b}. $P(\overline A)=1-0{,}28=0{,}72$.
+  \item Réponse \textbf{c}. $P(A\cap B)=P(A)P_A(B)=\dfrac12\times\dfrac35=\dfrac3{10}$.
+  \item Réponse \textbf{b}. $P_B(A)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{0{,}08}{0{,}2}=0{,}4$.
+  \item Réponse \textbf{a}. $A$ et $\overline A$ sont contraires, donc $P(A)+P(\overline A)=1$.
+  \item Réponse \textbf{b}. Pour deux évènements indépendants, $P(A\cap B)=P(A)P(B)$.
+  \item Réponse \textbf{b}. Si $P_A(B)=P(B)$ et $P(A)\neq0$, alors $A$ et $B$ sont indépendants.
+\end{blocreponses}
+\clearpage
+
+
+\section*{Partie 3 -- Corrigés des sujets type bac / E3C}
+\addcontentsline{toc}{section}{Partie 3 -- Corrigés des sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Dessert et café}{inspiré de sujets E3C Première sur arbres à trois branches -- sans calculatrice}
+\begin{correctionbox}{1. Partition}
+Les évènements $M$, $T$ et $N$ correspondent aux trois choix possibles concernant le dessert : macarons, tarte ou aucun dessert. Aucun client ne prend plusieurs desserts.
+
+Ils sont donc incompatibles deux à deux et leur réunion est l'univers. Ainsi, $M$, $T$ et $N$ forment une partition de l'univers.
+\end{correctionbox}
+
+\begin{correctionbox}{2. Arbre pondéré}
+On a :
+\[
+P(M)=\frac{40}{100}=\frac25,
+\qquad
+P(T)=\frac{30}{100}=\frac3{10},
+\qquad
+P(N)=1-\frac25-\frac3{10}=\frac3{10}.
+\]
+De plus :
+\[
+P_M(C)=\frac34,
+\qquad
+P_T(C)=\frac13,
+\qquad
+P_N(C)=\frac16.
+\]
+On complète donc les branches contraires :
+\[
+P_M(\overline C)=\frac14,
+\qquad
+P_T(\overline C)=\frac23,
+\qquad
+P_N(\overline C)=\frac56.
+\]
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (M) at (2,1.7);
+\coordinate (T) at (2,0);
+\coordinate (N) at (2,-1.7);
+\coordinate (MC) at (4.3,2.2);
+\coordinate (MCb) at (4.3,1.2);
+\coordinate (TC) at (4.3,.5);
+\coordinate (TCb) at (4.3,-.5);
+\coordinate (NC) at (4.3,-1.2);
+\coordinate (NCb) at (4.3,-2.2);
+\draw[->] (O)--(M) node[midway,above left] {$\frac25$};
+\draw[->] (O)--(T) node[midway,above] {$\frac3{10}$};
+\draw[->] (O)--(N) node[midway,below left] {$\frac3{10}$};
+\draw[->] (M)--(MC) node[midway,above] {$\frac34$};
+\draw[->] (M)--(MCb) node[midway,below] {$\frac14$};
+\draw[->] (T)--(TC) node[midway,above] {$\frac13$};
+\draw[->] (T)--(TCb) node[midway,below] {$\frac23$};
+\draw[->] (N)--(NC) node[midway,above] {$\frac16$};
+\draw[->] (N)--(NCb) node[midway,below] {$\frac56$};
+\node[font=\bfseries,above=1mm] at (M) {$M$};
+\node[font=\bfseries,above=1mm] at (T) {$T$};
+\node[font=\bfseries,below=1mm] at (N) {$N$};
+\node[right=1mm,font=\bfseries] at (MC) {$C$};
+\node[right=1mm,font=\bfseries] at (MCb) {$\overline C$};
+\node[right=1mm,font=\bfseries] at (TC) {$C$};
+\node[right=1mm,font=\bfseries] at (TCb) {$\overline C$};
+\node[right=1mm,font=\bfseries] at (NC) {$C$};
+\node[right=1mm,font=\bfseries] at (NCb) {$\overline C$};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Sens des probabilités}
+$P(T\cap C)$ est la probabilité que le client choisi ait pris une tarte et un café.
+
+$P_C(M)$ est la probabilité que le client ait choisi des macarons sachant qu'il a pris un café.
+\end{correctionbox}
+
+\begin{correctionbox}{4. Probabilités d'intersections}
+On multiplie les probabilités le long de chaque chemin :
+\[
+P(M\cap C)=P(M)P_M(C)=\frac25\times\frac34=\frac3{10}.
+\]
+\[
+P(T\cap C)=P(T)P_T(C)=\frac3{10}\times\frac13=\frac1{10}.
+\]
+\[
+P(N\cap C)=P(N)P_N(C)=\frac3{10}\times\frac16=\frac1{20}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{5. Calcul de $P(C)$}
+$M$, $T$ et $N$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+P(C)=P(M\cap C)+P(T\cap C)+P(N\cap C).
+\]
+Donc :
+\[
+P(C)=\frac3{10}+\frac1{10}+\frac1{20}=\frac6{20}+\frac2{20}+\frac1{20}=\frac9{20}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{6. Probabilité inverse}
+On cherche $P_C(M)$ :
+\[
+P_C(M)=\frac{P(M\cap C)}{P(C)}=\frac{\frac3{10}}{\frac9{20}}
+=\frac3{10}\times\frac{20}{9}=\frac23.
+\]
+La probabilité que le client ait choisi des macarons sachant qu'il a pris un café est donc $\dfrac23$.
+\end{correctionbox}
+
+\begin{correctionbox}{7. Indépendance}
+On compare $P_C(M)$ et $P(M)$.
+\[
+P_C(M)=\frac23
+\qquad\text{et}\qquad
+P(M)=\frac25.
+\]
+Ces deux probabilités sont différentes. Les évènements $M$ et $C$ ne sont donc pas indépendants.
+\end{correctionbox}
+
+\titreSujet{Sujet 2 -- Atelier et inscription}{inspiré de sujets E3C Première avec tableau croisé -- sans calculatrice}
+\begin{correctionbox}{1. Tableau croisé d'effectifs}
+Il y a $80$ élèves dans l'atelier scientifique, dont $50$ inscrits à l'avance. Donc $30$ élèves de l'atelier scientifique ne se sont pas inscrits à l'avance.
+
+Il y a $200-80=120$ élèves qui ne participent pas à l'atelier scientifique. Parmi eux, $30$ se sont inscrits à l'avance, donc $90$ ne se sont pas inscrits à l'avance.
+\[
+\begin{array}{c|c|c|c}
+ & I & \overline I & Total\\ \hline
+S & 50 & 30 & 80\\ \hline
+\overline S & 30 & 90 & 120\\ \hline
+Total & 80 & 120 & 200
+\end{array}
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Probabilités demandées}
+On choisit un élève parmi $200$.
+\[
+P(S)=\frac{80}{200}=\frac25,
+\qquad
+P(I)=\frac{80}{200}=\frac25,
+\qquad
+P(S\cap I)=\frac{50}{200}=\frac14.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul et interprétation de $P_S(I)$}
+\[
+P_S(I)=\frac{P(S\cap I)}{P(S)}=\frac{\frac14}{\frac25}
+=\frac14\times\frac52=\frac58.
+\]
+Parmi les élèves qui participent à l'atelier scientifique, la proportion d'élèves inscrits à l'avance est $\dfrac58$.
+\end{correctionbox}
+
+\begin{correctionbox}{4. Calcul et interprétation de $P_I(S)$}
+\[
+P_I(S)=\frac{P(S\cap I)}{P(I)}=\frac{\frac14}{\frac25}
+=\frac14\times\frac52=\frac58.
+\]
+Parmi les élèves inscrits à l'avance, la proportion d'élèves qui participent à l'atelier scientifique est $\dfrac58$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Comparaison avec $P(I)$}
+On a :
+\[
+P_S(I)=\frac58
+\qquad\text{et}\qquad
+P(I)=\frac25.
+\]
+Comme ces deux probabilités sont différentes, on peut conjecturer que les évènements $S$ et $I$ ne sont pas indépendants.
+\end{correctionbox}
+
+\begin{correctionbox}{6. Démonstration de non-indépendance}
+On compare $P(S\cap I)$ et $P(S)P(I)$.
+\[
+P(S)P(I)=\frac25\times\frac25=\frac4{25}.
+\]
+Or :
+\[
+P(S\cap I)=\frac14.
+\]
+Comme $\dfrac14\neq\dfrac4{25}$, les évènements $S$ et $I$ ne sont pas indépendants.
+\end{correctionbox}
+
+\begin{correctionbox}{7. Analyse d'une justification incorrecte}
+La justification proposée n'est pas correcte : l'indépendance ne se teste pas en comparant $P_S(I)$ et $P_I(S)$.
+
+Pour démontrer que deux évènements ne sont pas indépendants, on peut par exemple comparer $P(S\cap I)$ et $P(S)P(I)$, ou comparer $P_S(I)$ et $P(I)$ lorsque $P(S)\neq0$.
+\end{correctionbox}
+
+\titreSujet{Sujet 3 -- Test de contrôle}{inspiré de sujets E3C Première de dépistage / test -- sans calculatrice}
+\begin{correctionbox}{1. Probabilités données}
+On lit dans l'énoncé :
+\[
+P(D)=\frac1{20},
+\qquad
+P(\overline D)=\frac{19}{20},
+\qquad
+P_D(T)=\frac9{10},
+\qquad
+P_{\overline D}(T)=\frac1{10}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Arbre pondéré}
+On complète les branches contraires :
+\[
+P_D(\overline T)=\frac1{10},
+\qquad
+P_{\overline D}(\overline T)=\frac9{10}.
+\]
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\coordinate (O) at (0,0);
+\coordinate (D) at (2,1.25);
+\coordinate (Db) at (2,-1.25);
+\coordinate (DT) at (4.3,1.85);
+\coordinate (DTb) at (4.3,0.65);
+\coordinate (DbT) at (4.3,-0.65);
+\coordinate (DbTb) at (4.3,-1.85);
+\draw[->,line width=.55pt] (O)--(D) node[midway,above left,scale=.86] {$\frac1{20}$};
+\draw[->,line width=.55pt] (O)--(Db) node[midway,below left,scale=.86] {$\frac{19}{20}$};
+\draw[->,line width=.55pt] (D)--(DT) node[midway,above,scale=.86] {$\frac9{10}$};
+\draw[->,line width=.55pt] (D)--(DTb) node[midway,below,scale=.86] {$\frac1{10}$};
+\draw[->,line width=.55pt] (Db)--(DbT) node[midway,above,scale=.86] {$\frac1{10}$};
+\draw[->,line width=.55pt] (Db)--(DbTb) node[midway,below,scale=.86] {$\frac9{10}$};
+\node[font=\small\bfseries] at (D) [right=1mm] {$D$};
+\node[font=\small\bfseries] at (Db) [right=1mm] {$\overline D$};
+\node[font=\small\bfseries] at (DT) [right=1mm] {$T$};
+\node[font=\small\bfseries] at (DTb) [right=1mm] {$\overline T$};
+\node[font=\small\bfseries] at (DbT) [right=1mm] {$T$};
+\node[font=\small\bfseries] at (DbTb) [right=1mm] {$\overline T$};
+\end{tikzpicture}
+\end{center}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Calcul de $P(D\cap T)$}
+On multiplie les probabilités le long du chemin $D$ puis $T$ :
+\[
+P(D\cap T)=P(D)P_D(T)=\frac1{20}\times\frac9{10}=\frac9{200}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Calcul de $P(\overline D\cap T)$}
+On multiplie les probabilités le long du chemin $\overline D$ puis $T$ :
+\[
+P(\overline D\cap T)=P(\overline D)P_{\overline D}(T)=\frac{19}{20}\times\frac1{10}=\frac{19}{200}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{5. Calcul de $P(T)$}
+$D$ et $\overline D$ forment une partition de l'univers. D'après la formule des probabilités totales, on a :
+\[
+P(T)=P(D\cap T)+P(\overline D\cap T).
+\]
+Donc :
+\[
+P(T)=\frac9{200}+\frac{19}{200}=\frac{28}{200}=\frac7{50}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{6. Calcul de $P_T(D)$}
+On utilise la définition d'une probabilité conditionnelle :
+\[
+P_T(D)=\frac{P(D\cap T)}{P(T)}=\frac{\frac9{200}}{\frac7{50}}
+=\frac9{200}\times\frac{50}{7}=\frac9{28}.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{7. Interprétation}
+Lorsqu'une pièce a un test positif, la probabilité qu'elle soit réellement défectueuse est $\dfrac9{28}$.
+
+Cette probabilité est inférieure à $\dfrac12$, car $\dfrac9{28}<\dfrac{14}{28}$.
+\end{correctionbox}
+
+\begin{correctionbox}{8. Réponse à l'affirmation}
+L'affirmation est fausse. Même si le test est positif, la pièce n'est pas « presque certainement » défectueuse.
+
+En effet, on vient de trouver :
+\[
+P_T(D)=\frac9{28}.
+\]
+Donc, parmi les pièces dont le test est positif, moins d'une pièce sur deux est réellement défectueuse. Cela s'explique par le fait que les pièces défectueuses sont rares au départ.
+\end{correctionbox}
+\end{document}

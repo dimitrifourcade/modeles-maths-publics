@@ -1,0 +1,572 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+\usepackage{pagecolor}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Dérivation -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Première q#1)}}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.82em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.42em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+
+\newcommand{\qcm}[4]{%
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}
+\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Dérivation}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+% Tableaux TikZ sobres pour les corrections
+\newcommand{\TableauSigneDerivDeux}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{12.4}\def\H{2.35}
+\fill[black!8] (0,1.55) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,1.55)--(\W,1.55);
+\draw[tableline, line width=0.35pt] (5.2,0)--(5.2,\H);
+\draw[tableline, line width=0.35pt] (8.6,0)--(8.6,\H);
+\node at (0.9,1.95) {$x$};
+\node at (0.9,0.75) {$f'(x)$};
+\node at (2.25,1.95) {$-\infty$};
+\node at (5.2,1.95) {$-3$};
+\node at (8.6,1.95) {$1$};
+\node at (12.0,1.95) {$+\infty$};
+\node at (3.55,0.75) {$+$};
+\node at (5.2,0.75) {$0$};
+\node at (6.9,0.75) {$-$};
+\node at (8.6,0.75) {$0$};
+\node at (10.35,0.75) {$+$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\TableauVariationDeux}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{12.4}\def\H{3.65}
+\fill[black!8] (0,2.82) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,2.82)--(\W,2.82);
+\draw[tableline, line width=0.45pt] (0,1.82)--(\W,1.82);
+\draw[tableline, line width=0.35pt] (5.2,0)--(5.2,\H);
+\draw[tableline, line width=0.35pt] (8.6,0)--(8.6,\H);
+\node at (0.9,3.22) {$x$};
+\node at (0.9,2.32) {$f'(x)$};
+\node at (0.9,0.9) {$f$};
+\node at (2.25,3.22) {$-\infty$};
+\node at (5.2,3.22) {$-3$};
+\node at (8.6,3.22) {$1$};
+\node at (12.0,3.22) {$+\infty$};
+\node at (3.55,2.32) {$+$};\node at (5.2,2.32) {$0$};\node at (6.9,2.32) {$-$};\node at (8.6,2.32) {$0$};\node at (10.35,2.32) {$+$};
+\node at (2.25,0.35) {};\node at (5.2,1.45) {$29$};\node at (8.6,0.35) {$-3$};\node at (12.0,1.45) {};
+\draw[->,line width=0.65pt] (2.35,0.35)--(4.8,1.35);
+\draw[->,line width=0.65pt] (5.6,1.35)--(8.2,0.45);
+\draw[->,line width=0.65pt] (9.0,0.45)--(11.55,1.35);
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\TableauSigneAire}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{10.8}\def\H{2.35}
+\fill[black!8] (0,1.55) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,1.55)--(\W,1.55);
+\draw[tableline, line width=0.35pt] (6.3,0)--(6.3,\H);
+\node at (0.9,1.95) {$x$};
+\node at (0.9,0.75) {$A'(x)$};
+\node at (2.25,1.95) {$0$};
+\node at (6.3,1.95) {$3$};
+\node at (10.35,1.95) {$6$};
+\node at (4.25,0.75) {$+$};
+\node at (6.3,0.75) {$0$};
+\node at (8.25,0.75) {$-$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\TableauVariationAire}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{10.8}\def\H{3.65}
+\fill[black!8] (0,2.82) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,2.82)--(\W,2.82);
+\draw[tableline, line width=0.45pt] (0,1.82)--(\W,1.82);
+\draw[tableline, line width=0.35pt] (6.3,0)--(6.3,\H);
+\node at (0.9,3.22) {$x$};
+\node at (0.9,2.32) {$A'(x)$};
+\node at (0.9,0.9) {$A$};
+\node at (2.25,3.22) {$0$};
+\node at (6.3,3.22) {$3$};
+\node at (10.35,3.22) {$6$};
+\node at (4.25,2.32) {$+$};\node at (6.3,2.32) {$0$};\node at (8.25,2.32) {$-$};
+\node at (2.25,0.35) {$0$};\node at (6.3,1.45) {$18$};\node at (10.35,0.35) {$0$};
+\draw[->,line width=0.65pt] (2.75,0.45)--(5.8,1.35);
+\draw[->,line width=0.65pt] (6.8,1.35)--(9.9,0.45);
+\end{tikzpicture}
+\end{center}}
+
+
+\newcommand{\TableauSigneSujetUn}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{10.8}\def\H{2.35}
+\fill[black!8] (0,1.55) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,1.55)--(\W,1.55);
+\draw[tableline, line width=0.35pt] (4.8,0)--(4.8,\H);
+\draw[tableline, line width=0.35pt] (7.8,0)--(7.8,\H);
+\node at (0.9,1.95) {$x$};
+\node at (0.9,0.75) {$f'(x)$};
+\node at (2.1,1.95) {$-1$};
+\node at (4.8,1.95) {$1$};
+\node at (7.8,1.95) {$4$};
+\node at (10.45,1.95) {$5$};
+\node at (3.35,0.75) {$-$};
+\node at (4.8,0.75) {$0$};
+\node at (6.3,0.75) {$+$};
+\node at (7.8,0.75) {$0$};
+\node at (9.2,0.75) {$-$};
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\TableauVariationSujetUn}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.62cm,>=Latex]
+\def\L{1.8}\def\W{10.8}\def\H{3.65}
+\fill[black!8] (0,2.82) rectangle (\W,\H);
+\fill[black!5] (0,0) rectangle (\L,\H);
+\draw[tableline, line width=0.45pt] (0,0) rectangle (\W,\H);
+\draw[tableline, line width=0.45pt] (\L,0)--(\L,\H);
+\draw[tableline, line width=0.45pt] (0,2.82)--(\W,2.82);
+\draw[tableline, line width=0.45pt] (0,1.82)--(\W,1.82);
+\draw[tableline, line width=0.35pt] (4.8,0)--(4.8,\H);
+\draw[tableline, line width=0.35pt] (7.8,0)--(7.8,\H);
+\node at (0.9,3.22) {$x$};
+\node at (0.9,2.32) {$f'(x)$};
+\node at (0.9,0.9) {$f$};
+\node at (2.1,3.22) {$-1$};
+\node at (4.8,3.22) {$1$};
+\node at (7.8,3.22) {$4$};
+\node at (10.45,3.22) {$5$};
+\node at (3.35,2.32) {$-$};\node at (4.8,2.32) {$0$};\node at (6.3,2.32) {$+$};\node at (7.8,2.32) {$0$};\node at (9.2,2.32) {$-$};
+\node at (4.8,0.35) {$f(1)$};\node at (7.8,1.45) {$f(4)$};
+\draw[->,line width=0.65pt] (2.3,1.35)--(4.4,0.45);
+\draw[->,line width=0.65pt] (5.2,0.45)--(7.4,1.35);
+\draw[->,line width=0.65pt] (8.2,1.35)--(10.0,0.45);
+\end{tikzpicture}
+\end{center}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Dérivation}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=6.5mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+
+\fontsize{7.85}{8.45}\selectfont
+
+\titrepage
+
+\noindent
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{bleu}{1. NOMBRE DÉRIVÉ}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Taux de variation}
+Entre $a$ et $a+h$, le taux de variation de $f$ est :
+\[
+\frac{f(a+h)-f(a)}{h}.
+\]
+Il mesure une variation moyenne de la fonction.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Nombre dérivé}
+Si la limite existe, le nombre dérivé de $f$ en $a$ est :
+\[
+ f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}.
+\]
+Il donne la pente instantanée au point d'abscisse $a$.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Lecture graphique}
+$f'(a)$ est le coefficient directeur de la tangente à la courbe de $f$ au point d'abscisse $a$.
+
+Si la tangente monte : $f'(a)>0$.
+
+Si elle descend : $f'(a)<0$.
+
+Si elle est horizontale : $f'(a)=0$.
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Vocabulaire}
+$f(a)$ est une ordonnée.
+
+$f'(a)$ est un coefficient directeur.
+
+Ne pas confondre la courbe et sa tangente.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{vert}{2. TANGENTE}
+\begin{panel}{vert}
+
+\begin{fichebox}{vert}{Équation de la tangente}
+Si $f$ est dérivable en $a$, l'équation de la tangente à la courbe de $f$ au point d'abscisse $a$ est :
+\[
+ y=f'(a)(x-a)+f(a).
+\]
+Ici, $f'(a)$ est le coefficient directeur et $A(a;f(a))$ est le point de contact.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Cas particuliers}
+Tangente horizontale :
+\[
+ f'(a)=0.
+\]
+Tangente montante : coefficient directeur positif.
+
+Tangente descendante : coefficient directeur négatif.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{orange}{3. CALCULER UNE DÉRIVÉE}
+\begin{panel}{orange}
+
+\begin{fichebox}{orange}{Dérivées usuelles}
+\[
+\begin{array}{c|c}
+f(x)&f'(x)\\ \hline
+k&0\\
+x&1\\
+x^2&2x\\
+x^3&3x^2\\
+x^n&nx^{n-1}\\
+e^x&e^x\\
+\frac1x&-\frac1{x^2}\\
+\sqrt{x}&\frac1{2\sqrt{x}}
+\end{array}
+\]
+Sur les intervalles où les fonctions sont définies.
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Opérations}
+\[
+(u+v)'=u'+v'
+\]
+\[
+(ku)'=ku'
+\]
+Si $h(x)=g(ax+b)$, alors :
+\[
+h'(x)=a\,g'(ax+b).
+\]
+\[
+(uv)'=u'v+uv'
+\]
+\[
+\left(\frac{u}{v}\right)'=\frac{u'v-uv'}{v^2}
+\quad (v\neq0).
+\]
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Erreurs fréquentes}
+\[
+(uv)'\neq u'v'.
+\]
+\[
+\left(\frac{u}{v}\right)'\neq\frac{u'}{v'}.
+\]
+Toujours vérifier le domaine avant d'utiliser une formule.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{violet}{4. VARIATIONS}
+\begin{panel}{violet}
+
+\begin{fichebox}{violet}{Lien signe / variations}
+Sur un intervalle :
+\[
+\begin{array}{c|c}
+f'(x)>0&f\text{ croissante}\\
+f'(x)<0&f\text{ décroissante}\\
+f'(x)=0&\text{tangente horizontale possible}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Méthode : tableau de variations}
+\begin{enumerate}[leftmargin=*,itemsep=0.1em]
+\item Calculer $f'(x)$.
+\item Factoriser si possible.
+\item Étudier le signe de $f'(x)$.
+\item En déduire les variations de $f$.
+\end{enumerate}
+\end{fichebox}
+
+\begin{fichebox}{orange}{Extremum}
+Si $f'$ change de signe de $+$ vers $-$, alors $f$ admet un maximum local.
+
+Si $f'$ change de signe de $-$ vers $+$, alors $f$ admet un minimum local.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+
+\end{landscape}
+\nopagecolor
+\restoregeometry
+\pagestyle{fancy}
+\clearpage
+\section*{Partie 2 -- Questions flash}\addcontentsline{toc}{section}{Partie 2 -- Questions flash}
+\begin{blocquestions}{Questions flash -- Dérivation}
+  \item Que représente graphiquement le nombre dérivé $f'(a)$ ? \sourceq{1}
+  \item Quelle est la formule du taux de variation de $f$ entre $a$ et $a+h$ ? \sourceq{2}
+  \item Si $f'(a)>0$, comment est la tangente au point d'abscisse $a$ ? \sourceq{3}
+  \item Si $f'(a)<0$, comment est la tangente au point d'abscisse $a$ ? \sourceq{4}
+  \item Si $f'(a)=0$, que peut-on dire de la tangente ? \sourceq{5}
+  \item Que vaut la dérivée d'une fonction constante ? \sourceq{6}
+  \item Que vaut la dérivée de $f(x)=x$ ? \sourceq{7}
+  \item Que vaut la dérivée de $f(x)=x^2$ ? \sourceq{8}
+  \item Que vaut la dérivée de $f(x)=x^3$ ? \sourceq{9}
+  \item Que vaut la dérivée de $f(x)=x^n$ ? \sourceq{10}
+  \item Que vaut la dérivée de $f(x)=\dfrac1x$ ? \sourceq{11}
+  \item Que vaut la dérivée de $f(x)=\sqrt{x}$ ? \sourceq{12}
+  \item Quelle est la formule de la dérivée d'une somme ? \sourceq{13}
+  \item Quelle est la formule de la dérivée de $ku$ ? \sourceq{14}
+  \item Quelle est la formule de la dérivée d'un produit ? \sourceq{15}
+  \item Quelle est la formule de la dérivée d'un quotient ? \sourceq{16}
+  \item Si $f'(x)>0$ sur un intervalle, que peut-on dire de $f$ ? \sourceq{17}
+  \item Si $f'(x)<0$ sur un intervalle, que peut-on dire de $f$ ? \sourceq{18}
+  \item Quelle méthode permet d'étudier les variations d'une fonction dérivable ? \sourceq{19}
+  \item Que peut indiquer un changement de signe de $f'$ de $+$ vers $-$ ? \sourceq{20}
+  \item Que peut indiquer un changement de signe de $f'$ de $-$ vers $+$ ? \sourceq{21}
+  \item Quelle est la formule de l'équation de la tangente à la courbe de $f$ au point d'abscisse $a$ ? \sourceq{22}
+  \item Dans cette formule, que représente $f'(a)$ ? \sourceq{23}
+  \item Si $f(2)=5$ et $f'(2)=3$, écrire l'équation de la tangente au point d'abscisse $2$. \sourceq{24}
+  \item Si $h(x)=g(2x-1)$, quelle est l'expression de $h'(x)$ ? \sourceq{25}
+  \item Quelle est la dérivée de $f(x)=3x^2-5x+1$ ? \sourceq{26}
+  \item Quelle est la dérivée de $f(x)=-2x^3+4x$ ? \sourceq{27}
+  \item Quelle est la dérivée de $f(x)=(x+1)(x-2)$ ? \sourceq{28}
+  \item Quelle est la dérivée de $f(x)=x^2(3x+1)$ ? \sourceq{29}
+  \item Quelle est l'erreur classique avec $(uv)'$ ? \sourceq{30}
+  \item Quelle est l'erreur classique avec $(u/v)'$ ? \sourceq{31}
+  \item Quelle est la dérivée de $f(x)=e^x$ ? \sourceq{32}
+  \item Quelle est la dérivée de $f(x)=e^{2x-1}$ ? \sourceq{33}
+  \item Quelle est la dérivée de $f(x)=3e^x-2x$ ? \sourceq{34}
+  \item Si $f'(x)=-(x-2)$, quel est le signe de $f'$ pour $x<2$ ? \sourceq{35}
+  \item Si $f'(x)=-(x-2)$, quel est le signe de $f'$ pour $x>2$ ? \sourceq{36}
+\end{blocquestions}
+\clearpage
+\section*{Partie 3 -- QCM d'automatismes}\addcontentsline{toc}{section}{Partie 3 -- QCM d'automatismes}
+Pour chaque question, une seule réponse est exacte. Aucune calculatrice n'est nécessaire.
+\begin{enumerate}
+\item Le nombre $f'(a)$ représente :
+\qcm{l'ordonnée du point}{le coefficient directeur de la tangente}{l'abscisse du sommet}{l'aire sous la courbe}
+\item La dérivée de $f(x)=4x^2-3x+7$ est :
+\qcm{$8x-3$}{$4x-3$}{$8x+7$}{$4x^2-3$}
+\item Si $f'(x)>0$ sur un intervalle, alors $f$ est :
+\qcm{décroissante}{constante}{croissante}{négative}
+\item La dérivée de $f(x)=x^3$ est :
+\qcm{$x^2$}{$2x$}{$3x^2$}{$3x$}
+\item Si une tangente a pour équation $y=-2x+5$, son coefficient directeur est :
+\qcm{$5$}{$-2$}{$3$}{$2$}
+\item La formule correcte est :
+\qcm{$(uv)'=u'v'$}{$(uv)'=u'v+uv'$}{$(u+v)'=uv$}{$(ku)'=u'$}
+\item Si $f'$ passe de positif à négatif, on peut avoir :
+\qcm{un maximum local}{un minimum local}{une asymptote}{une racine double}
+\item L'équation de la tangente à la courbe de $f$ au point d'abscisse $a$ est :
+\qcm{$y=f(a)(x-a)+f'(a)$}{$y=f'(a)(x-a)+f(a)$}{$y=f'(x)(a-x)+f(a)$}{$y=f'(a)x+a$}
+\end{enumerate}
+\clearpage
+
+
+\section*{Partie 4 -- Sujets type bac / E3C}
+\addcontentsline{toc}{section}{Partie 4 -- Sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Fonction rationnelle, signe et variations}{inspiré du sujet zéro officiel : signe d'un trinôme, fonction rationnelle, dérivée et variations}
+On considère la fonction $g$ définie sur $\R$ par :
+\[
+  g(x)=x^2-5x+4.
+\]
+On considère aussi la fonction $f$ définie sur l'intervalle $[1;8]$ par :
+\[
+  f(x)=x-5+\frac4x.
+\]
+\begin{enumerate}
+  \item Factoriser $g(x)$, puis étudier le signe de $g(x)$ sur $\R$.
+  \item Vérifier que, pour tout $x\in[1;8]$, $f(x)=\dfrac{g(x)}{x}$.
+  \item En déduire le signe de $f(x)$ sur $[1;8]$.
+  \item Calculer $f'(x)$.
+  \item Montrer que, pour tout $x\in[1;8]$, $f'(x)=\dfrac{(x-2)(x+2)}{x^2}$.
+  \item Étudier le signe de $f'(x)$ sur $[1;8]$.
+  \item Dresser le tableau de variations de $f$ sur $[1;8]$.
+  \item Déterminer le minimum de $f$ sur $[1;8]$.
+  \item Interpréter graphiquement le résultat obtenu à la question 3.
+\end{enumerate}
+
+\titreSujet{Sujet 2 -- Fonction avec paramètre et tangente}{inspiré d'un sujet E3C : tangente, paramètres, produit avec exponentielle et variations}
+On considère la fonction $f$ définie sur $\R$ par :
+\[
+  f(x)=(ax+b)e^{-x},
+\]
+où $a$ et $b$ sont deux réels.
+
+Sa courbe représentative passe par le point $A(0;4)$. La tangente à la courbe au point $A$ passe par le point $B(1;7)$.
+
+On rappelle que $e^0=1$, que $e^x>0$ pour tout réel $x$, et que la dérivée de $e^{-x}$ est $-e^{-x}$.
+\begin{enumerate}
+  \item En utilisant $f(0)=4$, déterminer $b$.
+  \item Calculer le coefficient directeur de la tangente en $A$.
+  \item En déduire la valeur de $f'(0)$.
+  \item Montrer que, pour tout réel $x$,
+  \[
+    f'(x)=(a-ax-b)e^{-x}.
+  \]
+  \item En déduire la valeur de $a$, puis l'expression de $f(x)$.
+  \item Étudier le signe de $f'(x)$ sur $\R$.
+  \item Dresser le tableau de variations de $f$ sur $\R$.
+  \item Déterminer le maximum de $f$ sur $\R$.
+  \item Donner une équation de la tangente à la courbe au point $A$.
+\end{enumerate}
+
+\clearpage
+\titreSujet{Sujet 3 -- Concentration et seuil réglementaire}{inspiré de sujets E3C : dérivée en contexte, maximum et interprétation}
+Après injection d'un produit, la concentration dans le sang est modélisée, en mg/L, par la fonction $C$ définie sur $[0;5]$ par :
+\[
+  C(t)=4t e^{-t}.
+\]
+On rappelle que $e^t>0$ pour tout réel $t$ et que la dérivée de $e^{-t}$ est $-e^{-t}$.
+\begin{enumerate}
+  \item Calculer $C(0)$.
+  \item Montrer que, pour tout $t\in[0;5]$,
+  \[
+    C'(t)=4(1-t)e^{-t}.
+  \]
+  \item Étudier le signe de $C'(t)$ sur $[0;5]$.
+  \item Dresser le tableau de variations de $C$ sur $[0;5]$.
+  \item Déterminer l'instant où la concentration est maximale.
+  \item Donner la valeur exacte de cette concentration maximale.
+  \item On admet que $2<e<3$. Montrer que la concentration maximale est supérieure à $1$ mg/L.
+  \item La réglementation impose une concentration inférieure ou égale à $1$ mg/L. On admet que $e^3>12$. Montrer qu'au bout de $3$ h, la réglementation est de nouveau respectée.
+  \item Interpréter les résultats précédents dans le contexte.
+\end{enumerate}
+
+\end{document}

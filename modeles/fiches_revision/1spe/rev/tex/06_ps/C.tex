@@ -1,0 +1,570 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,angles,quotes}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+\usepackage{pagecolor}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Produit scalaire -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+\newcommand{\norme}[1]{\left\lVert #1\right\rVert}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Premiere q#1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.82em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.42em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+\newcommand{\qcm}[4]{%
+\begin{center}\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.05}{7.55}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+
+% Mini-schémas TikZ inspirés des fiches visuelles de Première
+\newcommand{\schemaAngleProduit}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.48,>=Latex,line cap=round]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (2.45,0);
+  \coordinate (C) at (1.55,1.35);
+  \draw[->,very thick,bleu!85!black] (A)--(B) node[midway,below=2pt] {\scriptsize $\vect{AB}$};
+  \draw[->,very thick,orange!88!black] (A)--(C) node[midway,above left=1pt] {\scriptsize $\vect{AC}$};
+  \pic[draw=gris,thick,angle radius=0.46cm,"{\scriptsize $\theta$}",angle eccentricity=1.45] {angle=B--A--C};
+  \fill (A) circle (1.2pt) node[below left=1pt] {\scriptsize $A$};
+  \fill (B) circle (1.2pt) node[below right=1pt] {\scriptsize $B$};
+  \fill (C) circle (1.2pt) node[above=1pt] {\scriptsize $C$};
+\end{tikzpicture}
+\end{center}}
+\newcommand{\schemaProjectionProduit}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.50,>=Latex,line cap=round]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.65,0);
+  \coordinate (H) at (2.35,0);
+  \coordinate (C) at (2.35,1.55);
+
+  % base et vecteurs
+  \draw[->,very thick,bleu!85!black] (A)--(B) node[midway,below=6pt] {\scriptsize $\vect{AB}$};
+  \draw[->,very thick,orange!88!black] (A)--(C) node[midway,above left=1pt] {\scriptsize $\vect{AC}$};
+
+  % projection
+  \draw[dashed,gris,thick] (C)--(H);
+  \draw[gris,thick] ($(H)+(-0.18,0)$)--++(0,0.18)--++(0.18,0);
+
+  % points
+  \fill (A) circle (1.2pt) node[below left=1pt] {\scriptsize $A$};
+  \fill (B) circle (1.2pt) node[below right=1pt] {\scriptsize $B$};
+  \fill (C) circle (1.2pt) node[above=1pt] {\scriptsize $C$};
+  \fill (H) circle (1.2pt) node[below=2pt] {\scriptsize $H$};
+\end{tikzpicture}
+\end{center}}
+\newcommand{\schemaNormalDroite}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.42,>=Latex,line cap=round]
+  % Droite : segment simple, sans flèche.
+  \draw[thick,bleu!80!black,line cap=butt] (-1.25,-.48)--(2.25,.86);
+  \node[bleu!80!black,right=2pt] at (2.25,.86) {\scriptsize $d$};
+  \coordinate (P) at (.5,.25);
+  \draw[->,thick,rouge!85!black] (P)--++(-.55,1.45) node[above] {\scriptsize $\vec n$};
+\end{tikzpicture}
+\end{center}}
+\newcommand{\schemaCercleDiametre}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.48,line cap=round]
+  \coordinate (A) at (-1.60,0);
+  \coordinate (B) at (1.60,0);
+  \coordinate (O) at (0,0);
+  \coordinate (M) at (0.42,1.544);
+
+  % Cercle de diamètre [AB]
+  \draw[thick,bleu!80!black] (O) circle (1.60);
+
+  % Diamètre et triangle inscrit
+  \draw[thick] (A)--(B);
+  \draw[thick] (A)--(M)--(B);
+
+  % Angle droit en M
+  \pic[draw=rouge!70!black,thick,angle radius=.28cm] {right angle=A--M--B};
+
+  % Points et labels
+  \fill (A) circle (1.15pt) node[below left=2pt] {\scriptsize $A$};
+  \fill (B) circle (1.15pt) node[below right=2pt] {\scriptsize $B$};
+  \fill (M) circle (1.15pt) node[above=2pt] {\scriptsize $M$};
+\end{tikzpicture}
+\end{center}}
+\newcommand{\schemaTangenteCercle}{%
+\begin{center}
+\begin{tikzpicture}[scale=0.42,>=Latex,line cap=round]
+  \coordinate (I) at (0,0);\coordinate (T) at (1.45,.55);
+  \draw[thick,bleu!80!black] (I) circle (1.55);
+  \draw[thick,rouge!85!black] ($(T)+(-.55,1.45)$)--($(T)+(.55,-1.45)$) node[below] {\scriptsize tangente};
+  \draw[->,thick,orange!90!black] (I)--(T) node[midway,below] {\scriptsize rayon};
+  \fill (I) circle (1.2pt) node[left] {\scriptsize $I$};\fill (T) circle (1.2pt) node[right] {\scriptsize $T$};
+  \draw[gris] (T) ++(-.07,.17)--++(.17,.07)--++(.07,-.17);
+\end{tikzpicture}
+\end{center}}
+
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Produit scalaire}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+\newcommand{\ficheRecap}{%
+\begin{landscape}
+\pagecolor{fondpage}
+\thispagestyle{empty}
+\titrepage
+\begin{tabularx}{\linewidth}{@{}X@{\hspace{1.6mm}}X@{\hspace{1.6mm}}X@{\hspace{1.6mm}}X@{}}
+
+\begin{panel}{}
+\tagcol{gris}{Rappels de Seconde}
+\begin{fichebox}{gris}{Coordonnées de $\vect{AB}$}
+Si $A(x_A;y_A)$ et $B(x_B;y_B)$, alors
+\[
+\vect{AB}=\begin{pmatrix}x_B-x_A\\ y_B-y_A\end{pmatrix}.
+\]
+\end{fichebox}
+\begin{fichebox}{gris}{Distance}
+Dans un repère orthonormé :
+\[
+AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}.
+\]
+Donc $AB^2=(x_B-x_A)^2+(y_B-y_A)^2$.
+\end{fichebox}
+\begin{fichebox}{gris}{Milieu d'un segment}
+Le milieu $I$ de $[AB]$ a pour coordonnées :
+\[
+I\left(\frac{x_A+x_B}{2};\frac{y_A+y_B}{2}\right).
+\]
+\end{fichebox}
+\begin{fichebox}{gris}{À utiliser avant le produit scalaire}
+Pour calculer $\vect{AB}\cdot\vect{AC}$, on commence souvent par calculer les coordonnées de $\vect{AB}$ et de $\vect{AC}$.
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{bleu}{Définitions et calculs}
+\begin{fichebox}{bleu}{Produit scalaire en coordonnées}
+Dans un repère orthonormé, si
+\[
+\vec u=\begin{pmatrix}x\\y\end{pmatrix},\qquad
+\vec v=\begin{pmatrix}x'\\y'\end{pmatrix},
+\]
+alors
+\[
+\vec u\cdot\vec v=xx'+yy'.
+\]
+\end{fichebox}
+\begin{fichebox}{bleu}{Avec les longueurs}
+\schemaAngleProduit
+\[
+\vect{AB}\cdot\vect{AC}=AB\times AC\times\cos(\widehat{BAC}).
+\]
+En particulier : \(\vec u\cdot\vec u=\norme{\vec u}^{2}\).
+\end{fichebox}
+\begin{fichebox}{bleu}{Propriétés de calcul}
+Symétrie : \(\vec u\cdot\vec v=\vec v\cdot\vec u\).
+
+Bilinéarité :
+\[
+(\vec u+\vec v)\cdot\vec w=\vec u\cdot\vec w+\vec v\cdot\vec w,
+\]
+\[
+(k\vec u)\cdot\vec v=k(\vec u\cdot\vec v).
+\]
+Identité utile :
+\[
+\norme{\vec u+\vec v}^{2}=\norme{\vec u}^{2}+2\vec u\cdot\vec v+\norme{\vec v}^{2}.
+\]
+\end{fichebox}
+\begin{fichebox}{bleu}{Al-Kashi}
+Dans un triangle \(ABC\) :
+\[
+BC^2=AB^2+AC^2-2\,AB\times AC\cos(\widehat{BAC}).
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{vert}{Orthogonalité et angle}
+\begin{fichebox}{vert}{Orthogonalité}
+Deux vecteurs non nuls \(\vec u\) et \(\vec v\) sont orthogonaux si et seulement si :
+\[
+\vec u\cdot\vec v=0.
+\]
+Donc deux droites sont perpendiculaires si leurs vecteurs directeurs ont un produit scalaire nul.
+\end{fichebox}
+\begin{fichebox}{vert}{Calculer un angle}
+Si \(\vec u\) et \(\vec v\) sont non nuls :
+\[
+\cos\theta=\frac{\vec u\cdot\vec v}{\norme{\vec u}\,\norme{\vec v}}.
+\]
+Le signe du produit scalaire renseigne sur l’angle : aigu si positif, droit si nul, obtus si négatif.
+\end{fichebox}
+\begin{fichebox}{vert}{Projeté orthogonal}
+\schemaProjectionProduit
+Si \(H\) est le projeté orthogonal de \(C\) sur \((AB)\), alors :
+\[
+\vect{AB}\cdot\vect{AC}=\vect{AB}\cdot\vect{AH}.
+\]
+\end{fichebox}
+\end{panel}
+&
+\begin{panel}{}
+\tagcol{orange}{Applications repérées}
+\begin{fichebox}{orange}{Vecteur normal}
+\schemaNormalDroite
+Pour une droite \(ax+by+c=0\), un vecteur normal est
+\[
+\vec n=\begin{pmatrix}a\\b\end{pmatrix}.
+\]
+Un vecteur directeur possible est \(\vec d=\begin{pmatrix}-b\\a\end{pmatrix}\).
+\end{fichebox}
+\begin{fichebox}{orange}{Équation de cercle}
+Le cercle de centre \(I(x_I;y_I)\) et de rayon \(r\) a pour équation :
+\[
+(x-x_I)^2+(y-y_I)^2=r^2.
+\]
+\end{fichebox}
+\begin{fichebox}{orange}{Cercle de diamètre}
+\schemaCercleDiametre
+Un point \(M\) appartient au cercle de diamètre \([AB]\) si et seulement si :
+\[
+\vect{MA}\cdot\vect{MB}=0.
+\]
+\end{fichebox}
+\end{panel}
+\end{tabularx}
+\clearpage
+\nopagecolor
+\end{landscape}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Corrigé -- Parcours de révision -- Produit scalaire}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\tableofcontents\newpage
+\phantomsection\addcontentsline{toc}{section}{Fiche récapitulative}
+\ficheRecap
+\section{Correction des questions flash}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Questions flash 1 à 12}
+\item $2\times 3+(-1)\times4=2$.
+\item $1\times4+2\times(-2)=0$. Oui, ils sont orthogonaux.
+\item $\overrightarrow{AB}=(5-1;-1-3)=(4;-4)$.
+\item $\overrightarrow{AB}=(3;1)$, $\overrightarrow{AC}=(2;-6)$ donc $3\times2+1\times(-6)=0$.
+\item Ils sont orthogonaux.
+\item $\norme{\vec u}=\sqrt{6^2+8^2}=10$.
+\item On note $\theta$ l'angle formé par $\vec u$ et $\vec v$. Alors $\vec u\cdot\vec v=\norme{\vec u}\,\norme{\vec v}\cos\theta$. Donc $6=2\times3\times\cos\theta$, d'où $\cos\theta=1$.
+\item C’est un angle droit.
+\item Un vecteur normal est $\vec n(3;-2)$.
+\item Un vecteur directeur possible est $\vec d(2;3)$.
+\item $2\times1+2-4=0$, donc oui.
+\item $(x-2)^2+(y+1)^2=9$.
+\end{blocreponses}
+\begin{blocreponses}{Questions flash 13 à 24}
+\item Oui : $(5-2)^2+(-1+1)^2=9$.
+\item Centre $I(-1;4)$ et rayon $5$.
+\item $\overrightarrow{MA}\cdot\overrightarrow{MB}=0$.
+\item Le vecteur $\overrightarrow{IT}$ est normal à la tangente.
+\item $\vec u\cdot\vec u=25$.
+\item $2\times 3+m\times6=0$, donc $m=-1$.
+\item $1\times8+4\times(-2)=0$, donc oui.
+\item $AB=\sqrt{4^2+3^2}=5$.
+\item $\overrightarrow{AB}=(3;0)$, $\overrightarrow{AC}=(0;4)$, donc le produit vaut $0$.
+\item L’angle entre les vecteurs est aigu.
+\item L’angle entre les vecteurs est obtus.
+\item Un vecteur normal est $\vec n(1;4)$.
+\end{blocreponses}
+\begin{blocreponses}{Questions flash 25 à 36}
+\item $2(x-1)+5(y+1)=0$, soit $2x+5y+3=0$.
+\item Un vecteur directeur possible est $(3;1)$.
+\item $\overrightarrow{AB}=(4;2)$, $\overrightarrow{AC}=(1;-2)$, produit $=4-4=0$, angle droit en $A$.
+\item Centre $(2;0)$, rayon $2$ : $(x-2)^2+y^2=4$.
+\item Oui, car $r^2=10$ donc $r=\sqrt{10}$.
+\item L’angle vaut $0^\circ$ : vecteurs de même sens.
+\item L’angle vaut $180^\circ$ : vecteurs de sens opposés.
+\item $\overrightarrow{BA}=(1;0)$, $\overrightarrow{BC}=(0;2)$ donc produit $0$.
+\item $\overrightarrow{MA}\cdot\overrightarrow{MB}=0$.
+\item On montre que le produit scalaire des deux vecteurs portés par les côtés de l’angle vaut $0$.
+\item C’est un vecteur normal.
+\item $4\times5\times \frac12=10$.
+\end{blocreponses}
+
+\section{Correction du QCM}
+\begin{enumerate}
+\item Réponse c : $2\times(-1)+3\times4=10$.
+\item Réponse b : $5\times1+1\times(-5)=0$.
+\item Réponse b : un vecteur normal est $(-2;3)$.
+\item Réponse b : $(x-1)^2+(y-2)^2=16$.
+\item Réponse a : critère du cercle de diamètre.
+\item Réponse c : le produit scalaire négatif indique un angle obtus.
+\item Réponse b : la tangente est perpendiculaire au rayon au point de tangence.
+\item Réponse a : $AB=\sqrt{3^2+4^2}=5$.
+\end{enumerate}
+
+\section{Correction des sujets type bac / E3C}
+
+\subsection*{Sujet 1 -- Triangle, angle et orthogonalité}
+\begin{correctionbox}{1. Coordonnées de vecteurs}
+\[
+\overrightarrow{AB}=(5-1;4-2)=(4;2),\qquad
+\overrightarrow{AC}=(3-1;-2-2)=(2;-4).
+\]
+\end{correctionbox}
+\begin{correctionbox}{2. Produit scalaire}
+\[
+\overrightarrow{AB}\cdot\overrightarrow{AC}=4\times2+2\times(-4)=8-8=0.
+\]
+\end{correctionbox}
+\begin{correctionbox}{3. Orthogonalité}
+Le produit scalaire est nul, donc les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont orthogonaux. Les droites $(AB)$ et $(AC)$ sont donc perpendiculaires.
+\end{correctionbox}
+\begin{correctionbox}{4. Longueurs}
+\[
+AB=\sqrt{4^2+2^2}=\sqrt{20}=2\sqrt5,
+\qquad
+AC=\sqrt{2^2+(-4)^2}=\sqrt{20}=2\sqrt5.
+\]
+\end{correctionbox}
+\begin{correctionbox}{5. Cosinus de l’angle}
+\[
+\cos(\widehat{BAC})=\frac{\overrightarrow{AB}\cdot\overrightarrow{AC}}{AB\times AC}=\frac{0}{(2\sqrt5)(2\sqrt5)}=0.
+\]
+\end{correctionbox}
+\begin{correctionbox}{6. Nature du triangle}
+Comme $(AB)\perp(AC)$, le triangle $ABC$ est rectangle en $A$.
+\end{correctionbox}
+\begin{correctionbox}{7. Produit scalaire en $B$}
+\[
+\overrightarrow{BA}=(-4;-2),\qquad \overrightarrow{BC}=(-2;-6).
+\]
+Donc :
+\[
+\overrightarrow{BA}\cdot\overrightarrow{BC}=(-4)(-2)+(-2)(-6)=8+12=20.
+\]
+Ce produit scalaire est positif : l’angle $\widehat{ABC}$ est aigu.
+\end{correctionbox}
+
+\subsection*{Sujet 2 -- Droite, vecteur normal et projeté orthogonal}
+\begin{correctionbox}{1. Vecteur normal}
+Pour une droite $ax+by+c=0$, un vecteur normal est $(a;b)$. Ici :
+\[
+\vec n=(2;-1).
+\]
+\end{correctionbox}
+\begin{correctionbox}{2. Droite perpendiculaire}
+La droite $\Delta$ est perpendiculaire à $d$. Comme $\vec n$ est normal à $d$, il est directeur d’une droite perpendiculaire à $d$.
+\end{correctionbox}
+\begin{correctionbox}{3. Équation paramétrique de $\Delta$}
+La droite $\Delta$ passe par $A(4;1)$ et a pour vecteur directeur $(2;-1)$, donc :
+\[
+\left\{\begin{array}{rcl}
+x&=&4+2t\\
+y&=&1-t
+\end{array}\right.
+\qquad t\in\mathbb R.
+\]
+\end{correctionbox}
+\begin{correctionbox}{4. Coordonnées du point $H$}
+On remplace dans l’équation de $d$ :
+\[
+2(4+2t)-(1-t)-3=0.
+\]
+Donc :
+\[
+8+4t-1+t-3=0,
+\qquad 4+5t=0,
+\qquad t=-\frac45.
+\]
+Ainsi :
+\[
+H\left(4+2\times\left(-\frac45\right);1-\left(-\frac45\right)\right)
+=\left(\frac{12}{5};\frac95\right).
+\]
+\end{correctionbox}
+\begin{correctionbox}{5. Projeté orthogonal}
+Le point $H$ appartient à $d$ et à $\Delta$. Or $\Delta\perp d$. Donc $H$ est le projeté orthogonal de $A$ sur $d$.
+\end{correctionbox}
+\begin{correctionbox}{6. Distance $AH$}
+\[
+AH=\sqrt{\left(4-\frac{12}{5}\right)^2+\left(1-\frac95\right)^2}
+=\sqrt{\left(\frac85\right)^2+\left(-\frac45\right)^2}
+=\sqrt{\frac{80}{25}}
+=\frac{4\sqrt5}{5}.
+\]
+\end{correctionbox}
+\begin{correctionbox}{7. Droite parallèle à $d$ passant par $A$}
+Une droite parallèle à $d$ a le même vecteur normal, donc une équation de la forme :
+\[
+2x-y+c=0.
+\]
+Comme elle passe par $A(4;1)$ :
+\[
+2\times4-1+c=0,
+\qquad c=-7.
+\]
+Une équation est donc :
+\[
+2x-y-7=0.
+\]
+\end{correctionbox}
+
+\subsection*{Sujet 3 -- Cercle, diamètre et tangente}
+\begin{correctionbox}{1. Centre du cercle}
+Le centre du cercle de diamètre $[AB]$ est le milieu de $[AB]$ :
+\[
+I\left(\frac{-1+5}{2};\frac{2+4}{2}\right)=(2;3).
+\]
+\end{correctionbox}
+\begin{correctionbox}{2. Rayon}
+\[
+AB=\sqrt{(5+1)^2+(4-2)^2}=\sqrt{36+4}=2\sqrt{10}.
+\]
+Le rayon vaut donc :
+\[
+r=\frac{AB}{2}=\sqrt{10}.
+\]
+\end{correctionbox}
+\begin{correctionbox}{3. Équation du cercle}
+Le centre est $I(2;3)$ et le rayon est $\sqrt{10}$, donc :
+\[
+(x-2)^2+(y-3)^2=10.
+\]
+\end{correctionbox}
+\begin{correctionbox}{4. Critère du diamètre}
+On a :
+\[
+\overrightarrow{MA}=(-1-x;2-y),\qquad
+\overrightarrow{MB}=(5-x;4-y).
+\]
+Donc :
+\[
+\overrightarrow{MA}\cdot\overrightarrow{MB}=(-1-x)(5-x)+(2-y)(4-y).
+\]
+En développant :
+\[
+\overrightarrow{MA}\cdot\overrightarrow{MB}=x^2+y^2-4x-6y+3.
+\]
+Or :
+\[
+(x-2)^2+(y-3)^2-10=x^2+y^2-4x-6y+3.
+\]
+Ainsi :
+\[
+\overrightarrow{MA}\cdot\overrightarrow{MB}=0
+\iff
+(x-2)^2+(y-3)^2=10.
+\]
+Donc $M\in\mathcal C$ si et seulement si $\overrightarrow{MA}\cdot\overrightarrow{MB}=0$.
+\end{correctionbox}
+\begin{correctionbox}{5. Appartenance de $T$}
+Pour $T(1;0)$ :
+\[
+(1-2)^2+(0-3)^2=1+9=10.
+\]
+Donc $T$ appartient au cercle.
+\end{correctionbox}
+\begin{correctionbox}{6. Vecteur normal à la tangente}
+La tangente au cercle en $T$ est perpendiculaire au rayon $[IT]$. Donc un vecteur normal à la tangente est :
+\[
+\overrightarrow{IT}=(1-2;0-3)=(-1;-3).
+\]
+\end{correctionbox}
+\begin{correctionbox}{7. Équation de la tangente}
+La tangente a pour vecteur normal $(-1;-3)$ et passe par $T(1;0)$. Elle a donc une équation de la forme :
+\[
+-1(x-1)-3(y-0)=0.
+\]
+Donc :
+\[
+-x+1-3y=0,
+\qquad x+3y-1=0.
+\]
+Une équation de la tangente est :
+\[
+x+3y-1=0.
+\]
+\end{correctionbox}
+\end{document}

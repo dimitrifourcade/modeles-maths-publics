@@ -1,0 +1,481 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Second degré -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Première q#1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+
+
+\newcommand{\qcm}[4]{%
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{@{}XX@{}}
+\textbf{a.} #1 & \textbf{b.} #2\\[1mm]
+\textbf{c.} #3 & \textbf{d.} #4
+\end{tabularx}
+\end{center}}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Second degré}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+\newcommand{\tabSigneDeuxRacines}[3]{%
+\begin{center}
+\begin{tikzpicture}[x=0.72cm,y=1cm]
+\draw[black,line width=0.65pt] (0,0) rectangle (7.7,1.8);
+\draw[black,line width=0.45pt] (0,0.9)--(7.7,0.9);
+\draw[black,line width=0.45pt] (1.5,0)--(1.5,1.8);
+\foreach \x in {3.2,5.7} {\draw[black,line width=0.45pt] (\x,0)--(\x,1.8);}
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,1.35) {$x$};
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,0.45) {$f(x)$};
+\node[font=\scriptsize] at (1.8,1.35) {$-\infty$};
+\node[font=\scriptsize] at (3.2,1.35) {$x_1$};
+\node[font=\scriptsize] at (5.7,1.35) {$x_2$};
+\node[font=\scriptsize] at (7.25,1.35) {$+\infty$};
+\node[font=\small\bfseries] at (2.35,0.45) {#1};
+\node[font=\small\bfseries] at (3.2,0.45) {$0$};
+\node[font=\small\bfseries] at (4.45,0.45) {#2};
+\node[font=\small\bfseries] at (5.7,0.45) {$0$};
+\node[font=\small\bfseries] at (6.7,0.45) {#3};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tabVariationParabole}[1]{%
+\begin{center}
+\begin{tikzpicture}[x=0.72cm,y=1cm]
+\draw[black,line width=0.65pt] (0,0) rectangle (7.7,2.2);
+\draw[black,line width=0.45pt] (0,1.35)--(7.7,1.35);
+\draw[black,line width=0.45pt] (1.5,0)--(1.5,2.2);
+\draw[black,line width=0.45pt] (4.4,0)--(4.4,2.2);
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,1.78) {$x$};
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,0.65) {$f(x)$};
+\node[font=\scriptsize] at (1.9,1.78) {$-\infty$};
+\node[font=\scriptsize] at (4.4,1.78) {$\alpha$};
+\node[font=\scriptsize] at (7.25,1.78) {$+\infty$};
+\ifnum#1=1
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (2.05,1.05)--(4.15,0.28);
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (4.65,0.28)--(7.0,1.05);
+  \node[font=\scriptsize] at (4.4,0.18) {$\beta$};
+\else
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (2.05,0.28)--(4.15,1.05);
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (4.65,1.05)--(7.0,0.28);
+  \node[font=\scriptsize] at (4.4,1.15) {$\beta$};
+\fi
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Parcours de révision -- Second degré}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Partie 1 -- Récapitulatif de cours}
+\newgeometry{margin=6.5mm}
+\pagestyle{empty}
+\begin{landscape}
+\pagecolor{fondpage}\color{encre}
+\thispagestyle{empty}
+
+\fontsize{7.85}{8.45}\selectfont
+
+\titrepage
+
+
+\noindent
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{bleu}{1. FORMES ET LECTURES}
+\begin{panel}{bleu}
+
+\begin{fichebox}{bleu}{Forme développée}
+Une fonction polynôme du second degré s'écrit :
+\[
+f(x)=ax^2+bx+c \qquad (a\neq 0).
+\]
+Sa courbe est une \textbf{parabole} :
+\[
+a>0 : \text{ouverte vers le haut}
+\]
+\[
+a<0 : \text{ouverte vers le bas}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{vert}{Forme canonique}
+\[
+f(x)=a(x-\alpha)^2+\beta.
+\]
+Elle donne directement le sommet :
+\[
+S(\alpha\,;\,\beta), \qquad \text{axe } x=\alpha.
+\]
+En Première, on sait aussi l'obtenir dans des cas simples par \textbf{complétion du carré} :
+\[
+x^2+6x+5=(x+3)^2-4.
+\]
+\end{fichebox}
+
+\begin{fichebox}{orange}{Forme factorisée}
+Si le trinôme admet deux racines distinctes $x_1$ et $x_2$, alors :
+\[
+f(x)=a(x-x_1)(x-x_2) \qquad (a\neq0).
+\]
+Toutes les fonctions du second degré s'annulant en $x_1$ et $x_2$ sont de cette forme.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{vert}{2. RACINES ET DISCRIMINANT}
+\begin{panel}{vert}
+
+\begin{fichebox}{vert}{Discriminant}
+Pour $f(x)=ax^2+bx+c$ :
+\[
+\Delta=b^2-4ac.
+\]
+\[
+\begin{array}{c|c}
+\Delta<0 & \text{aucune racine réelle}\\
+\Delta=0 & \text{une racine double}\\
+\Delta>0 & \text{deux racines réelles}
+\end{array}
+\]
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Formules des racines}
+Si $\Delta>0$ :
+\[
+x_1=\frac{-b-\sqrt{\Delta}}{2a},
+\qquad
+x_2=\frac{-b+\sqrt{\Delta}}{2a}.
+\]
+Si $\Delta=0$ :
+\[
+x_0=-\frac{b}{2a}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{violet}{Somme et produit}
+Si $x_1$ et $x_2$ sont les deux racines de $ax^2+bx+c$, alors :
+\[
+x_1+x_2=-\frac ba,\qquad x_1x_2=\frac ca.
+\]
+Utile pour retrouver des racines sans calcul lourd.
+\end{fichebox}
+
+\begin{fichebox}{orange}{Sommet depuis la forme développée}
+\[
+\alpha=-\frac{b}{2a},\qquad \beta=f(\alpha).
+\]
+Le sommet est $S(\alpha;\beta)$.
+\[
+\text{Si } x_1,x_2 \text{ sont deux racines, } \alpha=\frac{x_1+x_2}{2}.
+\]
+\end{fichebox}
+
+\begin{fichebox}{rouge}{Vocabulaire}
+Racine : valeur de $x$ telle que $f(x)=0$.\par
+Sommet : point de la parabole.\par
+Discriminant : nombre qui décide du nombre de racines.
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{orange}{3. SIGNE ET VARIATIONS}
+\begin{panel}{orange}
+
+\begin{fichebox}{orange}{Signe avec deux racines}
+Si $x_1<x_2$, le trinôme est du signe de $a$ à l'extérieur des racines, et du signe contraire entre les racines.
+
+Si $a>0$ :
+\tabSigneDeuxRacines{$+$}{$-$}{$+$}
+
+Si $a<0$ :
+\tabSigneDeuxRacines{$-$}{$+$}{$-$}
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Variations}
+Avec $f(x)=a(x-\alpha)^2+\beta$ :
+
+Si $a>0$, $f$ admet un \textbf{minimum} $\beta$ en $\alpha$.
+\tabVariationParabole{1}
+
+Si $a<0$, $f$ admet un \textbf{maximum} $\beta$ en $\alpha$.
+\tabVariationParabole{0}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.242\linewidth}
+\tagcol{rouge}{4. MÉTHODES EXPRESS}
+\begin{panel}{rouge}
+
+\begin{fichebox}{rouge}{Choisir la bonne forme}
+\begin{center}
+\begin{tabularx}{0.98\linewidth}{@{}>{\bfseries}lX@{}}
+Sommet / extremum & canonique \\
+Racines / signe & factorisée \\
+Discriminant & développée \\
+Calcul mental & forme visible \\
+\end{tabularx}
+\end{center}
+\end{fichebox}
+
+\begin{fichebox}{vert}{Optimisation}
+Pour chercher un minimum ou un maximum, on privilégie la forme canonique :
+\[
+f(x)=a(x-\alpha)^2+\beta.
+\]
+Si $a>0$, $\beta$ est un minimum. Si $a<0$, $\beta$ est un maximum.
+\end{fichebox}
+
+\begin{fichebox}{vert}{Résoudre une inéquation}
+Pour résoudre $ax^2+bx+c\geq 0$ :
+\begin{enumerate}
+\item trouver les racines ;
+\item dresser le tableau de signe ;
+\item lire l'intervalle demandé.
+\end{enumerate}
+\end{fichebox}
+
+\begin{fichebox}{bleu}{Factoriser efficacement}
+Pour factoriser, on peut utiliser :
+\begin{itemize}
+\item une identité remarquable ;
+\item une racine évidente ;
+\item la somme et le produit des racines ;
+\item le discriminant si nécessaire.
+\end{itemize}
+\end{fichebox}
+
+\end{panel}
+\end{minipage}
+
+\end{landscape}
+\clearpage
+\nopagecolor
+\restoregeometry
+\pagestyle{fancy}
+
+\section*{Partie 2 -- Questions flash}
+\addcontentsline{toc}{section}{Partie 2 -- Questions flash}
+\setcounter{question}{0}
+\begin{blocquestions}{Questions flash -- Second degré}
+  \item En résolvant l’équation $3x+6=0$, un élève écrit : « On calcule $3x+6=0$, donc $x=-2$. » Comment formuler proprement la réponse pour avoir tous les points ? \sourceq{56}
+  \item En résolvant l’équation $x^2=9$, un élève écrit : « $x^2=9=x=3$ ou $x=-3$. » Comment formuler proprement la réponse pour avoir tous les points ? \sourceq{57}
+  \item Dans une résolution, un élève écrit : « $x=2\Longleftrightarrow x^2=4$. » Comment formuler proprement la réponse pour avoir tous les points ? \sourceq{58}
+  \item Qu’appelle-t-on la forme canonique d’un trinôme du second degré ? \sourceq{61}
+  \item Quelle est la forme générale d’une fonction polynôme du second degré ? \sourceq{62}
+  \item Donner la formule du discriminant d’un trinôme $ax^2+bx+c$. \sourceq{63}
+  \item Que permet de savoir le signe du discriminant pour une équation du second degré ? \sourceq{64}
+  \item Quand dit-on qu’un trinôme est écrit sous forme factorisée ? \sourceq{65}
+  \item Quel est le sommet de la parabole d’équation $y=a(x-\alpha)^2+\beta$ ? \sourceq{66}
+  \item Quel est l’axe de symétrie de la parabole d’équation $y=a(x-\alpha)^2+\beta$ ? \sourceq{67}
+  \item Si un trinôme s’écrit $a(x-x_1)(x-x_2)$ avec $x_1<x_2$, quel est son signe hors des racines ? \sourceq{68}
+  \item Donner la formule des solutions de $ax^2+bx+c=0$ lorsque $\Delta\geq 0$. \sourceq{69}
+  \item Si un trinôme $f$ s’annule en $x_1$ et $x_2$, comment peut-on l’écrire ? \sourceq{70}
+  \item Quelle est la somme des racines d’un trinôme $ax^2+bx+c$ ayant deux racines réelles $x_1$ et $x_2$ ? \sourceq{71}
+  \item Quel est le produit des racines d’un trinôme $ax^2+bx+c$ ayant deux racines réelles $x_1$ et $x_2$ ? \sourceq{72}
+  \item Si $\Delta=0$, quelle est la solution unique de $ax^2+bx+c=0$ ? \sourceq{73}
+  \item Si $\Delta>0$, combien l’équation $ax^2+bx+c=0$ admet-elle de solutions réelles distinctes ? \sourceq{74}
+  \item Si $\Delta<0$, combien l’équation $ax^2+bx+c=0$ admet-elle de solution réelle ? \sourceq{75}
+  \item Quelle est l’abscisse du sommet de la parabole d’équation $y=ax^2+bx+c$ ? \sourceq{76}
+  \item Comment obtient-on l’ordonnée du sommet de la parabole d’équation $y=ax^2+bx+c$ ? \sourceq{77}
+  \item Si $a>0$, comment est tournée la parabole d’équation $y=ax^2+bx+c$ ? \sourceq{78}
+  \item Si $a<0$, comment est tournée la parabole d’équation $y=ax^2+bx+c$ ? \sourceq{79}
+  \item Si $a>0$ et si le trinôme a deux racines $x_1<x_2$, quel est son signe entre ses racines ? \sourceq{80}
+  \item Si $a<0$ et si le trinôme a deux racines $x_1<x_2$, quel est son signe entre ses racines ? \sourceq{81}
+  \item À partir de la forme canonique $a(x-\alpha)^2+\beta$, comment lit-on l’extremum du trinôme ? \sourceq{82}
+  \item Quelle forme d’un trinôme est souvent la plus adaptée pour lire rapidement le sommet ? \sourceq{83}
+  \item Si les racines d'un trinôme sont $-\dfrac52$ et $2$, quelle est l'équation de l'axe de symétrie de sa parabole ? \sourceq{256}
+  \item Graphiquement, si une parabole est tournée vers le haut et coupe deux fois l'axe des abscisses, que peut-on dire de $a$ et de $\Delta$ ? \sourceq{260}
+  \item Graphiquement, si une parabole est tournée vers le bas et ne coupe pas l'axe des abscisses, que peut-on dire de $a$ et de $\Delta$ ? \sourceq{261}
+  \item Combien existe-t-il de fonctions polynômes du second degré qui s'annulent en $1$ et en $3$ ? \sourceq{262}
+  \item Si une fonction du second degré a pour tableau de signes : négatif, puis positif, puis négatif, que peut-on dire du signe du coefficient dominant ? \sourceq{263}
+  \item Combien la parabole $y=-x^2+6x-9$ a-t-elle de points d'intersection avec l'axe des abscisses ? \sourceq{347}
+  \item Quelle est l'équation de l'axe de symétrie de la parabole $y=x^2+x+3$ ? \sourceq{348}
+  \item Si une parabole est tournée vers le bas et ne coupe pas l'axe des abscisses, quel est le signe du trinôme ? \sourceq{355}
+  \item Si une parabole est tournée vers le haut et ne coupe pas l'axe des abscisses, quel est le signe du trinôme ? \sourceq{356}
+\end{blocquestions}
+
+\clearpage
+\section*{Partie 3 -- Sujets type bac / E3C}
+\addcontentsline{toc}{section}{Partie 3 -- Sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Automatismes ciblés second degré}{format QCM de l'épreuve anticipée, sans calculatrice}
+Pour chaque question, une seule réponse est correcte. Aucune justification n'est demandée.
+
+\begin{enumerate}
+\item L'équation $x^2=25$ a pour ensemble de solutions :
+\qcm{$\{5\}$}{$\{-5;5\}$}{$\{-25;25\}$}{$\varnothing$}
+
+\item Le discriminant de $2x^2-3x+1$ est :
+\qcm{$1$}{$-1$}{$17$}{$7$}
+
+\item La forme factorisée de $x^2-5x+6$ est :
+\qcm{$(x-1)(x-6)$}{$(x-2)(x-3)$}{$(x+2)(x+3)$}{$(x-5)(x+6)$}
+
+\item La parabole d'équation $y=-2(x-3)^2+5$ admet pour sommet :
+\qcm{$S(-3;5)$}{$S(3;5)$}{$S(5;3)$}{$S(3;-5)$}
+
+\item La fonction $f(x)=3(x+1)^2-4$ admet :
+\qcm{un maximum égal à $-4$}{un minimum égal à $-4$}{un maximum égal à $3$}{un minimum égal à $3$}
+
+\item Si $f(x)=-(x-1)(x-4)$, alors $f(x)>0$ pour :
+\qcm{$x<1$}{$1<x<4$}{$x>4$}{$x<1$ ou $x>4$}
+
+\item Le tableau de signe de $(x+2)(x-5)$ est positif :
+\qcm{entre $-2$ et $5$}{à l'extérieur de $-2$ et $5$}{uniquement en $-2$ et $5$}{jamais}
+
+\item La fonction $p(x)=-2(x-1)^2+8$ est :
+\qcm{croissante puis décroissante}{décroissante puis croissante}{toujours croissante}{toujours décroissante}
+\end{enumerate}
+
+\titreSujet{Sujet 2 -- Étude d'un trinôme, signe et variations}{inspiré du sujet zéro officiel -- voie générale spécialité}
+On considère la fonction $g$ définie sur $\R$ par :
+\[
+g(x)=x^2-5x+4.
+\]
+On note $\mathcal P$ sa courbe représentative dans un repère.
+
+\begin{enumerate}
+\item Factoriser $g(x)$.
+\item Dresser le tableau de signe de $g$ sur $\R$.
+\item Résoudre l'inéquation $g(x)\geq 0$.
+\item Vérifier que, pour tout réel $x$, on a :
+\[
+g(x)=\left(x-\frac52\right)^2-\frac94.
+\]
+\item En déduire le tableau de variations de $g$ sur $\R$.
+\item Pour tout entier naturel $n$, on note $A_n$ le point de $\mathcal P$ d'abscisse $n$.
+On note $a_n$ le coefficient directeur de la droite $(A_nA_{n+1})$.
+\begin{enumerate}
+\item Exprimer $g(n)$ et $g(n+1)$ en fonction de $n$.
+\item Justifier que, pour tout entier naturel $n$, on a :
+\[
+a_n=2n-4.
+\]
+\item En déduire la nature de la suite $(a_n)$ et sa raison.
+\end{enumerate}
+\end{enumerate}
+
+\titreSujet{Sujet 3 -- Hauteur d'un objet modélisée par une parabole}{type E3C / sujet court sans calculatrice}
+La hauteur, en mètres, d'un objet lancé verticalement est modélisée par la fonction $h$ définie sur $[0;7]$ par :
+\[
+h(t)=-t^2+6t+7,
+\]
+où $t$ est le temps en secondes.
+
+\begin{enumerate}
+\item Vérifier que, pour tout réel $t$, on a :
+\[
+h(t)=16-(t-3)^2.
+\]
+\item En déduire la hauteur maximale atteinte par l'objet et le temps auquel elle est atteinte.
+\item Dresser le tableau de variations de $h$ sur l'intervalle $[0;7]$.
+\item Résoudre l'équation $h(t)=0$.
+\item Dresser le tableau de signe de $h$ sur l'intervalle $[0;7]$.
+\item En déduire pendant combien de secondes l'objet reste à une hauteur positive ou nulle.
+\item Résoudre l'inéquation $h(t)\geq 12$ sur l'intervalle $[0;7]$.
+\end{enumerate}
+\end{document}

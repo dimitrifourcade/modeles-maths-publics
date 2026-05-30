@@ -1,0 +1,625 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=1.65cm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,tabularx,multicol,booktabs}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{needspace}
+
+\definecolor{fondpage}{RGB}{247,248,250}
+\definecolor{encre}{RGB}{31,35,40}
+\definecolor{bleu}{RGB}{40,91,135}
+\definecolor{vert}{RGB}{55,125,92}
+\definecolor{orange}{RGB}{178,105,42}
+\definecolor{violet}{RGB}{101,77,145}
+\definecolor{rouge}{RGB}{170,72,72}
+\definecolor{gris}{RGB}{86,91,99}
+\definecolor{bleufonce}{RGB}{28,55,120}
+\definecolor{bleuclair}{RGB}{238,243,255}
+\definecolor{grisclair}{RGB}{245,245,245}
+\definecolor{tableline}{RGB}{45,45,45}
+\definecolor{softgray}{RGB}{246,247,249}
+\definecolor{deepblue}{RGB}{25,62,115}
+\definecolor{accent}{RGB}{20,82,130}
+
+\hypersetup{colorlinks=true,linkcolor=bleufonce,urlcolor=bleufonce,
+pdftitle={Parcours de revision -- Second degré -- Premiere specialite},pdfauthor={}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{4pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=0.15em,topsep=0.2em}
+\setlist[enumerate,1]{label=\textbf{\arabic*.}, leftmargin=1.05cm, itemsep=0.35em, topsep=0.2em}
+\setlist[enumerate,2]{label=\textbf{\alph*.}, leftmargin=0.85cm, itemsep=0.25em, topsep=0.15em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\sourceq}[1]{ {\scriptsize\textcolor{bleufonce}{(site Première q#1)}}}
+
+\newcounter{question}
+\newcounter{reponse}
+
+\newenvironment{blocquestions}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.85em,topsep=0.5em]
+  \setcounter{enumi}{\value{question}}
+}{%
+  \setcounter{question}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newenvironment{blocreponses}[1]{%
+  \begin{tcolorbox}[enhanced,breakable,colback=bleuclair,colframe=bleufonce,boxrule=0.6pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title={\bfseries #1},coltitle=white,colbacktitle=bleufonce,before skip=3mm,after skip=3mm, fontupper=\large]
+  \large
+  \begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.},itemsep=0.45em,topsep=0.5em]
+  \setcounter{enumi}{\value{reponse}}
+}{%
+  \setcounter{reponse}{\value{enumi}}
+  \end{enumerate}
+  \end{tcolorbox}
+}
+
+\newtcolorbox{correctionbox}[1]{enhanced,breakable,colback=grisclair,colframe=black!55,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=black,colbacktitle=black!12,before skip=2mm,after skip=2mm}
+
+\newtcolorbox{methodebox}[1]{enhanced,breakable,colback=white,colframe=bleu!70!black,boxrule=0.55pt,arc=2mm,left=2mm,right=2mm,top=2mm,bottom=1.5mm,title=\textbf{#1},coltitle=white,colbacktitle=bleu!70!black,before skip=2mm,after skip=2mm}
+
+\newcommand{\titreSujet}[2]{%
+  \subsection*{#1}
+  \addcontentsline{toc}{subsection}{#1}
+  \textit{Référence / inspiration : #2}\par\medskip\hrule\medskip
+}
+
+\tcbset{enhanced,arc=2mm,outer arc=2mm,boxrule=0.42pt,left=1.15mm,right=1.15mm,top=0.75mm,bottom=0.75mm,boxsep=0.35mm,before skip=0.8mm,after skip=0.8mm,fonttitle=\bfseries\footnotesize,coltitle=encre,before upper=\raggedright\fontsize{7.65}{8.15}\selectfont}
+\newtcolorbox{fichebox}[3][]{colback=white,colframe=#2!72!black,colbacktitle=#2!18,coltitle=#2!50!black,borderline west={0.9mm}{0pt}{#2!78!black},title={#3},drop fuzzy shadow=black!5,#1}
+\newcommand{\tagcol}[2]{\begin{tcolorbox}[enhanced,colback=#1!11,colframe=#1!45!black,boxrule=0.42pt,arc=2mm,left=1mm,right=1mm,top=0.45mm,bottom=0.45mm,before skip=0mm,after skip=0.85mm,fontupper=\bfseries\scriptsize,colupper=#1!55!black]\centering #2\end{tcolorbox}}
+\newtcolorbox{panel}[1]{colback=fondpage,colframe=fondpage,boxrule=0pt,arc=0mm,left=0mm,right=0mm,top=0mm,bottom=0mm,height=168mm,valign=top,before skip=0mm,after skip=0mm}
+\newcommand{\titrepage}{\begin{tcolorbox}[colback=white,colframe=bleu!70!black,boxrule=0.65pt,arc=3mm,left=2.5mm,right=2.5mm,top=1.15mm,bottom=1.15mm,before skip=0mm,after skip=1.4mm,drop fuzzy shadow=black!10]
+{\Large\bfseries Parcours de révision -- Second degré}\hfill {\normalsize Première spécialité -- sans calculatrice}
+\end{tcolorbox}}
+
+\newcommand{\tabSigneDeuxRacines}[3]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[black,line width=0.65pt] (0,0) rectangle (7.7,1.8);
+\draw[black,line width=0.45pt] (0,0.9)--(7.7,0.9);
+\draw[black,line width=0.45pt] (1.5,0)--(1.5,1.8);
+\foreach \x in {3.2,5.7} {\draw[black,line width=0.45pt] (\x,0)--(\x,1.8);}
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,1.35) {$x$};
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,0.45) {$f(x)$};
+\node[font=\scriptsize] at (1.8,1.35) {$-\infty$};
+\node[font=\scriptsize] at (3.2,1.35) {$x_1$};
+\node[font=\scriptsize] at (5.7,1.35) {$x_2$};
+\node[font=\scriptsize] at (7.25,1.35) {$+\infty$};
+\node[font=\small\bfseries] at (2.35,0.45) {#1};
+\node[font=\small\bfseries] at (3.2,0.45) {$0$};
+\node[font=\small\bfseries] at (4.45,0.45) {#2};
+\node[font=\small\bfseries] at (5.7,0.45) {$0$};
+\node[font=\small\bfseries] at (6.7,0.45) {#3};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tabVariationParabole}[1]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[black,line width=0.65pt] (0,0) rectangle (7.7,2.2);
+\draw[black,line width=0.45pt] (0,1.35)--(7.7,1.35);
+\draw[black,line width=0.45pt] (1.5,0)--(1.5,2.2);
+\draw[black,line width=0.45pt] (4.4,0)--(4.4,2.2);
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,1.78) {$x$};
+\node[font=\scriptsize\bfseries,text=deepblue] at (0.75,0.65) {$f(x)$};
+\node[font=\scriptsize] at (1.9,1.78) {$-\infty$};
+\node[font=\scriptsize] at (4.4,1.78) {$\alpha$};
+\node[font=\scriptsize] at (7.25,1.78) {$+\infty$};
+\ifnum#1=1
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (2.05,1.05)--(4.15,0.28);
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (4.65,0.28)--(7.0,1.05);
+  \node[font=\scriptsize] at (4.4,0.18) {$\beta$};
+\else
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (2.05,0.28)--(4.15,1.05);
+  \draw[-{Latex[length=2.3mm]},line width=0.8pt,draw=accent] (4.65,1.05)--(7.0,0.28);
+  \node[font=\scriptsize] at (4.4,1.15) {$\beta$};
+\fi
+\end{tikzpicture}
+\end{center}
+}
+
+
+
+% Tableaux professionnels TikZ pour les corriges
+\newcommand{\tabSigneTroisIntervallesPro}[8]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\def\W{12.4}\def\H{2.25}\def\LC{2.05}\def\YH{1.42}
+\fill[black!7] (0,\YH) rectangle (\W,\H);
+\fill[black!4] (0,0) rectangle (\LC,\H);
+\draw[line width=0.7pt] (0,0) rectangle (\W,\H);
+\draw[line width=0.5pt] (0,\YH)--(\W,\YH);
+\draw[line width=0.5pt] (\LC,0)--(\LC,\H);
+\draw[line width=0.5pt] (4.25,0)--(4.25,\H);
+\draw[line width=0.5pt] (7.85,0)--(7.85,\H);
+\node[font=\bfseries\small,text=deepblue] at (1.025,1.84) {$x$};
+\node[font=\bfseries\small,text=deepblue] at (1.025,0.72) {#1};
+\node[font=\small] at (2.55,1.84) {#2};
+\node[font=\small,fill=black!7,inner sep=1pt] at (4.25,1.84) {#3};
+\node[font=\small,fill=black!7,inner sep=1pt] at (7.85,1.84) {#4};
+\node[font=\small] at (11.75,1.84) {#5};
+\node[font=\large\bfseries] at (3.15,0.72) {#6};
+\node[font=\large\bfseries,fill=white,inner sep=1pt] at (4.25,0.72) {$0$};
+\node[font=\large\bfseries] at (6.05,0.72) {#7};
+\node[font=\large\bfseries,fill=white,inner sep=1pt] at (7.85,0.72) {$0$};
+\node[font=\large\bfseries] at (10.05,0.72) {#8};
+\end{tikzpicture}
+\end{center}
+}
+
+
+\newcommand{\tabSigneSegmentDeuxRacinesPro}[8]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+\def\W{12.4}\def\H{2.25}\def\LC{2.05}\def\YH{1.42}
+\fill[black!7] (0,\YH) rectangle (\W,\H);
+\fill[black!4] (0,0) rectangle (\LC,\H);
+\draw[line width=0.7pt] (0,0) rectangle (\W,\H);
+\draw[line width=0.5pt] (0,\YH)--(\W,\YH);
+\draw[line width=0.5pt] (\LC,0)--(\LC,\H);
+\draw[line width=0.5pt] (4.25,0)--(4.25,\H);
+\draw[line width=0.5pt] (7.85,0)--(7.85,\H);
+\node[font=\bfseries\small,text=deepblue] at (1.025,1.84) {$t$};
+\node[font=\bfseries\small,text=deepblue] at (1.025,0.72) {#1};
+\node[font=\small] at (2.55,1.84) {#2};
+\node[font=\small,fill=black!7,inner sep=1pt] at (4.25,1.84) {#3};
+\node[font=\small,fill=black!7,inner sep=1pt] at (7.85,1.84) {#4};
+\node[font=\small] at (11.75,1.84) {#5};
+\node[font=\large\bfseries] at (3.15,0.72) {#6};
+\node[font=\large\bfseries,fill=white,inner sep=1pt] at (4.25,0.72) {$0$};
+\node[font=\large\bfseries] at (6.05,0.72) {#7};
+\node[font=\large\bfseries,fill=white,inner sep=1pt] at (7.85,0.72) {$0$};
+\node[font=\large\bfseries] at (10.05,0.72) {#8};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tabSigneDeuxColonnesPro}[5]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\def\W{8.4}\def\H{2.25}\def\LC{2.05}\def\YH{1.42}
+\fill[black!7] (0,\YH) rectangle (\W,\H);
+\fill[black!4] (0,0) rectangle (\LC,\H);
+\draw[line width=0.7pt] (0,0) rectangle (\W,\H);
+\draw[line width=0.5pt] (0,\YH)--(\W,\YH);
+\draw[line width=0.5pt] (\LC,0)--(\LC,\H);
+\draw[line width=0.5pt] (6.25,0)--(6.25,\H);
+\node[font=\bfseries\small,text=deepblue] at (1.025,1.84) {$t$};
+\node[font=\bfseries\small,text=deepblue] at (1.025,0.72) {#1};
+\node[font=\small] at (2.45,1.84) {#2};
+\node[font=\small,fill=black!7,inner sep=1pt] at (6.25,1.84) {#3};
+\node[font=\large\bfseries] at (4.15,0.72) {#4};
+\node[font=\large\bfseries,fill=white,inner sep=1pt] at (6.25,0.72) {#5};
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tabVariationMinimumPro}[7]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\def\W{12.4}\def\H{3.0}\def\LC{2.05}\def\YH{2.05}
+\fill[black!7] (0,\YH) rectangle (\W,\H);
+\fill[black!4] (0,0) rectangle (\LC,\H);
+\draw[line width=0.7pt] (0,0) rectangle (\W,\H);
+\draw[line width=0.5pt] (0,\YH)--(\W,\YH);
+\draw[line width=0.5pt] (\LC,0)--(\LC,\H);
+\draw[line width=0.5pt] (6.05,0)--(6.05,\H);
+\node[font=\bfseries\small,text=deepblue] at (1.025,2.52) {$x$};
+\node[font=\bfseries\small,text=deepblue] at (1.025,1.02) {#1};
+\node[font=\small] at (2.65,2.52) {#2};
+\node[font=\small,fill=black!7,inner sep=1pt] at (6.05,2.52) {#3};
+\node[font=\small] at (11.75,2.52) {#4};
+\node[font=\small] at (2.75,1.65) {#5};
+\node[font=\small,fill=white,inner sep=1pt] at (6.05,0.42) {#6};
+\node[font=\small] at (11.65,1.65) {#7};
+\draw[-{Latex[length=2.4mm]},line width=0.8pt,draw=accent] (3.1,1.45)--(5.65,0.58);
+\draw[-{Latex[length=2.4mm]},line width=0.8pt,draw=accent] (6.45,0.58)--(11.2,1.45);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tabVariationMaximumSegmentPro}[7]{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\def\W{10.4}\def\H{3.0}\def\LC{2.05}\def\YH{2.05}
+\fill[black!7] (0,\YH) rectangle (\W,\H);
+\fill[black!4] (0,0) rectangle (\LC,\H);
+\draw[line width=0.7pt] (0,0) rectangle (\W,\H);
+\draw[line width=0.5pt] (0,\YH)--(\W,\YH);
+\draw[line width=0.5pt] (\LC,0)--(\LC,\H);
+\draw[line width=0.5pt] (5.15,0)--(5.15,\H);
+\node[font=\bfseries\small,text=deepblue] at (1.025,2.52) {$t$};
+\node[font=\bfseries\small,text=deepblue] at (1.025,1.02) {#1};
+\node[font=\small] at (2.45,2.52) {#2};
+\node[font=\small,fill=black!7,inner sep=1pt] at (5.15,2.52) {#3};
+\node[font=\small] at (9.9,2.52) {#4};
+\node[font=\small] at (2.55,0.42) {#5};
+\node[font=\small,fill=white,inner sep=1pt] at (5.15,1.65) {#6};
+\node[font=\small] at (9.7,0.42) {#7};
+\draw[-{Latex[length=2.4mm]},line width=0.8pt,draw=accent] (2.95,0.58)--(4.78,1.45);
+\draw[-{Latex[length=2.4mm]},line width=0.8pt,draw=accent] (5.52,1.45)--(9.3,0.58);
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Corrigé -- Parcours de révision -- Second degré}\\[1mm]
+{\large Première générale -- spécialité mathématiques}\\[1mm]
+{\normalsize Sans calculatrice}
+\end{center}
+\vspace{2mm}
+\tableofcontents
+\clearpage
+
+\section*{Partie 1 -- Réponses aux questions flash}
+\addcontentsline{toc}{section}{Partie 1 -- Réponses aux questions flash}
+\setcounter{reponse}{0}
+\begin{blocreponses}{Réponses -- Questions flash second degré}
+  \item Une équation ne se calcule pas : elle se résout. On peut écrire : « On résout l’équation $3x+6=0$. On obtient $3x=-6$, puis $x=-2$. L’équation admet donc pour solution $-2$. » \sourceq{56}
+  \item Il faut employer une équivalence et séparer les étapes. On écrit : « $x^2=9\Longleftrightarrow x=3$ ou $x=-3$. » On peut aussi conclure : « L’équation admet donc deux solutions : $-3$ et $3$. » \sourceq{57}
+  \item Il faut distinguer implication et équivalence. On peut écrire : « Si $x=2$, alors $x^2=4$. » En revanche, pour résoudre l’équation, on écrit : « $x^2=4\Longleftrightarrow x=2$ ou $x=-2$. » \sourceq{58}
+  \item C’est une écriture de la forme $a(x-\alpha)^2+\beta$, avec $a\neq 0$. \sourceq{61}
+  \item Une fonction polynôme du second degré s’écrit $x\mapsto ax^2+bx+c$, avec $a\neq 0$. \sourceq{62}
+  \item Le discriminant du trinôme $ax^2+bx+c$ est $\Delta=b^2-4ac$. \sourceq{63}
+  \item Il permet de connaître le nombre de solutions réelles : aucune si $\Delta<0$, une si $\Delta=0$, deux si $\Delta>0$. \sourceq{64}
+  \item Quand il est écrit sous la forme $a(x-x_1)(x-x_2)$, avec $a\neq 0$. \sourceq{65}
+  \item Son sommet est le point $S(\alpha;\beta)$. \sourceq{66}
+  \item Son axe de symétrie est la droite d’équation $x=\alpha$. \sourceq{67}
+  \item Il a le signe de $a$ sur $]-\infty;x_1[$ et sur $]x_2;+\infty[$. \sourceq{68}
+  \item Si $\Delta\geq 0$, les solutions sont $x=\dfrac{-b-\sqrt{\Delta}}{2a}$ et $x=\dfrac{-b+\sqrt{\Delta}}{2a}$. Lorsque $\Delta=0$, ces deux expressions coïncident. \sourceq{69}
+  \item On peut l’écrire sous la forme $f(x)=a(x-x_1)(x-x_2)$ avec $a\neq 0$. \sourceq{70}
+  \item On a $x_1+x_2=-\dfrac{b}{a}$. \sourceq{71}
+  \item On a $x_1x_2=\dfrac{c}{a}$. \sourceq{72}
+  \item La solution unique est $x=-\dfrac{b}{2a}$. \sourceq{73}
+  \item Elle admet deux solutions réelles distinctes. \sourceq{74}
+  \item Elle n’admet aucune solution réelle. \sourceq{75}
+  \item L’abscisse du sommet est $-\dfrac{b}{2a}$. \sourceq{76}
+  \item On calcule $f\left(-\dfrac{b}{2a}\right)$. \sourceq{77}
+  \item Elle est tournée vers le haut. \sourceq{78}
+  \item Elle est tournée vers le bas. \sourceq{79}
+  \item Il est négatif sur $]x_1;x_2[$. \sourceq{80}
+  \item Il est positif sur $]x_1;x_2[$. \sourceq{81}
+  \item L’extremum vaut $\beta$ et il est atteint pour $x=\alpha$. \sourceq{82}
+  \item La forme canonique. \sourceq{83}
+  \item $x=\dfrac{-\frac52+2}{2}=-\dfrac14$. \sourceq{256}
+  \item On a $a>0$ et $\Delta>0$. \sourceq{260}
+  \item On a $a<0$ et $\Delta<0$. \sourceq{261}
+  \item Une infinité, car elles sont de la forme $a(x-1)(x-3)$, avec $a\neq0$. \sourceq{262}
+  \item Le coefficient dominant est négatif. \sourceq{263}
+  \item Un seul, car $y=-(x-3)^2$. \sourceq{347}
+  \item $x=-\dfrac12$. \sourceq{348}
+  \item Le trinôme est toujours négatif. \sourceq{355}
+  \item Le trinôme est toujours positif. \sourceq{356}
+\end{blocreponses}
+
+
+\clearpage
+\section*{Partie 2 -- Corrigés des sujets type bac / E3C}
+\addcontentsline{toc}{section}{Partie 2 -- Corrigés des sujets type bac / E3C}
+
+\titreSujet{Sujet 1 -- Automatismes ciblés second degré}{format QCM de l'épreuve anticipée, sans calculatrice}
+
+\begin{correctionbox}{Réponses du QCM}
+\begin{enumerate}
+\item Réponse \textbf{b}. On a $x^2=25\Longleftrightarrow x=-5$ ou $x=5$.
+\item Réponse \textbf{a}. $\Delta=(-3)^2-4\times 2\times 1=9-8=1$.
+\item Réponse \textbf{b}. $x^2-5x+6=(x-2)(x-3)$.
+\item Réponse \textbf{b}. Dans $-2(x-3)^2+5$, le sommet est $S(3;5)$.
+\item Réponse \textbf{b}. Comme $3>0$, la fonction admet un minimum égal à $-4$.
+\item Réponse \textbf{b}. Le trinôme $-(x-1)(x-4)$ est positif entre ses deux racines.
+\item Réponse \textbf{b}. Le coefficient dominant est positif, donc le trinôme est positif à l'extérieur de ses deux racines $-2$ et $5$.
+\item Réponse \textbf{a}. Comme le coefficient de $(x-1)^2$ est négatif, la fonction est croissante jusqu'à $1$, puis décroissante.
+\end{enumerate}
+\end{correctionbox}
+
+\titreSujet{Sujet 2 -- Étude d'un trinôme, signe et variations}{inspiré du sujet zéro officiel -- voie générale spécialité}
+
+\begin{correctionbox}{1. Factorisation}
+On commence par calculer les racines de $g$ avec le discriminant.
+
+Ici, $a=1$, $b=-5$ et $c=4$. Donc :
+\[
+\Delta=b^2-4ac.
+\]
+Ainsi :
+\[
+\Delta=(-5)^2-4\times 1\times 4.
+\]
+Donc :
+\[
+\Delta=25-16=9.
+\]
+Comme $\Delta>0$, l'équation $g(x)=0$ admet deux solutions :
+\[
+x_1=\frac{-b-\sqrt{\Delta}}{2a}
+=\frac{5-3}{2}=1,
+\]
+\[
+x_2=\frac{-b+\sqrt{\Delta}}{2a}
+=\frac{5+3}{2}=4.
+\]
+On en déduit la forme factorisée :
+\[
+g(x)=(x-1)(x-4).
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Tableau de signe de $g$}
+Les racines de $g$ sont $1$ et $4$.
+
+Comme le coefficient dominant est positif, le trinôme est positif à l'extérieur des racines et négatif entre les racines.
+\tabSigneTroisIntervallesPro{$g(x)$}{$-\infty$}{$1$}{$4$}{$+\infty$}{$+$}{$-$}{$+$}
+\end{correctionbox}
+
+\begin{correctionbox}{3. Résolution de $g(x)\geq 0$}
+D'après le tableau de signe :
+\[
+g(x)\geq 0 \Longleftrightarrow x\in ]-\infty;1]\cup[4;+\infty[.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{4. Forme canonique}
+Pour tout réel $x$ :
+\[
+\left(x-\frac52\right)^2-\frac94
+=x^2-5x+\frac{25}{4}-\frac94.
+\]
+Donc :
+\[
+\left(x-\frac52\right)^2-\frac94
+=x^2-5x+\frac{16}{4}.
+\]
+Ainsi :
+\[
+\left(x-\frac52\right)^2-\frac94=x^2-5x+4=g(x).
+\]
+\end{correctionbox}
+
+\Needspace{9cm}\begin{correctionbox}{5. Tableau de variations de $g$}
+On a :
+\[
+g(x)=\left(x-\frac52\right)^2-\frac94.
+\]
+Comme le coefficient devant le carré est positif, $g$ admet un minimum égal à $-\dfrac94$ pour $x=\dfrac52$.
+\tabVariationMinimumPro{$g(x)$}{$-\infty$}{$\frac52$}{$+\infty$}{$+\infty$}{$-\frac94$}{$+\infty$}
+\end{correctionbox}
+
+\begin{correctionbox}{6.a. Expressions de $g(n)$ et $g(n+1)$}
+Pour tout entier naturel $n$ :
+\[
+g(n)=n^2-5n+4.
+\]
+De plus :
+\[
+g(n+1)=(n+1)^2-5(n+1)+4.
+\]
+On développe :
+\[
+g(n+1)=n^2+2n+1-5n-5+4.
+\]
+Donc :
+\[
+g(n+1)=n^2-3n.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{6.b. Coefficient directeur de $(A_nA_{n+1})$}
+Le point $A_n$ a pour coordonnées :
+\[
+A_n(n\,;\,g(n)).
+\]
+Le point $A_{n+1}$ a pour coordonnées :
+\[
+A_{n+1}(n+1\,;\,g(n+1)).
+\]
+Le coefficient directeur de la droite $(A_nA_{n+1})$ est :
+\[
+a_n=\frac{g(n+1)-g(n)}{(n+1)-n}.
+\]
+Or $(n+1)-n=1$, donc :
+\[
+a_n=g(n+1)-g(n).
+\]
+On remplace :
+\[
+a_n=(n^2-3n)-(n^2-5n+4).
+\]
+Ainsi :
+\[
+a_n=n^2-3n-n^2+5n-4.
+\]
+Donc :
+\[
+a_n=2n-4.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{6.c. Nature de la suite $(a_n)$}
+Pour tout entier naturel $n$ :
+\[
+a_n=2n-4.
+\]
+La suite $(a_n)$ est donc une suite arithmétique de raison $2$.
+\end{correctionbox}
+
+\titreSujet{Sujet 3 -- Hauteur d'un objet modélisée par une parabole}{type E3C / sujet court sans calculatrice}
+
+\begin{correctionbox}{1. Forme canonique}
+Pour tout réel $t$ :
+\[
+16-(t-3)^2=16-(t^2-6t+9).
+\]
+Donc :
+\[
+16-(t-3)^2=16-t^2+6t-9.
+\]
+Ainsi :
+\[
+16-(t-3)^2=-t^2+6t+7.
+\]
+On obtient bien :
+\[
+h(t)=16-(t-3)^2.
+\]
+\end{correctionbox}
+
+\begin{correctionbox}{2. Hauteur maximale}
+On a :
+\[
+h(t)=16-(t-3)^2.
+\]
+Comme $(t-3)^2\geq 0$, on a :
+\[
+-(t-3)^2\leq 0.
+\]
+Donc :
+\[
+h(t)\leq 16.
+\]
+L'égalité est atteinte lorsque $(t-3)^2=0$, c'est-à-dire lorsque $t=3$.
+
+La hauteur maximale est donc $16$ mètres, atteinte au bout de $3$ secondes.
+\end{correctionbox}
+
+\begin{correctionbox}{3. Tableau de variations de $h$ sur $[0;7]$}
+On a $h(t)=16-(t-3)^2$.
+
+La fonction $h$ est donc croissante sur $[0;3]$, puis décroissante sur $[3;7]$.
+De plus :
+\[
+h(0)=7,\qquad h(3)=16,\qquad h(7)=0.
+\]
+On obtient le tableau de variations suivant :
+\tabVariationMaximumSegmentPro{$h(t)$}{$0$}{$3$}{$7$}{$7$}{$16$}{$0$}
+\end{correctionbox}
+
+\begin{correctionbox}{4. Résolution de $h(t)=0$}
+On résout :
+\[
+-t^2+6t+7=0.
+\]
+On utilise le discriminant avec $a=-1$, $b=6$ et $c=7$.
+\[
+\Delta=b^2-4ac.
+\]
+Donc :
+\[
+\Delta=6^2-4\times(-1)\times 7.
+\]
+Ainsi :
+\[
+\Delta=36+28=64.
+\]
+Comme $\Delta>0$, l'équation admet deux solutions :
+\[
+t_1=\frac{-b+\sqrt{\Delta}}{2a}
+=\frac{-6+8}{-2}=-1,
+\]
+\[
+t_2=\frac{-b-\sqrt{\Delta}}{2a}
+=\frac{-6-8}{-2}=7.
+\]
+Les solutions de l'équation $h(t)=0$ sont donc $-1$ et $7$.
+
+Sur l'intervalle $[0;7]$, la seule solution est $t=7$.
+\end{correctionbox}
+
+\begin{correctionbox}{5. Tableau de signe de $h$ sur $[0;7]$}
+Les racines de $h$ sont $-1$ et $7$.
+
+Comme le coefficient dominant est négatif, le trinôme est positif entre ses racines et négatif à l'extérieur.
+Sur $[0;7]$, on obtient donc :
+\tabSigneDeuxColonnesPro{$h(t)$}{$0$}{$7$}{$+$}{$0$}
+\end{correctionbox}
+
+\begin{correctionbox}{6. Durée pendant laquelle la hauteur est positive ou nulle}
+D'après le tableau de signe, sur l'intervalle $[0;7]$ :
+\[
+h(t)\geq 0.
+\]
+L'objet reste à une hauteur positive ou nulle pendant $7$ secondes.
+\end{correctionbox}
+
+\Needspace{8cm}\begin{correctionbox}{7. Résolution de $h(t)\geq 12$}
+On résout l'inéquation en se ramenant à un trinôme du second degré.
+\[
+h(t)\geq 12.
+\]
+C'est-à-dire :
+\[
+-t^2+6t+7\geq 12.
+\]
+Donc :
+\[
+-t^2+6t-5\geq 0.
+\]
+On pose :
+\[
+p(t)=-t^2+6t-5.
+\]
+On calcule les racines de $p$ avec le discriminant.
+
+Ici, $a=-1$, $b=6$ et $c=-5$. Donc :
+\[
+\Delta=b^2-4ac.
+\]
+Ainsi :
+\[
+\Delta=6^2-4\times(-1)\times(-5).
+\]
+Donc :
+\[
+\Delta=36-20=16.
+\]
+Comme $\Delta>0$, l'équation $p(t)=0$ admet deux solutions :
+\[
+t_1=\frac{-b+\sqrt{\Delta}}{2a}
+=\frac{-6+4}{-2}=1,
+\]
+\[
+t_2=\frac{-b-\sqrt{\Delta}}{2a}
+=\frac{-6-4}{-2}=5.
+\]
+Les racines sont donc $1$ et $5$.
+
+Comme le coefficient dominant de $p$ est négatif, le trinôme $p(t)$ est positif entre ses racines.
+On obtient donc le tableau de signe suivant sur $[0;7]$ :
+\tabSigneSegmentDeuxRacinesPro{$p(t)$}{$0$}{$1$}{$5$}{$7$}{$-$}{$+$}{$-$}
+D'après ce tableau :
+\[
+p(t)\geq 0 \Longleftrightarrow t\in[1;5].
+\]
+Sur l'intervalle $[0;7]$, l'objet est à une hauteur supérieure ou égale à $12$ mètres pour :
+\[
+t\in[1;5].
+\]
+\end{correctionbox}
+\end{document}

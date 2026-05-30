@@ -1,0 +1,32 @@
+{
+  "id": "parcours_revision_1spe_v1",
+  "titre": "Parcours de révision — Première spécialité",
+  "type_document": "fiche_revision",
+  "niveau": "Première spécialité",
+  "statut": "modele_valide",
+  "emplacement": "modeles/fiches_revision/1spe/rev",
+  "pdf_enonces": [
+    "01_2d_E.pdf",
+    "02_pc_E.pdf",
+    "03_suites_E.pdf",
+    "04_deriv_E.pdf",
+    "05_trigo_E.pdf",
+    "06_ps_E.pdf",
+    "07_va_E.pdf",
+    "08_exp_E.pdf"
+  ],
+  "pdf_corriges": [
+    "01_2d_C.pdf",
+    "02_pc_C.pdf",
+    "03_suites_C.pdf",
+    "04_deriv_C.pdf",
+    "05_trigo_C.pdf",
+    "06_ps_C.pdf",
+    "07_va_C.pdf",
+    "08_exp_C.pdf"
+  ],
+  "audits": [
+    "audit_complet_enonces_corriges_v43.md",
+    "audit_sans_calculatrice_algorithmes_v42.md"
+  ]
+}
